@@ -17,6 +17,25 @@
   color: #0a78d1;
   border: 0.083em #0a78d1 solid; }
 
+.input-group {
+  display: flex;
+  border: 1px solid gray; }
+
+input {
+  padding: 1.0em 1.5em;
+  font-size: 1em;
+  width: 100%;
+  border: none;
+  border-radius: 1em; }
+
+.input-button {
+  min-width: 80px;
+  text-align: center;
+  cursor: pointer; }
+
+.rounded {
+  border-radius: 1em; }
+
 .panel-header {
   background-color: white;
   cursor: pointer;
@@ -34,6 +53,9 @@
 
 .hidden {
   display: none; }
+
+.tabpanel {
+  padding: 20px; }
 
 nav {
   background-color: #697585;
