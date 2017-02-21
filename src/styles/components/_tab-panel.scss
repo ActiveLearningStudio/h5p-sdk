@@ -18,10 +18,7 @@ nav li {
 }
 
 nav li[aria-selected='true'] {
-}
-
-nav li[aria-selected='true'] {
-  border-bottom: 4px solid $ac1;
+  box-shadow: inset 0 -5px $ac1;
 }
 
 nav a {
