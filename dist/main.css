@@ -27,9 +27,12 @@ nav ul {
   padding: 0;
   margin: 0; }
 
-nav li[aria-selected='true'] {
+nav li {
   display: inline;
-  padding: 0px 25px; }
+  padding: 10px 25px; }
+
+nav li[aria-selected='true'] {
+  border-bottom: 4px solid #0a78d1; }
 
 nav a {
   text-decoration: none;
@@ -41,3 +44,6 @@ div[aria-hidden='true'] {
 .h5p {
   font-family: 'Open Sans', sans-serif;
   max-width: 1000px; }
+
+.tabcontainer {
+  border: solid 1px gray; }

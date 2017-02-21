@@ -12,14 +12,21 @@ nav ul {
   margin: 0;
 }
 
-nav li[aria-selected='true'] {
+nav li {
   display: inline;
-  padding: 0px 25px;
+  padding: 10px 25px;
+}
+
+nav li[aria-selected='true'] {
+}
+
+nav li[aria-selected='true'] {
+  border-bottom: 4px solid $ac1;
 }
 
 nav a {
   text-decoration: none;
-  color: #f3f3f3;
+  color: $c3;
 }
 
 div[aria-hidden='true'] {
