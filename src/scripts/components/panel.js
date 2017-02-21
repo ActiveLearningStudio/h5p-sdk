@@ -1,4 +1,11 @@
-import {getAttribute, setAttribute, removeAttribute, attributeEquals, querySelector} from '../utils/elements';
+import {getAttribute, setAttribute, removeAttribute, attributeEquals, querySelector, toggleAttribute} from '../utils/elements';
+import {curry, forEach, inverseBooleanString} from '../utils/functional';
+
+/**
+ * @const
+ * @type {string}
+ */
+const ATTRIBUTE_ARIA_EXPANDED = "aria-expanded";
 
 /**
  * @type {function}
@@ -8,7 +15,36 @@ const selectExpandable = querySelector('[aria-expanded]');
 /**
  * @type {function}
  */
-const isExpanded = attributeEquals('aria-expanded', 'true');
+const getAriaControls = getAttribute('aria-controls');
+
+/**
+ * @type {function}
+ */
+const isExpanded = attributeEquals(ATTRIBUTE_ARIA_EXPANDED, 'true');
+
+/**
+ * @type {function}
+ */
+const setAriaHiddenTrue = setAttribute('aria-hidden', 'true');
+
+/**
+ * @type {function}
+ */
+const setAriaHiddenFalse = setAttribute('aria-hidden', 'false');
+
+/**
+ * @type {Function}
+ */
+const handleMutation = curry(function(bodyElement, mutation) {
+  const titleEl = mutation.target;
+
+  if(isExpanded(titleEl)){
+    setAriaHiddenFalse(bodyElement);
+  }
+  else {
+    setAriaHiddenTrue(bodyElement);
+  }
+});
 
 /**
  * Initializes a panel
@@ -17,22 +53,22 @@ const isExpanded = attributeEquals('aria-expanded', 'true');
  * @return {HTMLElement}
  */
 export default function init(element) {
-  const titleElement = selectExpandable(element);
+  const titleEl = selectExpandable(element);
+  const bodyEl = document.getElementById(getAriaControls(titleEl));
 
-
-  if(titleElement) {
-    // hide all others
-    let target = document.getElementById('some-id');
-
-    let observer = new MutationObserver(function(mutations) {
-      mutations.forEach(function(mutation) {
-        console.log(mutation.type);
-      });
+  if(titleEl) {
+    // set observer on title for aria-expanded
+    let observer = new MutationObserver(forEach(handleMutation(bodyEl)));
+    observer.observe(titleEl, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: [ATTRIBUTE_ARIA_EXPANDED]
     });
 
-    let config = { attributes: true, childList: true, characterData: true };
-
-    observer.observe(titleElement, config);
+    // Set click listener that toggles aria-expanded
+    titleEl.addEventListener('click', function(event) {
+      toggleAttribute('aria-expanded', event.target);
+    });
   }
 
   return element;

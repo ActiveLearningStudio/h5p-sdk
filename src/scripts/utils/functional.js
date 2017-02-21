@@ -125,3 +125,15 @@ export const contains = curry(function (value, arr) {
 export const without = curry(function (values, arr) {
   return filter(value => !contains(value, values), arr)
 });
+
+/**
+ * Takes a string that is either 'true' or 'false' and returns the opposite
+ *
+ * @param {string} bool
+ *
+ * @public
+ * @return {string}
+ */
+export const inverseBooleanString = function (bool) {
+  return (bool !== 'true').toString();
+};

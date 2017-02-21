@@ -82,7 +82,8 @@ div[aria-hidden='true'] {
 
 .h5p {
   font-family: 'Open Sans', sans-serif;
-  max-width: 1000px; }
+  max-width: 1000px;
+  margin-bottom: 100px; }
 
 .tabcontainer {
   border: solid 1px gray; }
