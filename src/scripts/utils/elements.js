@@ -63,4 +63,19 @@ export const hasAttribute = curry(function (name, el) {
  */
 export const attributeEquals = curry(function (name, value, el) {
   return el.getAttribute(name) === value;
+})
+
+/**
+ * Check if element has an attribute that equals
+ *
+ * @param {string} name
+ * @param {string} value
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {boolean}
+ */
+export const querySelector = curry(function (selector, el) {
+  return el.querySelector(selector);
 });
+

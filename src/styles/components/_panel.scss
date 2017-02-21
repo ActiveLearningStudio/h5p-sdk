@@ -1,0 +1,20 @@
+.panel-header {
+  background-color: white;
+  cursor: pointer;
+  border: 0.042em;
+  box-shadow: 0 0 0.2em 0.2em  rgba(79,87,99,0.2);
+  overflow: hidden;
+}
+
+.panel-title {
+  display: inline-block;
+  margin-left: 0.5em;
+  width: 85%;
+}
+
+.hub-body {
+  border: thin solid gray;
+}
+
+
+.hidden {display: none;}
