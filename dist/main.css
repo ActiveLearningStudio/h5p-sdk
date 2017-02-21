@@ -17,5 +17,27 @@
   color: #0a78d1;
   border: 0.083em #0a78d1 solid; }
 
+nav {
+  background-color: #697585;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+nav li[aria-selected='true'] {
+  display: inline;
+  padding: 0px 25px; }
+
+nav a {
+  text-decoration: none;
+  color: #f3f3f3; }
+
+div[aria-hidden='true'] {
+  display: none; }
+
 .h5p {
-  font-family: 'Open Sans', sans-serif; }
+  font-family: 'Open Sans', sans-serif;
+  max-width: 1000px; }
