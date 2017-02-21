@@ -432,12 +432,70 @@
 	
 	var _elements = __webpack_require__(2);
 	
+	var _functional = __webpack_require__(3);
+	
 	/**
 	 * @type {function}
 	 */
 	var isSelected = (0, _elements.attributeEquals)('aria-selected', 'true');
 	
-	function init(element) {}
+	/**
+	 * @type {function}
+	 */
+	var getWhereRoleIsTab = (0, _elements.querySelectorAll)('[role="tab"]');
+	
+	/**
+	 * @type {function}
+	 */
+	var getWhereRoleIsTabpanel = (0, _elements.querySelectorAll)('[role="tabpanel"]');
+	
+	/**
+	 * @type {function}
+	 */
+	var setAriaHiddenFalse = (0, _elements.setAttribute)('aria-hidden', 'false');
+	
+	/**
+	 * @type {function}
+	 */
+	var setAllAriaHiddenTrue = (0, _functional.forEach)((0, _elements.setAttribute)('aria-hidden', 'true'));
+	
+	/**
+	 * @type {function}
+	 */
+	var setAriaSelectedTrue = (0, _elements.setAttribute)('aria-selected', 'true');
+	
+	/**
+	 * @type {function}
+	 */
+	var setAriaSelectedFalse = (0, _elements.setAttribute)('aria-selected', 'false');
+	
+	/**
+	 * @type {function}
+	 */
+	var setAllAriaSelectedFalse = (0, _functional.forEach)(setAriaSelectedFalse);
+	
+	/**
+	 * @type {function}
+	 */
+	var getAriaControls = (0, _elements.getAttribute)('aria-controls');
+	
+	function init(element) {
+	  var tabs = getWhereRoleIsTab(element);
+	  var tabpanels = getWhereRoleIsTabpanel(element);
+	
+	  tabs.forEach(function (tab) {
+	    tab.addEventListener('click', function (event) {
+	
+	      setAllAriaSelectedFalse(tabs);
+	      setAriaSelectedTrue(event.target);
+	
+	      setAllAriaHiddenTrue(tabpanels);
+	      var tabpanelId = getAriaControls(event.target);
+	      var targetTabpanel = document.getElementById(tabpanelId);
+	      setAriaHiddenFalse(targetTabpanel);
+	    });
+	  });
+	}
 
 /***/ }
 /******/ ]);

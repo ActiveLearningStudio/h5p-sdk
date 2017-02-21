@@ -13,19 +13,19 @@
   <div class="tabcontainer">
     <nav>
       <ul class="tablist" role="tablist">
-        <li id="tab1" class="tab" aria-controls="panel1" aria-selected="true" role="tab"><a href="#">Create Content</a></li>
-        <li id="tab2" class="tab" aria-controls="panel2" aria-selected="false" role="tab"><a href="#">Upload</a></li>
+        <li id="tab1" class="tab" aria-controls="panel1" aria-selected="true" role="tab" tabindex="0">Create Content</li>
+        <li id="tab2" class="tab" aria-controls="panel2" aria-selected="false" role="tab" tabindex="0">Upload</li>
       </ul>
     </nav>
 
-    <div id="panel1" class="panel" aria-lablledby="tab1" role="tabpanel">
+    <div id="panel1" class="tabpanel" aria-lablledby="tab1" role="tabpanel" tabindex="0">
       <h1>Create Content</h1>
       <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
     </div>
 
-    <div id="panel2" class="tabpanel" aria-labelledby="tab2" role="tabpanel" aria-hidden="true">
+    <div id="panel2" class="tabpanel" aria-labelledby="tab2" role="tabpanel" aria-hidden="true" tabindex="0">
       <h1>Upload</h1>
-      <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
     </div>
   </div>
 
@@ -52,6 +52,9 @@
 <script type="text/javascript">
   const panel = document.querySelector('.h5p-panel');
   H5P.sdk.initPanel(panel);
+
+  const tabPanel = document.querySelector('.tabcontainer');
+  H5P.sdk.initTabPanel(tabPanel);
 </script>
 </body>
 </html>
