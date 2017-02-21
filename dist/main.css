@@ -50,7 +50,7 @@ nav li {
   padding: 10px 25px; }
 
 nav li[aria-selected='true'] {
-  border-bottom: 4px solid #0a78d1; }
+  box-shadow: inset 0 -5px #0a78d1; }
 
 nav a {
   text-decoration: none;
