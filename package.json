@@ -1,0 +1,27 @@
+{
+  "name": "h5p-sdk",
+  "version": "0.1.0",
+  "description": "System Development Kit for H5P",
+  "main": "index.js",
+  "scripts": {
+    "build-css": "node-sass --include-path scss src/styles/main.scss dist/main.css",
+    "watch-css": "nodemon -e scss -x \"npm run build-css\"",
+    "dev": "lite-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h5p/h5p-sdk.git"
+  },
+  "author": "Joubel AS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/h5p/h5p-sdk/issues"
+  },
+  "homepage": "https://github.com/h5p/h5p-sdk#readme",
+  "devDependencies": {
+    "browsersync": "0.0.1-security",
+    "lite-server": "^2.2.2",
+    "node-sass": "^4.5.0",
+    "nodemon": "^1.11.0"
+  }
+}

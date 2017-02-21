@@ -1,0 +1,20 @@
+@import "../base/variables";
+
+@mixin button($background-color, $color) {
+  font-size: $text-body-small;
+  text-decoration: none;
+  padding: 0.708em 1.375em;
+  border-radius: 1.375em;
+  background-color: $background-color;
+  color: $color;
+}
+
+.button {
+  @include button($ac1, white);
+  border: transparent;
+}
+
+.button-inverse {
+  @include button(white, $ac1);
+  border: 0.083em $ac1 solid;
+}
