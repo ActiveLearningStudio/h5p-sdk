@@ -66,6 +66,14 @@
 	
 	var _elements = __webpack_require__(2);
 	
+	var _functional = __webpack_require__(3);
+	
+	/**
+	 * @const
+	 * @type {string}
+	 */
+	var ATTRIBUTE_ARIA_EXPANDED = "aria-expanded";
+	
 	/**
 	 * @type {function}
 	 */
@@ -74,7 +82,35 @@
 	/**
 	 * @type {function}
 	 */
-	var isExpanded = (0, _elements.attributeEquals)('aria-expanded', 'true');
+	var getAriaControls = (0, _elements.getAttribute)('aria-controls');
+	
+	/**
+	 * @type {function}
+	 */
+	var isExpanded = (0, _elements.attributeEquals)(ATTRIBUTE_ARIA_EXPANDED, 'true');
+	
+	/**
+	 * @type {function}
+	 */
+	var setAriaHiddenTrue = (0, _elements.setAttribute)('aria-hidden', 'true');
+	
+	/**
+	 * @type {function}
+	 */
+	var setAriaHiddenFalse = (0, _elements.setAttribute)('aria-hidden', 'false');
+	
+	/**
+	 * @type {Function}
+	 */
+	var handleMutation = (0, _functional.curry)(function (bodyElement, mutation) {
+	  var titleEl = mutation.target;
+	
+	  if (isExpanded(titleEl)) {
+	    setAriaHiddenFalse(bodyElement);
+	  } else {
+	    setAriaHiddenTrue(bodyElement);
+	  }
+	});
 	
 	/**
 	 * Initializes a panel
@@ -83,21 +119,22 @@
 	 * @return {HTMLElement}
 	 */
 	function init(element) {
-	  var titleElement = selectExpandable(element);
+	  var titleEl = selectExpandable(element);
+	  var bodyEl = document.getElementById(getAriaControls(titleEl));
 	
-	  if (titleElement) {
-	    // hide all others
-	    var target = document.getElementById('some-id');
-	
-	    var observer = new MutationObserver(function (mutations) {
-	      mutations.forEach(function (mutation) {
-	        console.log(mutation.type);
-	      });
+	  if (titleEl) {
+	    // set observer on title for aria-expanded
+	    var observer = new MutationObserver((0, _functional.forEach)(handleMutation(bodyEl)));
+	    observer.observe(titleEl, {
+	      attributes: true,
+	      attributeOldValue: true,
+	      attributeFilter: [ATTRIBUTE_ARIA_EXPANDED]
 	    });
 	
-	    var config = { attributes: true, childList: true, characterData: true };
-	
-	    observer.observe(titleElement, config);
+	    // Set click listener that toggles aria-expanded
+	    titleEl.addEventListener('click', function (event) {
+	      (0, _elements.toggleAttribute)('aria-expanded', event.target);
+	    });
 	  }
 	
 	  return element;
@@ -112,7 +149,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.querySelectorAll = exports.querySelector = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+	exports.querySelectorAll = exports.querySelector = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 	
 	var _functional = __webpack_require__(3);
 	
@@ -182,6 +219,19 @@
 	});
 	
 	/**
+	 * Toggles an attribute between 'true' and 'false';
+	 *
+	 * @param {string} name
+	 * @param {HTMLElement} el
+	 *
+	 * @function
+	 */
+	var toggleAttribute = exports.toggleAttribute = (0, _functional.curry)(function (name, el) {
+	  var value = getAttribute(name, el);
+	  setAttribute(name, (0, _functional.inverseBooleanString)(value), el);
+	});
+	
+	/**
 	 * Returns the first element that is a descendant of the element on which it is invoked
 	 * that matches the specified group of selectors.
 	 *
@@ -213,7 +263,7 @@
 /* 3 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
@@ -356,21 +406,38 @@
 	    return !contains(value, values);
 	  }, arr);
 	});
+	
+	/**
+	 * Takes a string that is either 'true' or 'false' and returns the opposite
+	 *
+	 * @param {string} bool
+	 *
+	 * @public
+	 * @return {string}
+	 */
+	var inverseBooleanString = exports.inverseBooleanString = function inverseBooleanString(bool) {
+	  return (bool !== 'true').toString();
+	};
 
 /***/ },
 /* 4 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	$("li[role='tab']").click(function () {
-			$("li[role='tab']").attr("aria-selected", "false"); //deselect all the tabs
-			$(this).attr("aria-selected", "true"); // select this tab
-			var tabpanid = $(this).attr("aria-controls"); //find out what tab panel this tab controls
-			var tabpan = $("#" + tabpanid);
-			$("div[role='tabpanel']").attr("aria-hidden", "true"); //hide all the panels
-			tabpan.attr("aria-hidden", "false"); // show our panel
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
 	});
+	exports.default = init;
+	
+	var _elements = __webpack_require__(2);
+	
+	/**
+	 * @type {function}
+	 */
+	var isSelected = (0, _elements.attributeEquals)('aria-selected', 'true');
+	
+	function init(element) {}
 
 /***/ }
 /******/ ]);

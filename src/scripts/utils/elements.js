@@ -1,4 +1,4 @@
-import {curry} from './functional'
+import {curry, inverseBooleanString} from './functional'
 
 /**
  * Get an attribute value from element
@@ -63,6 +63,19 @@ export const hasAttribute = curry(function (name, el) {
  */
 export const attributeEquals = curry(function (name, value, el) {
   return el.getAttribute(name) === value;
+});
+
+/**
+ * Toggles an attribute between 'true' and 'false';
+ *
+ * @param {string} name
+ * @param {HTMLElement} el
+ *
+ * @function
+ */
+export const toggleAttribute = curry(function (name, el) {
+  const value = getAttribute(name, el);
+  setAttribute(name, inverseBooleanString(value), el);
 });
 
 /**
