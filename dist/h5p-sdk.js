@@ -50,7 +50,8 @@
 	// Load library
 	H5P = H5P || {};
 	H5P.sdk = H5P.sdk || {};
-	H5P.sdk.panel = __webpack_require__(1).default;
+	H5P.sdk.initPanel = __webpack_require__(1).default;
+	H5P.sdk.initTabPanel = __webpack_require__(4).default;
 
 /***/ },
 /* 1 */
@@ -84,7 +85,20 @@
 	function init(element) {
 	  var titleElement = selectExpandable(element);
 	
-	  if (titleElement) {}
+	  if (titleElement) {
+	    // hide all others
+	    var target = document.getElementById('some-id');
+	
+	    var observer = new MutationObserver(function (mutations) {
+	      mutations.forEach(function (mutation) {
+	        console.log(mutation.type);
+	      });
+	    });
+	
+	    var config = { attributes: true, childList: true, characterData: true };
+	
+	    observer.observe(titleElement, config);
+	  }
 	
 	  return element;
 	}
@@ -98,7 +112,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.querySelector = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+	exports.querySelectorAll = exports.querySelector = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 	
 	var _functional = __webpack_require__(3);
 	
@@ -168,17 +182,31 @@
 	});
 	
 	/**
-	 * Check if element has an attribute that equals
+	 * Returns the first element that is a descendant of the element on which it is invoked
+	 * that matches the specified group of selectors.
 	 *
-	 * @param {string} name
-	 * @param {string} value
+	 * @param {string} selector
 	 * @param {HTMLElement} el
 	 *
 	 * @function
-	 * @return {boolean}
+	 * @return {HTMLElement}
 	 */
 	var querySelector = exports.querySelector = (0, _functional.curry)(function (selector, el) {
 	  return el.querySelector(selector);
+	});
+	
+	/**
+	 * Returns a non-live NodeList of all elements descended from the element on which it
+	 * is invoked that matches the specified group of CSS selectors.
+	 *
+	 * @param {string} selector
+	 * @param {HTMLElement} el
+	 *
+	 * @function
+	 * @return {NodeList}
+	 */
+	var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(function (selector, el) {
+	  return el.querySelectorAll(selector);
 	});
 
 /***/ },
@@ -327,6 +355,21 @@
 	  return filter(function (value) {
 	    return !contains(value, values);
 	  }, arr);
+	});
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	$("li[role='tab']").click(function () {
+			$("li[role='tab']").attr("aria-selected", "false"); //deselect all the tabs
+			$(this).attr("aria-selected", "true"); // select this tab
+			var tabpanid = $(this).attr("aria-controls"); //find out what tab panel this tab controls
+			var tabpan = $("#" + tabpanid);
+			$("div[role='tabpanel']").attr("aria-hidden", "true"); //hide all the panels
+			tabpan.attr("aria-hidden", "false"); // show our panel
 	});
 
 /***/ }

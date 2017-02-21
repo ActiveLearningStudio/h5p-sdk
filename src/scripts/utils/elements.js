@@ -63,19 +63,32 @@ export const hasAttribute = curry(function (name, el) {
  */
 export const attributeEquals = curry(function (name, value, el) {
   return el.getAttribute(name) === value;
-})
+});
 
 /**
- * Check if element has an attribute that equals
+ * Returns the first element that is a descendant of the element on which it is invoked
+ * that matches the specified group of selectors.
  *
- * @param {string} name
- * @param {string} value
+ * @param {string} selector
  * @param {HTMLElement} el
  *
  * @function
- * @return {boolean}
+ * @return {HTMLElement}
  */
 export const querySelector = curry(function (selector, el) {
   return el.querySelector(selector);
 });
 
+/**
+ * Returns a non-live NodeList of all elements descended from the element on which it
+ * is invoked that matches the specified group of CSS selectors.
+ *
+ * @param {string} selector
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {NodeList}
+ */
+export const querySelectorAll = curry(function (selector, el) {
+  return el.querySelectorAll(selector);
+});

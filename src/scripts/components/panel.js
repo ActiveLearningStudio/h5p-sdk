@@ -19,8 +19,20 @@ const isExpanded = attributeEquals('aria-expanded', 'true');
 export default function init(element) {
   const titleElement = selectExpandable(element);
 
-  if(titleElement) {
 
+  if(titleElement) {
+    // hide all others
+    let target = document.getElementById('some-id');
+
+    let observer = new MutationObserver(function(mutations) {
+      mutations.forEach(function(mutation) {
+        console.log(mutation.type);
+      });
+    });
+
+    let config = { attributes: true, childList: true, characterData: true };
+
+    observer.observe(titleElement, config);
   }
 
   return element;

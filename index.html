@@ -42,20 +42,17 @@
   <a class="button-inverse">Get</a>
   <h2>Panels</h2>
 
-  <div class="panel">
+  <div class="h5p-panel">
     <div class="panel-header" aria-expanded="false" aria-controls="panel-body-1">Title</div>
     <div id="panel-body-1" class="panel-body" aria-hidden="true">Ipsum lorum</div>
   </div>
 </div>
 
-<script type="text/javascript">
-  H5P = {};
-</script>
+<script type="text/javascript">H5P = {};</script>
 <script type="text/javascript" src="dist/h5p-sdk.js"></script>
 <script type="text/javascript">
-  console.log(H5P.sdk.initPanel);
-  document.querySelector('.panel');
-
+  const panel = document.querySelector('.h5p-panel');
+  H5P.sdk.initPanel(panel);
 </script>
 </body>
 </html>
