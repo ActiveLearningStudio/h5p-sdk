@@ -15,6 +15,9 @@ nav ul {
 nav li {
   display: inline;
   padding: 10px 25px;
+  text-decoration: none;
+  color: $c3;
+  cursor: pointer;
 }
 
 nav li[aria-selected='true'] {
@@ -22,8 +25,7 @@ nav li[aria-selected='true'] {
 }
 
 nav a {
-  text-decoration: none;
-  color: $c3;
+
 }
 
 div[aria-hidden='true'] {

@@ -47,14 +47,13 @@ nav ul {
 
 nav li {
   display: inline;
-  padding: 10px 25px; }
+  padding: 10px 25px;
+  text-decoration: none;
+  color: #f3f3f3;
+  cursor: pointer; }
 
 nav li[aria-selected='true'] {
   box-shadow: inset 0 -5px #0a78d1; }
-
-nav a {
-  text-decoration: none;
-  color: #f3f3f3; }
 
 div[aria-hidden='true'] {
   display: none; }
