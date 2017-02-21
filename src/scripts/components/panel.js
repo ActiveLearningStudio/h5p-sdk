@@ -1,6 +1,14 @@
-import {getAttribute, setAttribute, removeAttribute, hasAttribute} from '../utils/elements';
+import {getAttribute, setAttribute, removeAttribute, attributeEquals, querySelector} from '../utils/elements';
 
-const expandable = hasAttribute('aria-expanded');
+/**
+ * @type {function}
+ */
+const selectExpandable = querySelector('[aria-expanded]');
+
+/**
+ * @type {function}
+ */
+const isExpanded = attributeEquals('aria-expanded', 'true');
 
 /**
  * Initializes a panel
@@ -9,7 +17,9 @@ const expandable = hasAttribute('aria-expanded');
  * @return {HTMLElement}
  */
 export default function init(element) {
-  if(expandable(element)) {
+  const titleElement = selectExpandable(element);
+
+  if(titleElement) {
 
   }
 

@@ -7,39 +7,45 @@
   <link rel="stylesheet" href="dist/main.css">
 </head>
 <body>
-  <div class="h5p">
-    <h2>Tab Panels</h2>
-    <h3>Main Tab Panel</h3>
-    <div class="tabcontainer">
-      <nav>
-        <ul class="tablist" role="tablist">
-          <li id="tab1" class="tab" aria-controls="panel1" aria-selected="true" role="tab"><a href="#">Create Content</a></li>
-          <li id="tab2" class="tab" aria-controls="panel2" aria-selected="false" role="tab"><a href="#">Upload</a></li>
-        </ul>
-      </nav>
+<div class="h5p" style="max-width: 1000px; display: block; margin-left: auto; margin-right: auto;">
+  <h2>Tab Panels</h2>
+  <h3>Main Tab Panel</h3>
+  <div class="tabcontainer">
+    <nav>
+      <ul class="tablist" role="tablist">
+        <li id="tab1" class="tab" aria-controls="panel1" aria-selected="true" role="tab"><a href="#">Create Content</a></li>
+        <li id="tab2" class="tab" aria-controls="panel2" aria-selected="false" role="tab"><a href="#">Upload</a></li>
+      </ul>
+    </nav>
 
-      <div id="panel1" class="panel" aria-lablledby="tab1" role="tabpanel">
-        <h1>Create Content</h1>
-        <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
-      </div>
-
-      <div id="panel2" class="tabpanel" aria-labelledby="tab2" role="tabpanel" aria-hidden="true">
-        <h1>Upload</h1>
-        <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
-      </div>
+    <div id="panel1" class="panel" aria-lablledby="tab1" role="tabpanel">
+      <h1>Create Content</h1>
+      <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
     </div>
 
-
-    <h3>Inner Tab Panel</h3>
-
-    <h2>Buttons</h2>
-    <h3>Normal</h3>
-    <a href="#" class="button">Use</a>
-    <span class="button">Use</span>
-    <button class="button">Use</button>
-
-    <h3>Inverse</h3>
-    <a class="button-inverse">Get</a>
+    <div id="panel2" class="tabpanel" aria-labelledby="tab2" role="tabpanel" aria-hidden="true">
+      <h1>Upload</h1>
+      <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+    </div>
   </div>
+
+
+  <h3>Inner Tab Panel</h3>
+
+  <h2>Buttons</h2>
+  <h3>Normal</h3>
+  <a href="#" class="button">Use</a>
+  <span class="button">Use</span>
+  <button class="button">Use</button>
+
+  <h3>Inverse</h3>
+  <a class="button-inverse">Get</a>
+  <h2>Panels</h2>
+
+  <div class="panel">
+    <div class="panel-header" aria-expanded="false">Title</div>
+    <div class="panel-body">Ipsum lorum</div>
+  </div>
+</div>
 </body>
 </html>
