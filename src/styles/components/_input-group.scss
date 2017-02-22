@@ -1,6 +1,11 @@
 .input-group {
   display: flex;
   border: 1px solid gray;
+  overflow: hidden;
+
+  &.rounded {
+    border-radius: 1em;
+  }
 }
 
 input {
@@ -8,15 +13,10 @@ input {
   font-size: 1em;
   width: 100%;
   border: none;
-  border-radius: 1em;
 }
 
 .input-button {
   min-width: 80px;
   text-align: center;
   cursor: pointer;
-}
-
-.rounded {
-  border-radius: 1em;
 }
