@@ -79,6 +79,19 @@ export const toggleAttribute = curry(function (name, el) {
 });
 
 /**
+ * The appendChild() method adds a node to the end of the list of children of a specified parent node.
+ *
+ * @param {HTMLElement} parent
+ * @param {HTMLElement} child
+ *
+ * @function
+ * @return {HTMLElement}
+ */
+export const appendChild = curry(function (parent, child) {
+  return parent.appendChild(child);
+});
+
+/**
  * Returns the first element that is a descendant of the element on which it is invoked
  * that matches the specified group of selectors.
  *

@@ -149,7 +149,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.querySelectorAll = exports.querySelector = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+	exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 	
 	var _functional = __webpack_require__(3);
 	
@@ -229,6 +229,19 @@
 	var toggleAttribute = exports.toggleAttribute = (0, _functional.curry)(function (name, el) {
 	  var value = getAttribute(name, el);
 	  setAttribute(name, (0, _functional.inverseBooleanString)(value), el);
+	});
+	
+	/**
+	 * The appendChild() method adds a node to the end of the list of children of a specified parent node.
+	 *
+	 * @param {HTMLElement} parent
+	 * @param {HTMLElement} child
+	 *
+	 * @function
+	 * @return {HTMLElement}
+	 */
+	var appendChild = exports.appendChild = (0, _functional.curry)(function (parent, child) {
+	  return parent.appendChild(child);
 	});
 	
 	/**
@@ -437,11 +450,6 @@
 	/**
 	 * @type {function}
 	 */
-	var isSelected = (0, _elements.attributeEquals)('aria-selected', 'true');
-	
-	/**
-	 * @type {function}
-	 */
 	var getWhereRoleIsTab = (0, _elements.querySelectorAll)('[role="tab"]');
 	
 	/**
@@ -452,17 +460,7 @@
 	/**
 	 * @type {function}
 	 */
-	var setAriaHiddenFalse = (0, _elements.setAttribute)('aria-hidden', 'false');
-	
-	/**
-	 * @type {function}
-	 */
 	var setAllAriaHiddenTrue = (0, _functional.forEach)((0, _elements.setAttribute)('aria-hidden', 'true'));
-	
-	/**
-	 * @type {function}
-	 */
-	var setAriaSelectedTrue = (0, _elements.setAttribute)('aria-selected', 'true');
 	
 	/**
 	 * @type {function}
@@ -474,11 +472,6 @@
 	 */
 	var setAllAriaSelectedFalse = (0, _functional.forEach)(setAriaSelectedFalse);
 	
-	/**
-	 * @type {function}
-	 */
-	var getAriaControls = (0, _elements.getAttribute)('aria-controls');
-	
 	function init(element) {
 	  var tabs = getWhereRoleIsTab(element);
 	  var tabpanels = getWhereRoleIsTabpanel(element);
@@ -487,12 +480,12 @@
 	    tab.addEventListener('click', function (event) {
 	
 	      setAllAriaSelectedFalse(tabs);
-	      setAriaSelectedTrue(event.target);
+	      event.target.setAttribute('aria-selected', 'true');
 	
 	      setAllAriaHiddenTrue(tabpanels);
-	      var tabpanelId = getAriaControls(event.target);
+	      var tabpanelId = event.target.getAttribute('aria-controls');
 	      var targetTabpanel = document.getElementById(tabpanelId);
-	      setAriaHiddenFalse(targetTabpanel);
+	      targetTabpanel.setAttribute('aria-hidden', 'false');
 	    });
 	  });
 	}
