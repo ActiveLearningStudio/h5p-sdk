@@ -19,22 +19,21 @@
 
 .input-group {
   display: flex;
-  border: 1px solid gray; }
+  border: 1px solid gray;
+  overflow: hidden; }
+  .input-group.rounded {
+    border-radius: 1em; }
 
 input {
   padding: 1.0em 1.5em;
   font-size: 1em;
   width: 100%;
-  border: none;
-  border-radius: 1em; }
+  border: none; }
 
 .input-button {
   min-width: 80px;
   text-align: center;
   cursor: pointer; }
-
-.rounded {
-  border-radius: 1em; }
 
 .panel-header {
   background-color: white;
