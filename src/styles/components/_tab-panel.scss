@@ -1,37 +1,35 @@
 @import "../base/variables";
 
-.tabpanel {
-  padding: 20px;
-}
+.tabcontainer {
+  .tabpanel {
+    padding: 20px;
+  }
 
-nav {
-  background-color: #697585;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+  nav {
+    background-color: $c1;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
 
-nav ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+  nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 
-nav li {
-  display: inline;
-  padding: 10px 25px;
-  text-decoration: none;
-  color: $c3;
-  cursor: pointer;
-}
+  nav li {
+    display: inline;
+    padding: 10px 25px;
+    text-decoration: none;
+    color: $c3;
+    cursor: pointer;
+  }
 
-nav li[aria-selected='true'] {
-  box-shadow: inset 0 -5px $ac1;
-}
+  nav li[aria-selected="true"] {
+    box-shadow: inset 0 -5px $ac1;
+  }
 
-nav a {
-
-}
-
-div[aria-hidden='true'] {
-display: none;
+  [aria-hidden="true"] {
+    display: none;
+  }
 }

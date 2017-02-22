@@ -36,48 +36,44 @@ input {
 .rounded {
   border-radius: 1em; }
 
-.panel-header {
-  background-color: white;
-  cursor: pointer;
-  border: 0.042em;
-  box-shadow: 0 0 0.2em 0.2em rgba(79, 87, 99, 0.2);
-  overflow: hidden; }
+.panel {
+  border: thin solid #697585; }
+  .panel .panel-header {
+    background-color: #697585;
+    color: white;
+    border: 0.042em;
+    padding: 10px; }
+    .panel .panel-header[aria-expanded] {
+      cursor: pointer; }
+  .panel .panel-body {
+    padding: 20px; }
+  .panel [aria-hidden="true"] {
+    display: none; }
 
-.panel-title {
-  display: inline-block;
-  margin-left: 0.5em;
-  width: 85%; }
-
-.hub-body {
-  border: thin solid gray; }
-
-.hidden {
-  display: none; }
-
-.tabpanel {
+.tabcontainer .tabpanel {
   padding: 20px; }
 
-nav {
+.tabcontainer nav {
   background-color: #697585;
   padding-top: 10px;
   padding-bottom: 10px; }
 
-nav ul {
+.tabcontainer nav ul {
   list-style: none;
   padding: 0;
   margin: 0; }
 
-nav li {
+.tabcontainer nav li {
   display: inline;
   padding: 10px 25px;
   text-decoration: none;
   color: #f3f3f3;
   cursor: pointer; }
 
-nav li[aria-selected='true'] {
+.tabcontainer nav li[aria-selected="true"] {
   box-shadow: inset 0 -5px #0a78d1; }
 
-div[aria-hidden='true'] {
+.tabcontainer [aria-hidden="true"] {
   display: none; }
 
 .h5p {

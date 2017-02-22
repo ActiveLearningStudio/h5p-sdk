@@ -1,20 +1,25 @@
-.panel-header {
-  background-color: white;
-  cursor: pointer;
-  border: 0.042em;
-  box-shadow: 0 0 0.2em 0.2em  rgba(79,87,99,0.2);
-  overflow: hidden;
+@import "../base/colors";
+@import "../base/variables";
+
+.panel {
+  border: thin solid $c1;
+
+  .panel-header {
+    background-color: $c1;
+    color: white;
+    border: 0.042em;
+    padding: 10px;
+
+    &[aria-expanded] {
+      cursor: pointer;
+    }
+  }
+
+  .panel-body {
+    padding: 20px;
+  }
+
+  [aria-hidden="true"] {
+    display: none;
+  }
 }
-
-.panel-title {
-  display: inline-block;
-  margin-left: 0.5em;
-  width: 85%;
-}
-
-.hub-body {
-  border: thin solid gray;
-}
-
-
-.hidden {display: none;}
