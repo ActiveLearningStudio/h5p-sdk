@@ -1,7 +1,10 @@
 @import "colors";
 
-$text-title-large: 1.458em;
-$text-title-small: 1.250em;
-$text-title-list: 1.042em;
-$text-body-large: 0.917em;
-$text-body-small: 0.833em;
+// text
+$text-title-large: 1.458em !default;
+$text-title-small: 1.250em !default;
+$text-body-large: 0.917em !default;
+$text-body-small: 0.833em !default;
+
+// layout
+$padding: 0.833em !default;
