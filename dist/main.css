@@ -30,6 +30,9 @@ input {
   width: 100%;
   border: none; }
 
+input:focus {
+  outline: none; }
+
 .input-button {
   min-width: 80px;
   text-align: center;
@@ -48,7 +51,7 @@ input {
     display: none; }
 
 .tabcontainer nav {
-  background-color: #697585;
+  background-color: #474f5a;
   padding-top: 10px;
   padding-bottom: 10px; }
 
@@ -69,6 +72,23 @@ input {
 
 .tabcontainer [aria-hidden="true"] {
   display: none; }
+
+.menu nav {
+  background-color: #697585;
+  padding-top: 10px;
+  padding-bottom: 10px; }
+
+.menu nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; }
+
+.menu nav li {
+  display: inline;
+  padding: 10px 25px;
+  text-decoration: none;
+  color: #f3f3f3;
+  cursor: pointer; }
 
 .h5p {
   font-family: 'Open Sans', sans-serif;
