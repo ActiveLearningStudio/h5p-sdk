@@ -1,5 +1,5 @@
 @mixin box-shadow() {
-   -moz-box-shadow:    inset 0 0 3px #000000;
-   -webkit-box-shadow: inset 0 0 3px #000000;
-   box-shadow:         inset 0 0 3px #000000;
+   -moz-box-shadow:    inset 0 0 3px $c1;
+   -webkit-box-shadow: inset 0 0 3px $c1;
+   box-shadow:         inset 0 0 3px $c1;
 }
