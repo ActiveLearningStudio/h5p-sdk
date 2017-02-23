@@ -30,6 +30,9 @@ input {
   width: 100%;
   border: none; }
 
+input:focus {
+  outline: none; }
+
 .input-button {
   min-width: 80px;
   text-align: center;
@@ -44,8 +47,9 @@ input {
     padding: 10px; }
     .panel .panel-header[aria-expanded] {
       cursor: pointer; }
-  .panel [aria-hidden="true"] {
-    display: none; }
+  .panel .panel-body {
+    overflow: hidden;
+    transition: height 200ms; }
 
 .tabcontainer nav {
   background-color: #697585;
@@ -67,7 +71,7 @@ input {
 .tabcontainer nav li[aria-selected="true"] {
   box-shadow: inset 0 -5px #0a78d1; }
 
-.tabcontainer [aria-hidden="true"] {
+.tabcontainer .tabpanel[aria-hidden="true"] {
   display: none; }
 
 .h5p {

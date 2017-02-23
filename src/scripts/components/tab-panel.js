@@ -14,7 +14,12 @@ const getWhereRoleIsTabpanel = querySelectorAll('[role="tabpanel"]');
 /**
  * @type {function}
  */
-const setAllAriaHiddenTrue = forEach(setAttribute('aria-hidden', 'true'));
+const hideAll = forEach(setAttribute('aria-hidden', 'true'));
+
+/**
+ * @type {function}
+ */
+const show = setAttribute('aria-hidden', 'false');
 
 /**
  * @type {function}
@@ -28,7 +33,7 @@ const setAllAriaSelectedFalse = forEach(setAriaSelectedFalse);
 
 export default function init(element) {
   const tabs = getWhereRoleIsTab(element);
-  const tabpanels = getWhereRoleIsTabpanel(element);
+  const tabPanels = getWhereRoleIsTabpanel(element);
 
   tabs.forEach(function (tab) {
     tab.addEventListener('click', function (event) {
@@ -36,11 +41,10 @@ export default function init(element) {
       setAllAriaSelectedFalse(tabs);
       event.target.setAttribute('aria-selected', 'true');
 
-      setAllAriaHiddenTrue(tabpanels);
-      let tabpanelId = event.target.getAttribute('aria-controls');
-      let targetTabpanel = document.getElementById(tabpanelId);
-      targetTabpanel.setAttribute('aria-hidden', 'false');
+      hideAll(tabPanels);
+      let tabPanelId = event.target.getAttribute('aria-controls');
+      let targetTabPanel = element.querySelector(`#${tabPanelId}`);
+      show(element.querySelector(`#${tabPanelId}`));
     });
   })
-
 }

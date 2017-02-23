@@ -15,7 +15,8 @@
     }
   }
 
-  [aria-hidden="true"] {
-    display: none;
+  .panel-body {
+    overflow: hidden;
+    transition: height 200ms;
   }
 }
