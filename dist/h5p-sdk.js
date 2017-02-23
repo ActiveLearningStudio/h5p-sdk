@@ -149,7 +149,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.querySelectorAll = exports.querySelector = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+	exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 	
 	var _functional = __webpack_require__(3);
 	
@@ -229,6 +229,19 @@
 	var toggleAttribute = exports.toggleAttribute = (0, _functional.curry)(function (name, el) {
 	  var value = getAttribute(name, el);
 	  setAttribute(name, (0, _functional.inverseBooleanString)(value), el);
+	});
+	
+	/**
+	 * The appendChild() method adds a node to the end of the list of children of a specified parent node.
+	 *
+	 * @param {HTMLElement} parent
+	 * @param {HTMLElement} child
+	 *
+	 * @function
+	 * @return {HTMLElement}
+	 */
+	var appendChild = exports.appendChild = (0, _functional.curry)(function (parent, child) {
+	  return parent.appendChild(child);
 	});
 	
 	/**
