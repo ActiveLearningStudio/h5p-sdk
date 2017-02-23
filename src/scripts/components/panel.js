@@ -38,11 +38,13 @@ const setAriaHiddenFalse = setAttribute('aria-hidden', 'false');
 const handleMutation = curry(function(bodyElement, mutation) {
   const titleEl = mutation.target;
 
-  if(isExpanded(titleEl)){
+  if(isExpanded(titleEl)) {
     setAriaHiddenFalse(bodyElement);
+    bodyElement.style.height = "100px";
   }
   else {
     setAriaHiddenTrue(bodyElement);
+    bodyElement.style.height = "0";
   }
 });
 
@@ -54,7 +56,8 @@ const handleMutation = curry(function(bodyElement, mutation) {
  */
 export default function init(element) {
   const titleEl = selectExpandable(element);
-  const bodyEl = document.getElementById(getAriaControls(titleEl));
+  const bodyId = getAriaControls(titleEl);
+  const bodyEl = element.querySelector(`#${bodyId}`);
 
   if(titleEl) {
     // set observer on title for aria-expanded
