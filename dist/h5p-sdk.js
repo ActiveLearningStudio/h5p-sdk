@@ -102,12 +102,12 @@
 	/**
 	 * @type {Function}
 	 */
-	var handleMutation = (0, _functional.curry)(function (bodyElement, mutation) {
+	var toggleBodyVisibility = (0, _functional.curry)(function (bodyElement, mutation) {
 	  var titleEl = mutation.target;
 	
 	  if (isExpanded(titleEl)) {
 	    setAriaHiddenFalse(bodyElement);
-	    bodyElement.style.height = "100px";
+	    bodyElement.style.height = bodyElement.scrollHeight + 'px';
 	  } else {
 	    setAriaHiddenTrue(bodyElement);
 	    bodyElement.style.height = "0";
@@ -127,7 +127,8 @@
 	
 	  if (titleEl) {
 	    // set observer on title for aria-expanded
-	    var observer = new MutationObserver((0, _functional.forEach)(handleMutation(bodyEl)));
+	    var observer = new MutationObserver((0, _functional.forEach)(toggleBodyVisibility(bodyEl)));
+	
 	    observer.observe(titleEl, {
 	      attributes: true,
 	      attributeOldValue: true,
@@ -136,7 +137,7 @@
 	
 	    // Set click listener that toggles aria-expanded
 	    titleEl.addEventListener('click', function (event) {
-	      (0, _elements.toggleAttribute)('aria-expanded', event.target);
+	      (0, _elements.toggleAttribute)(ATTRIBUTE_ARIA_EXPANDED, event.target);
 	    });
 	  }
 	

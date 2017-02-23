@@ -35,12 +35,12 @@ const setAriaHiddenFalse = setAttribute('aria-hidden', 'false');
 /**
  * @type {Function}
  */
-const handleMutation = curry(function(bodyElement, mutation) {
+const toggleBodyVisibility = curry(function(bodyElement, mutation) {
   const titleEl = mutation.target;
 
   if(isExpanded(titleEl)) {
     setAriaHiddenFalse(bodyElement);
-    bodyElement.style.height = "100px";
+    bodyElement.style.height = `${bodyElement.scrollHeight}px`;
   }
   else {
     setAriaHiddenTrue(bodyElement);
@@ -61,7 +61,8 @@ export default function init(element) {
 
   if(titleEl) {
     // set observer on title for aria-expanded
-    let observer = new MutationObserver(forEach(handleMutation(bodyEl)));
+    let observer = new MutationObserver(forEach(toggleBodyVisibility(bodyEl)));
+
     observer.observe(titleEl, {
       attributes: true,
       attributeOldValue: true,
@@ -70,7 +71,7 @@ export default function init(element) {
 
     // Set click listener that toggles aria-expanded
     titleEl.addEventListener('click', function(event) {
-      toggleAttribute('aria-expanded', event.target);
+      toggleAttribute(ATTRIBUTE_ARIA_EXPANDED, event.target);
     });
   }
 
