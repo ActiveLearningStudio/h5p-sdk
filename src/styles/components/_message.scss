@@ -1,0 +1,52 @@
+@import "../base/colors";
+@import "../base/variables";
+
+.message {
+  margin: $padding;
+  padding: 1.250em;
+  text-align: right;
+
+  h3 {
+    font-size: $text-list-title;
+    color: $text-dark;
+  }
+
+  p {
+    font-size: $text-body-small;
+    color: $text-light;
+  }
+}
+
+.info {
+  background: rgba($ac-warning, 0.15);
+  box-shadow: inset 0.167em 0 $ac-warning;
+
+  .button {
+      color: $text-dark;
+  }
+}
+
+.success {
+  background: rgba($ac-success, 0.15);
+  box-shadow: inset 0.167em 0 $ac-success;
+
+  .button {
+    color: $ac-success;
+  }
+}
+
+.error {
+  background: rgba($ac-error, 0.15);
+  box-shadow: inset 0.167em 0 $ac-error;
+
+  .button {
+    color: $ac-error;
+  }
+}
+
+.dismissable {
+  .button {
+    border: solid 1px;
+    background-color: transparent;
+  }
+}

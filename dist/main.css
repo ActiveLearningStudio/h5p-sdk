@@ -99,6 +99,39 @@ input:focus {
 .menu nav li[aria-selected="true"] {
   box-shadow: inset 0 -5px #0a78d1; }
 
+.message {
+  margin: 0.833em;
+  padding: 1.250em;
+  text-align: right; }
+  .message h3 {
+    font-size: 1.042em;
+    color: #1f2227; }
+  .message p {
+    font-size: 0.833em;
+    color: #71757e; }
+
+.info {
+  background: rgba(255, 204, 51, 0.15);
+  box-shadow: inset 0.167em 0 #ffcc33; }
+  .info .button {
+    color: #1f2227; }
+
+.success {
+  background: rgba(0, 170, 84, 0.15);
+  box-shadow: inset 0.167em 0 #00aa54; }
+  .success .button {
+    color: #00aa54; }
+
+.error {
+  background: rgba(198, 71, 80, 0.15);
+  box-shadow: inset 0.167em 0 #c64750; }
+  .error .button {
+    color: #c64750; }
+
+.dismissable .button {
+  border: solid 1px;
+  background-color: transparent; }
+
 .h5p {
   font-family: 'Open Sans', sans-serif;
   max-width: 1000px;
