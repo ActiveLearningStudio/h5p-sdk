@@ -128,9 +128,17 @@ input:focus {
   .error .button {
     color: #c64750; }
 
-.dismissable .button {
-  border: solid 1px;
-  background-color: transparent; }
+.dismissable {
+  overflow: auto; }
+  .dismissable .message-content {
+    float: right; }
+  .dismissable .close {
+    float: right;
+    padding-top: 1.250em;
+    padding-left: 1.250em; }
+  .dismissable .button {
+    border: solid 1px;
+    background-color: transparent; }
 
 .h5p {
   font-family: 'Open Sans', sans-serif;
