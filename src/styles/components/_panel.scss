@@ -8,7 +8,7 @@
     background-color: $c1;
     color: white;
     border: 0.042em;
-    padding: 10px;
+    padding: $padding;
 
     &[aria-expanded] {
       cursor: pointer;
