@@ -15,6 +15,10 @@
     font-size: $text-body-small;
     color: $text-light;
   }
+
+  .close {
+    display: none;
+  }
 }
 
 .info {
@@ -44,7 +48,7 @@
   }
 }
 
-.dismissable {
+.dismissible {
 
   overflow: auto;
 
@@ -53,9 +57,10 @@
   }
 
   .close {
+    display: block;
     float: right;
     padding-top: 1.250em;
-    padding-left: 1.250em; 
+    padding-left: 1.250em;
   }
 
   .button {
