@@ -45,6 +45,7 @@ const toggleBodyVisibility = curry(function(bodyElement, mutation) {
 
   if(isExpanded(titleEl)) {
     setAriaHiddenFalse(bodyElement);
+    console.log(`${bodyElement.offsetHeight}px`);
     bodyElement.style.height = `${bodyElement.scrollHeight}px`;
   }
   else {
@@ -79,10 +80,9 @@ export default function init(element) {
       toggleAttribute(ATTRIBUTE_ARIA_EXPANDED, event.target);
     });
 
-    // set height to 0, if aria-hidden
-    if(isHidden(bodyEl)) {
-      bodyEl.style.height = "0";
-    }
+    toggleBodyVisibility(bodyEl, {
+      target: titleEl
+    });
   }
 
   return element;
