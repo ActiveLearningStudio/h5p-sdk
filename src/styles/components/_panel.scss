@@ -2,12 +2,11 @@
 @import "../base/variables";
 
 .panel {
-  border: thin solid $c1;
+  border: 0.042em solid #dadde0;
 
   .panel-header {
-    background-color: $c1;
-    color: white;
-    border: 0.042em;
+    background-color: #f5f5f5;
+    color: $text-dark;
     padding: $padding;
 
     &[aria-expanded] {
@@ -18,5 +17,16 @@
   .panel-body {
     overflow: hidden;
     transition: height 200ms;
+
+    .panel-body-inner {
+      border-top: 0.042em solid #dadde0;
+      padding: $padding;
+    }
+  }
+}
+
+.panel-group {
+  .panel:not(:first-child) {
+    margin-top: -1px;
   }
 }

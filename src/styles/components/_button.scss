@@ -1,4 +1,5 @@
 @import "../base/variables";
+@import "../base/colors";
 
 @mixin button($background-color, $color) {
   font-size: $text-body-small;
@@ -7,11 +8,45 @@
   border-radius: 1.375em;
   background-color: $background-color;
   color: $color;
+  display: inline-block;
+  cursor: pointer;
+  border: transparent;
+
+  &:hover {
+    background-color: lighten($background-color, 10%);
+  }
+
+  &:focus {
+    background-color: lighten($background-color, 10%);
+  }
+
+  &:active {
+    background-color: darken($background-color, 10%);
+  }
+
+  &[disabled] {
+    background-color: lighten($background-color, 40%);
+  }
 }
 
 .button {
+  @include button(#f5f5f5, $text-dark);
+}
+
+.button.button-primary {
   @include button($ac1, white);
-  border: transparent;
+}
+
+.button.button-warning {
+  @include button($ac-warning, white);
+}
+
+.button.button-success {
+  @include button($ac-success, white);
+}
+
+.button.button-error {
+  @include button($ac-error, white);
 }
 
 .button-inverse {

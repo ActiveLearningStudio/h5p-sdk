@@ -8,20 +8,44 @@
 </head>
 <body>
 <div class="h5p" style="max-width: 1000px; display: block; margin-left: auto; margin-right: auto;">
+  <!-- BUTTONS -->
   <h2>Buttons</h2>
   <h3>Normal</h3>
   <a href="#" class="button">Use</a>
   <span class="button">Use</span>
+  <div class="button">Use</div >
   <button class="button">Use</button>
+
+  <h3>Colored buttons</h3>
+  <span class="button button-primary">Use</span>
+  <span class="button button-warning">Use</span>
+  <span class="button button-success">Use</span>
+  <span class="button button-error">Use</span>
 
   <h3>Inverse</h3>
   <a class="button-inverse">Get</a>
   <h2>Panels</h2>
 
   <!-- PANEL -->
-  <div class="panel">
-    <div class="panel-header" aria-expanded="true" aria-controls="panel-body-1">Title</div>
-    <div id="panel-body-1" class="panel-body" aria-hidden="false"><div>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</div></div>
+  <div class="panel-group">
+    <div class="panel">
+      <div class="panel-header" aria-expanded="true" aria-controls="panel-body-1">Title</div>
+      <div id="panel-body-1" class="panel-body" aria-hidden="false">
+        <div class="panel-body-inner">
+          <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+          <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+          <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-header" aria-expanded="true" aria-controls="panel-body-2">Title 2</div>
+      <div id="panel-body-2" class="panel-body" aria-hidden="false">
+        <div class="panel-body-inner">
+          Hello
+        </div>
+      </div>
+    </div>
   </div>
 
   <!-- TAB PANEL -->
@@ -116,8 +140,8 @@
 <script type="text/javascript">H5P = {};</script>
 <script type="text/javascript" src="dist/h5p-sdk.js"></script>
 <script type="text/javascript">
-  const panel = document.querySelector('.panel');
-  H5P.sdk.initPanel(panel);
+  const panels = document.querySelectorAll('.panel');
+  panels.forEach(H5P.sdk.initPanel);
 
   const tabPanel = document.querySelector('.tabcontainer');
   H5P.sdk.initTabPanel(tabPanel);
