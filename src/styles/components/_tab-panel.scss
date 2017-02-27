@@ -3,7 +3,7 @@
 .tab-panel {
   border: 0.042em solid #dadde0;
 
-  ul {
+  [class="tablist"] {
     background-color: #f5f5f5;
     list-style: none;
     padding: 0;
@@ -11,7 +11,7 @@
     border-bottom: 0.042em solid #dadde0;
   }
 
-  li {
+  [class="tab"] {
     display: inline-block;
     padding: $padding;
     text-decoration: none;

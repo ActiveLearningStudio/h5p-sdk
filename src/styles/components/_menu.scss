@@ -1,20 +1,17 @@
 @import "../base/variables";
 
-.menu {
+.h5p-menu {
   border: 0.042em solid #dadde0;
+  background-color: #f5f5f5;
+  list-style: none;
+  color: $text-dark;
+  padding: 0;
+  margin: 0;
 
-  ul {
-    background-color: #f5f5f5;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  li {
+  [role="menuitem"] {
     display: inline-block;
     padding: $padding;
     text-decoration: none;
-    color: $text-dark;
     cursor: pointer;
 
     &[aria-selected="true"] {
