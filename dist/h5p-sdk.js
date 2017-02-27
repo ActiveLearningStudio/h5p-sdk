@@ -100,6 +100,11 @@
 	var setAriaHiddenFalse = (0, _elements.setAttribute)('aria-hidden', 'false');
 	
 	/**
+	 * @type {function}
+	 */
+	var isHidden = (0, _elements.attributeEquals)('aria-hidden', 'true');
+	
+	/**
 	 * @type {Function}
 	 */
 	var toggleBodyVisibility = (0, _functional.curry)(function (bodyElement, mutation) {
@@ -139,6 +144,11 @@
 	    titleEl.addEventListener('click', function (event) {
 	      (0, _elements.toggleAttribute)(ATTRIBUTE_ARIA_EXPANDED, event.target);
 	    });
+	
+	    // set height to 0, if aria-hidden
+	    if (isHidden(bodyEl)) {
+	      bodyEl.style.height = "0";
+	    }
 	  }
 	
 	  return element;
@@ -459,7 +469,7 @@
 	/**
 	 * @type {function}
 	 */
-	var getWhereRoleIsTabpanel = (0, _elements.querySelectorAll)('[role="tabpanel"]');
+	var getWhereRoleIsTabPanel = (0, _elements.querySelectorAll)('[role="tabpanel"]');
 	
 	/**
 	 * @type {function}
@@ -483,7 +493,7 @@
 	
 	function init(element) {
 	  var tabs = getWhereRoleIsTab(element);
-	  var tabPanels = getWhereRoleIsTabpanel(element);
+	  var tabPanels = getWhereRoleIsTabPanel(element);
 	
 	  tabs.forEach(function (tab) {
 	    tab.addEventListener('click', function (event) {
@@ -492,8 +502,10 @@
 	      event.target.setAttribute('aria-selected', 'true');
 	
 	      hideAll(tabPanels);
+	
 	      var tabPanelId = event.target.getAttribute('aria-controls');
 	      var targetTabPanel = element.querySelector('#' + tabPanelId);
+	
 	      show(element.querySelector('#' + tabPanelId));
 	    });
 	  });

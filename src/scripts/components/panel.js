@@ -33,6 +33,11 @@ const setAriaHiddenTrue = setAttribute('aria-hidden', 'true');
 const setAriaHiddenFalse = setAttribute('aria-hidden', 'false');
 
 /**
+ * @type {function}
+ */
+const isHidden = attributeEquals('aria-hidden', 'true');
+
+/**
  * @type {Function}
  */
 const toggleBodyVisibility = curry(function(bodyElement, mutation) {
@@ -73,6 +78,11 @@ export default function init(element) {
     titleEl.addEventListener('click', function(event) {
       toggleAttribute(ATTRIBUTE_ARIA_EXPANDED, event.target);
     });
+
+    // set height to 0, if aria-hidden
+    if(isHidden(bodyEl)) {
+      bodyEl.style.height = "0";
+    }
   }
 
   return element;
