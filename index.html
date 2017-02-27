@@ -39,8 +39,8 @@
       </div>
     </div>
     <div class="panel">
-      <div class="panel-header" aria-expanded="true" aria-controls="panel-body-2">Title 2</div>
-      <div id="panel-body-2" class="panel-body" aria-hidden="false">
+      <div class="panel-header" aria-expanded="false" aria-controls="panel-body-2">Title 2</div>
+      <div id="panel-body-2" class="panel-body" aria-hidden="true">
         <div class="panel-body-inner">
           Hello
         </div>
@@ -50,22 +50,26 @@
 
   <!-- TAB PANEL -->
   <h2>Tab Panel</h2>
-  <div class="tabcontainer">
+  <div class="tab-panel">
     <nav>
-      <ul class="tablist" role="tablist">
-        <li id="tab1" class="tab" aria-controls="panel1" aria-selected="true" role="tab" tabindex="0">Create Content</li>
-        <li id="tab2" class="tab" aria-controls="panel2" aria-selected="false" role="tab" tabindex="0">Upload</li>
+      <ul role="tablist">
+        <li id="tab1" role="tab" aria-controls="panel1" aria-selected="true">Create Content</li>
+        <li id="tab2" role="tab" aria-controls="panel2" aria-selected="false">Upload</li>
       </ul>
     </nav>
 
-    <div id="panel1" class="tabpanel" aria-labelledby="tab1" role="tabpanel" tabindex="0">
-      <h1>Create Content</h1>
-      <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+    <div id="panel1" aria-labelledby="tab1" role="tabpanel">
+      <div class="tab-panel-inner">
+        <h1>Create Content</h1>
+        <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+      </div>
     </div>
 
-    <div id="panel2" class="tabpanel" aria-labelledby="tab2" role="tabpanel" aria-hidden="true" tabindex="0">
-      <h1>Upload</h1>
-      <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+    <div id="panel2" aria-labelledby="tab2" role="tabpanel" aria-hidden="true">
+      <div class="tab-panel-inner">
+        <h1>Upload</h1>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+      </div>
     </div>
   </div>
 
@@ -143,8 +147,8 @@
   const panels = document.querySelectorAll('.panel');
   panels.forEach(H5P.sdk.initPanel);
 
-  const tabPanel = document.querySelector('.tabcontainer');
-  H5P.sdk.initTabPanel(tabPanel);
+  const tabPanels = document.querySelectorAll('.tab-panel');
+  tabPanels.forEach(H5P.sdk.initTabPanel);
 </script>
 </body>
 </html>
