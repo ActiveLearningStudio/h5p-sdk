@@ -1,57 +1,48 @@
-import {getAttribute, setAttribute, removeAttribute, attributeEquals, querySelector, toggleAttribute} from '../utils/elements';
-import {curry, forEach, inverseBooleanString} from '../utils/functional';
-
-/**
- * @const
- * @type {string}
- */
-const ATTRIBUTE_ARIA_EXPANDED = "aria-expanded";
+import {setAttribute, attributeEquals, toggleAttribute} from '../utils/elements';
+import {curry, forEach} from '../utils/functional';
 
 /**
  * @type {function}
  */
-const selectExpandable = querySelector('[aria-expanded]');
+const isExpanded = attributeEquals("aria-expanded", 'true');
 
 /**
  * @type {function}
  */
-const getAriaControls = getAttribute('aria-controls');
+const hide = setAttribute('aria-hidden', 'true');
 
 /**
  * @type {function}
  */
-const isExpanded = attributeEquals(ATTRIBUTE_ARIA_EXPANDED, 'true');
+const show = setAttribute('aria-hidden', 'false');
 
 /**
- * @type {function}
+ * Toggles the body visibility
+ *
+ * @param {HTMLElement} bodyElement
+ * @param {boolean} isExpanded
  */
-const setAriaHiddenTrue = setAttribute('aria-hidden', 'true');
-
-/**
- * @type {function}
- */
-const setAriaHiddenFalse = setAttribute('aria-hidden', 'false');
-
-/**
- * @type {function}
- */
-const isHidden = attributeEquals('aria-hidden', 'true');
-
-/**
- * @type {Function}
- */
-const toggleBodyVisibility = curry(function(bodyElement, mutation) {
-  const titleEl = mutation.target;
-
-  if(isExpanded(titleEl)) {
-    setAriaHiddenFalse(bodyElement);
-    console.log(`${bodyElement.offsetHeight}px`);
+const toggleBodyVisibility = function(bodyElement, isExpanded) {
+  if(isExpanded) {
+    show(bodyElement);
     bodyElement.style.height = `${bodyElement.scrollHeight}px`;
   }
   else {
-    setAriaHiddenTrue(bodyElement);
+    hide(bodyElement);
     bodyElement.style.height = "0";
   }
+};
+
+/**
+ * Handles changes to aria-expanded
+ *
+ * @param {HTMLElement} bodyElement
+ * @param {MutationRecord} event
+ *
+ * @function
+ */
+const onAriaExpandedChange = curry(function(bodyElement, event) {
+  toggleBodyVisibility(bodyElement, isExpanded(event.target));
 });
 
 /**
@@ -61,28 +52,26 @@ const toggleBodyVisibility = curry(function(bodyElement, mutation) {
  * @return {HTMLElement}
  */
 export default function init(element) {
-  const titleEl = selectExpandable(element);
-  const bodyId = getAriaControls(titleEl);
+  const titleEl = element.querySelector('[aria-expanded]');
+  const bodyId = titleEl.getAttribute('aria-controls');
   const bodyEl = element.querySelector(`#${bodyId}`);
 
   if(titleEl) {
     // set observer on title for aria-expanded
-    let observer = new MutationObserver(forEach(toggleBodyVisibility(bodyEl)));
+    let observer = new MutationObserver(forEach(onAriaExpandedChange(bodyEl)));
 
     observer.observe(titleEl, {
       attributes: true,
       attributeOldValue: true,
-      attributeFilter: [ATTRIBUTE_ARIA_EXPANDED]
+      attributeFilter: ["aria-expanded"]
     });
 
     // Set click listener that toggles aria-expanded
     titleEl.addEventListener('click', function(event) {
-      toggleAttribute(ATTRIBUTE_ARIA_EXPANDED, event.target);
+      toggleAttribute("aria-expanded", event.target);
     });
 
-    toggleBodyVisibility(bodyEl, {
-      target: titleEl
-    });
+    toggleBodyVisibility(bodyEl, isExpanded(titleEl));
   }
 
   return element;
