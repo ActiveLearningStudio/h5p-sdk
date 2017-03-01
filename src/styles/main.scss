@@ -1,6 +1,7 @@
 @import "base/colors";
 @import "base/variables";
 @import "components/button";
+@import "components/images";
 @import "components/input-group";
 @import "components/panel";
 @import "components/tab-panel";
@@ -10,6 +11,4 @@
 
 .h5p {
   font-family: 'Open Sans', sans-serif;
-  max-width: 1000px;
-  margin-bottom: 100px;
 }

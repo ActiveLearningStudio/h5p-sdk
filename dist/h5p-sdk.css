@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Open+Sans");
-.button {
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);.button {
   font-size: 0.833em;
   text-decoration: none;
   padding: 0.708em 1.375em;
@@ -113,6 +112,9 @@
     background-color: #e6e6e6; }
   .button-inverse[disabled] {
     background-color: white; }
+
+.img-responsive {
+  max-width: 100%; }
 
 .input-group {
   display: flex;
@@ -239,6 +241,6 @@ input:focus {
     background-color: transparent; }
 
 .h5p {
-  font-family: 'Open Sans', sans-serif;
-  max-width: 1000px;
-  margin-bottom: 100px; }
+  font-family: 'Open Sans', sans-serif; }
+
+/*# sourceMappingURL=h5p-sdk.css.map*/
