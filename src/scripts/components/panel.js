@@ -23,13 +23,13 @@ const show = setAttribute('aria-hidden', 'false');
  * @param {boolean} isExpanded
  */
 const toggleBodyVisibility = function(bodyElement, isExpanded) {
-  if(isExpanded) {
-    show(bodyElement);
-    bodyElement.style.height = `${bodyElement.scrollHeight}px`;
-  }
-  else {
+  if(!isExpanded) {
     hide(bodyElement);
     bodyElement.style.height = "0";
+  }
+  else if(bodyElement.scrollHeight > 0) {
+    show(bodyElement);
+    bodyElement.style.height = `${bodyElement.scrollHeight}px`;
   }
 };
 
