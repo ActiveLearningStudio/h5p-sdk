@@ -15,8 +15,11 @@
   }
 
   .panel-body {
+    &[aria-hidden="true"] {
+      display: none;
+    }
+
     overflow: hidden;
-    transition: height 200ms;
 
     .panel-body-inner {
       border-top: 0.042em solid $c2;

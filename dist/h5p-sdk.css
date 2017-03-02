@@ -192,7 +192,10 @@ input:focus {
 
 .panel .panel-body {
   overflow: hidden;
-  transition: height 200ms;
+}
+
+.panel .panel-body[aria-hidden="true"] {
+  display: none;
 }
 
 .panel .panel-body .panel-body-inner {
