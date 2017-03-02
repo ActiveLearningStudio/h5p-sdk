@@ -71,9 +71,9 @@
 }
 
 .button.button-primary {
-  @include button(#db6f28, white);
+  @include button($ac1, white);
 }
 
 .button-inverse-primary {
-  @include button-inverse(white, #db6f28);
+  @include button-inverse(white, $ac1);
 }

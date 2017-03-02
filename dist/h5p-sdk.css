@@ -83,7 +83,7 @@ body {
   text-decoration: none;
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
-  background-color: #db6f28;
+  background-color: #0a78d1;
   color: white;
   display: inline-block;
   cursor: pointer;
@@ -92,7 +92,7 @@ body {
 }
 
 .button.button-primary:hover {
-  background-color: #e28c54;
+  background-color: #1a93f4;
 }
 
 .button.button-primary:focus {
@@ -101,11 +101,11 @@ body {
 }
 
 .button.button-primary:active {
-  background-color: #b2591e;
+  background-color: #085ca0;
 }
 
 .button.button-primary[disabled] {
-  background-color: #f8e4d7;
+  background-color: #acd8fb;
 }
 
 .button-inverse-primary {
@@ -115,16 +115,16 @@ body {
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
   background-color: white;
-  color: #db6f28;
+  color: #0a78d1;
   display: inline-block;
   cursor: pointer;
-  border: 0.125em solid #db6f28;
+  border: 0.125em solid #0a78d1;
   transition: background-color .35s ease;
 }
 
 .button-inverse-primary:hover {
-  color: #e28c54;
-  border-color: #e28c54;
+  color: #1a93f4;
+  border-color: #1a93f4;
 }
 
 .button-inverse-primary:focus {
@@ -133,13 +133,13 @@ body {
 }
 
 .button-inverse-primary:active {
-  color: #b2591e;
-  border-color: #b2591e;
+  color: #085ca0;
+  border-color: #085ca0;
 }
 
 .button-inverse-primary[disabled] {
-  color: #f8e4d7;
-  border-color: #f8e4d7;
+  color: #acd8fb;
+  border-color: #acd8fb;
 }
 
 .img-responsive {
