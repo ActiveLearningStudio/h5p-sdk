@@ -398,13 +398,13 @@ var show = (0, _elements.setAttribute)('aria-hidden', 'false');
  * @param {boolean} isExpanded
  */
 var toggleBodyVisibility = function toggleBodyVisibility(bodyElement, isExpanded) {
-  if (isExpanded) {
-    show(bodyElement);
-    bodyElement.style.height = bodyElement.scrollHeight + 'px';
-  } else {
+  if (!isExpanded) {
     hide(bodyElement);
-    bodyElement.style.height = "0";
-  }
+    //bodyElement.style.height = "0";
+  } else /*if(bodyElement.scrollHeight > 0)*/{
+      show(bodyElement);
+      //bodyElement.style.height = `${bodyElement.scrollHeight}px`;
+    }
 };
 
 /**

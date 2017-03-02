@@ -3,6 +3,7 @@
 
 @mixin button($background-color, $color) {
   font-size: $text-body-small;
+  font-weight: 600;
   text-decoration: none;
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
@@ -11,13 +12,15 @@
   display: inline-block;
   cursor: pointer;
   border: transparent;
+  transition: background-color .35s ease;
 
   &:hover {
     background-color: lighten($background-color, 10%);
   }
 
   &:focus {
-    background-color: lighten($background-color, 10%);
+    outline: 0;
+    box-shadow: 0.06em 0 0.6em 0.1em lighten($ac1, 30%);
   }
 
   &:active {
@@ -29,27 +32,48 @@
   }
 }
 
+@mixin button-inverse($background-color, $color) {
+  font-size: $text-body-small;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.708em 1.375em;
+  border-radius: 1.375em;
+  background-color: $background-color;
+  color: $color;
+  display: inline-block;
+  cursor: pointer;
+  border: 0.125em solid $color;
+  transition: background-color .35s ease;
+
+  &:hover {
+    color: lighten($color, 10%);
+    border-color: lighten($color, 10%);
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: 0.06em 0 0.6em 0.1em lighten($ac1, 30%);
+  }
+
+  &:active {
+    color: darken($color, 10%);
+    border-color: darken($color, 10%);
+  }
+
+  &[disabled] {
+    color: lighten($color, 40%);
+    border-color: lighten($color, 40%);
+  }
+}
+
 .button {
   @include button(#f5f5f5, $text-dark);
 }
 
 .button.button-primary {
-  @include button($ac1, white);
+  @include button(#db6f28, white);
 }
 
-.button.button-warning {
-  @include button($ac-warning, white);
-}
-
-.button.button-success {
-  @include button($ac-success, white);
-}
-
-.button.button-error {
-  @include button($ac-error, white);
-}
-
-.button-inverse {
-  @include button(white, $ac1);
-  border: 0.083em $ac1 solid;
+.button-inverse-primary {
+  @include button-inverse(white, #db6f28);
 }

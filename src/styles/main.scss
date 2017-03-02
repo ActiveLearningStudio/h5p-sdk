@@ -1,14 +1,13 @@
 @import "base/colors";
 @import "base/variables";
+@import "components/reset";
 @import "components/button";
 @import "components/images";
+@import "components/input-field";
 @import "components/input-group";
 @import "components/panel";
 @import "components/tab-panel";
 @import "components/menu";
 @import "components/message";
+@import "components/typography";
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
-
-.h5p {
-  font-family: 'Open Sans', sans-serif;
-}

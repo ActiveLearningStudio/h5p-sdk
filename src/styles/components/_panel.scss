@@ -2,10 +2,10 @@
 @import "../base/variables";
 
 .panel {
-  border: 0.042em solid #dadde0;
+  border: 0.042em solid $c2;
 
   .panel-header {
-    background-color: #f5f5f5;
+    background-color: $c3;
     color: $text-dark;
     padding: $padding;
 
@@ -19,7 +19,7 @@
     transition: height 200ms;
 
     .panel-body-inner {
-      border-top: 0.042em solid #dadde0;
+      border-top: 0.042em solid $c2;
       padding: $padding;
     }
   }

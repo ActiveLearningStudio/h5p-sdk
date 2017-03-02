@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "watch-build": "webpack --watch",
+    "watch": "webpack --watch",
     "dev": "lite-server"
   },
   "repository": {

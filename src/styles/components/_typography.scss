@@ -1,0 +1,57 @@
+@import "../base/colors";
+@import "../base/variables";
+
+.h5p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: $text-body-large;
+
+
+  h1, h2, h3, h4, h5, h6 {
+    color: $text-dark;
+    font-weight: 300;
+  }
+
+  h1 {
+
+  }
+
+  /*
+* big-body: 0.917em (22px)
+* small-body: 0.833em (20px)
+*/
+  h2 {
+    font-size: 1.458em;
+  }
+
+  h3 {
+    font-size: 1.250em;
+  }
+
+  h4 {
+    font-size: 1.042em;
+    font-weight: 600;
+  }
+
+  h5 {
+    font-weight: 600;
+  }
+
+  h6 {
+    font-weight: 600;
+  }
+
+  small, .small {
+    color: $text-light;
+    font-size: $text-body-small;
+  }
+
+  a {
+    color: $text-dark;
+    weight: 400;
+  }
+
+  .additional-information {
+    font-style: italic;
+    color: $text-light;
+  }
+}

@@ -1,5 +1,54 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans);.button {
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);/*html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
+*/
+/*
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+body {
+  line-height: 1;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+*/
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+body {
+  font-size: 24px;
+}
+
+.button {
   font-size: 0.833em;
+  font-weight: 600;
   text-decoration: none;
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
@@ -8,6 +57,7 @@
   display: inline-block;
   cursor: pointer;
   border: transparent;
+  transition: background-color .35s ease;
 }
 
 .button:hover {
@@ -15,7 +65,8 @@
 }
 
 .button:focus {
-  background-color: white;
+  outline: 0;
+  box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
 }
 
 .button:active {
@@ -28,143 +79,67 @@
 
 .button.button-primary {
   font-size: 0.833em;
+  font-weight: 600;
   text-decoration: none;
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
-  background-color: #0a78d1;
+  background-color: #db6f28;
   color: white;
   display: inline-block;
   cursor: pointer;
   border: transparent;
+  transition: background-color .35s ease;
 }
 
 .button.button-primary:hover {
-  background-color: #1a93f4;
+  background-color: #e28c54;
 }
 
 .button.button-primary:focus {
-  background-color: #1a93f4;
+  outline: 0;
+  box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
 }
 
 .button.button-primary:active {
-  background-color: #085ca0;
+  background-color: #b2591e;
 }
 
 .button.button-primary[disabled] {
-  background-color: #acd8fb;
+  background-color: #f8e4d7;
 }
 
-.button.button-warning {
+.button-inverse-primary {
   font-size: 0.833em;
-  text-decoration: none;
-  padding: 0.708em 1.375em;
-  border-radius: 1.375em;
-  background-color: #ffcc33;
-  color: white;
-  display: inline-block;
-  cursor: pointer;
-  border: transparent;
-}
-
-.button.button-warning:hover {
-  background-color: #ffd966;
-}
-
-.button.button-warning:focus {
-  background-color: #ffd966;
-}
-
-.button.button-warning:active {
-  background-color: #ffbf00;
-}
-
-.button.button-warning[disabled] {
-  background-color: white;
-}
-
-.button.button-success {
-  font-size: 0.833em;
-  text-decoration: none;
-  padding: 0.708em 1.375em;
-  border-radius: 1.375em;
-  background-color: #00aa54;
-  color: white;
-  display: inline-block;
-  cursor: pointer;
-  border: transparent;
-}
-
-.button.button-success:hover {
-  background-color: #00dd6d;
-}
-
-.button.button-success:focus {
-  background-color: #00dd6d;
-}
-
-.button.button-success:active {
-  background-color: #00773b;
-}
-
-.button.button-success[disabled] {
-  background-color: #77ffba;
-}
-
-.button.button-error {
-  font-size: 0.833em;
-  text-decoration: none;
-  padding: 0.708em 1.375em;
-  border-radius: 1.375em;
-  background-color: #c64750;
-  color: white;
-  display: inline-block;
-  cursor: pointer;
-  border: transparent;
-}
-
-.button.button-error:hover {
-  background-color: #d26e75;
-}
-
-.button.button-error:focus {
-  background-color: #d26e75;
-}
-
-.button.button-error:active {
-  background-color: #a6343c;
-}
-
-.button.button-error[disabled] {
-  background-color: #f6e3e4;
-}
-
-.button-inverse {
-  font-size: 0.833em;
+  font-weight: 600;
   text-decoration: none;
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
   background-color: white;
-  color: #0a78d1;
+  color: #db6f28;
   display: inline-block;
   cursor: pointer;
-  border: transparent;
-  border: 0.083em #0a78d1 solid;
+  border: 0.125em solid #db6f28;
+  transition: background-color .35s ease;
 }
 
-.button-inverse:hover {
-  background-color: white;
+.button-inverse-primary:hover {
+  color: #e28c54;
+  border-color: #e28c54;
 }
 
-.button-inverse:focus {
-  background-color: white;
+.button-inverse-primary:focus {
+  outline: 0;
+  box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
 }
 
-.button-inverse:active {
-  background-color: #e6e6e6;
+.button-inverse-primary:active {
+  color: #b2591e;
+  border-color: #b2591e;
 }
 
-.button-inverse[disabled] {
-  background-color: white;
+.button-inverse-primary[disabled] {
+  color: #f8e4d7;
+  border-color: #f8e4d7;
 }
 
 .img-responsive {
@@ -202,11 +177,11 @@ input:focus {
 }
 
 .panel {
-  border: 0.042em solid #dadde0;
+  border: 0.042em solid #ced6e3;
 }
 
 .panel .panel-header {
-  background-color: #f5f5f5;
+  background-color: #f3f3f3;
   color: #1f2227;
   padding: 0.833em;
 }
@@ -221,7 +196,7 @@ input:focus {
 }
 
 .panel .panel-body .panel-body-inner {
-  border-top: 0.042em solid #dadde0;
+  border-top: 0.042em solid #ced6e3;
   padding: 0.833em;
 }
 
@@ -350,6 +325,52 @@ input:focus {
 
 .h5p {
   font-family: 'Open Sans', sans-serif;
+  font-size: 0.917em;
+  /*
+* big-body: 0.917em (22px)
+* small-body: 0.833em (20px)
+*/
+}
+
+.h5p h1, .h5p h2, .h5p h3, .h5p h4, .h5p h5, .h5p h6 {
+  color: #1f2227;
+  font-weight: 300;
+}
+
+.h5p h2 {
+  font-size: 1.458em;
+}
+
+.h5p h3 {
+  font-size: 1.250em;
+}
+
+.h5p h4 {
+  font-size: 1.042em;
+  font-weight: 600;
+}
+
+.h5p h5 {
+  font-weight: 600;
+}
+
+.h5p h6 {
+  font-weight: 600;
+}
+
+.h5p small, .h5p .small {
+  color: #71757e;
+  font-size: 0.833em;
+}
+
+.h5p a {
+  color: #1f2227;
+  weight: 400;
+}
+
+.h5p .additional-information {
+  font-style: italic;
+  color: #71757e;
 }
 
 /*# sourceMappingURL=h5p-sdk.css.map*/
