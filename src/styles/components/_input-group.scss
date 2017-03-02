@@ -5,7 +5,7 @@
   border: 1px solid gray;
   overflow: hidden;
   border-radius: 50px;
-  @include box-shadow();
+  @include box-shadow(0, 0, 3px, 0, $c1, true);
 }
 
 input {

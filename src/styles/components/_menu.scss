@@ -1,8 +1,9 @@
+@import "../base/colors";
 @import "../base/variables";
 
 .h5p-menu {
-  border: 0.042em solid #dadde0;
-  background-color: #f5f5f5;
+  border: 0.042em solid $c2;
+  background-color: $c3;
   list-style: none;
   color: $text-dark;
   padding: 0;
