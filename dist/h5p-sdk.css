@@ -171,6 +171,7 @@ table {
   padding: 0.833em;
   font-size: 0.917em;
   border: 0.125em solid #ced6e3;
+  box-sizing: border-box;
 }
 
 .h5p .form-control::-webkit-input-placeholder {
@@ -196,16 +197,6 @@ table {
 .h5p .form-control:focus {
   outline: 0;
   box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
-}
-
-.h5p .input-group {
-  position: relative;
-}
-
-.h5p .input-group .input-group-addon {
-  position: absolute;
-  top: 0.5em;
-  right: 0;
 }
 
 .h5p .panel {

@@ -3,12 +3,14 @@
 @import "../base/mixins";
 
 .h5p {
+  /* Form control */
   .form-control {
     display: block;
     width: 100%;
     padding: $padding;
     font-size: $text-body-large;
     border: 0.125em solid $c2;
+    box-sizing: border-box;
 
     @include placeholder {
       color: $c2;
@@ -20,6 +22,17 @@
 
     &:focus {
       @include blueGlow
+    }
+  }
+
+  /* Input Group */
+  .input-group {
+    position: relative;
+
+    .input-group-addon {
+      position: absolute;
+      top: 0.5em;
+      right: 0;
     }
   }
 }
