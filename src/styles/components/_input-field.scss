@@ -1,5 +1,25 @@
+@import "../base/colors";
+@import "../base/variables";
+@import "../base/mixins";
+
 .h5p {
-  input {
-    
+  .form-control {
+    display: block;
+    width: 100%;
+    padding: $padding;
+    font-size: $text-body-large;
+    border: 0.125em solid $c2;
+
+    @include placeholder {
+      color: $c2;
+    }
+
+    &.form-control-rounded {
+      border-radius: 2em;
+    }
+
+    &:focus {
+      @include blueGlow
+    }
   }
 }

@@ -4,7 +4,7 @@
 
 
 @mixin message-level($background, $color) {
-  @include box-shadow(0.167em 0, 0, 0 $background, true);
+  @include box-shadow(0.167em 0, 0, 0, $background, true);
   background: rgba($background, 0.15);
 
   .button {
@@ -12,54 +12,56 @@
   }
 }
 
-.message {
-  margin: $padding 0;
-  padding: 1.250em;
-  text-align: right;
+.h5p {
+  .message {
+    margin: $padding 0;
+    padding: 1.250em;
+    text-align: right;
 
-  h3 {
-    font-size: $text-list-title;
-    color: $text-dark;
+    h3 {
+      font-size: $text-list-title;
+      color: $text-dark;
+    }
+
+    p {
+      font-size: $text-body-small;
+      color: $text-light;
+    }
+
+    .close {
+      display: none;
+    }
   }
 
-  p {
-    font-size: $text-body-small;
-    color: $text-light;
+  .info {
+    @include message-level($ac-success, $ac-success);
   }
 
-  .close {
-    display: none;
-  }
-}
-
-.info {
-  @include message-level($ac-success, $ac-success);
-}
-
-.success {
-  @include message-level($ac-warning, $text-dark);
-}
-
-.error {
-  @include message-level($ac-error, $ac-error);
-}
-
-.dismissible {
-  overflow: auto;
-
-  .message-content {
-    float: right;
+  .success {
+    @include message-level($ac-warning, $text-dark);
   }
 
-  .close {
-    display: block;
-    float: right;
-    padding-top: 1.250em;
-    padding-left: 1.250em;
+  .error {
+    @include message-level($ac-error, $ac-error);
   }
 
-  .button {
-    border: solid 1px;
-    background-color: transparent;
+  .dismissible {
+    overflow: auto;
+
+    .message-content {
+      float: right;
+    }
+
+    .close {
+      display: block;
+      float: right;
+      padding-top: 1.250em;
+      padding-left: 1.250em;
+    }
+
+    .button {
+      border: solid 1px;
+      background-color: transparent;
+    }
   }
 }

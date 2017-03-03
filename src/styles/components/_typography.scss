@@ -4,21 +4,30 @@
 .h5p {
   font-family: 'Open Sans', sans-serif;
   font-size: $text-body-large;
-
+  color: $text-dark;
 
   h1, h2, h3, h4, h5, h6 {
-    color: $text-dark;
+    font-family: inherit;
+    color: inherit;
     font-weight: 300;
+    line-height: 1.1;
+  }
+
+  h1, h2, h3 {
+    margin-top: $padding;
+    margin-bottom: $padding / 2;
+  }
+
+  h4, h5, h6 {
+    margin-top: $padding / 2;
+    margin-bottom: $padding / 2;
+    font-weight: 600;
   }
 
   h1 {
-
+    font-size: 1.733em;
   }
 
-  /*
-* big-body: 0.917em (22px)
-* small-body: 0.833em (20px)
-*/
   h2 {
     font-size: 1.458em;
   }
@@ -29,16 +38,16 @@
 
   h4 {
     font-size: 1.042em;
-    font-weight: 600;
   }
 
   h5 {
-    font-weight: 600;
+    font-size: 0.938em;
   }
 
   h6 {
-    font-weight: 600;
+    font-size: 0.875em;
   }
+
 
   small, .small {
     color: $text-light;
@@ -47,7 +56,7 @@
 
   a {
     color: $text-dark;
-    weight: 400;
+    font-weight: 400;
   }
 
   .additional-information {

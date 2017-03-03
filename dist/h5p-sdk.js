@@ -509,7 +509,7 @@ function init(element) {
 /* 4 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: \n  @include box-shadow(0.167em 0, 0, 0 $background, true);\n          ^\n      Mixin box-shadow is missing argument $color.\n      in /home/tomaj/code/joubel/h5p-sdk/src/styles/components/_message.scss (line 7, column 12)\n    at /home/tomaj/code/joubel/h5p-sdk/node_modules/webpack/lib/NormalModule.js:141:35\n    at /home/tomaj/code/joubel/h5p-sdk/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /home/tomaj/code/joubel/h5p-sdk/node_modules/loader-runner/lib/LoaderRunner.js:230:18\n    at context.callback (/home/tomaj/code/joubel/h5p-sdk/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (/home/tomaj/code/joubel/h5p-sdk/node_modules/sass-loader/lib/loader.js:51:13)\n    at Object.<anonymous> (/home/tomaj/code/joubel/h5p-sdk/node_modules/async/dist/async.js:2237:31)\n    at apply (/home/tomaj/code/joubel/h5p-sdk/node_modules/async/dist/async.js:20:25)\n    at Object.<anonymous> (/home/tomaj/code/joubel/h5p-sdk/node_modules/async/dist/async.js:56:12)\n    at Object.callback (/home/tomaj/code/joubel/h5p-sdk/node_modules/async/dist/async.js:843:16)\n    at options.error (/home/tomaj/code/joubel/h5p-sdk/node_modules/node-sass/lib/index.js:294:32)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 5 */

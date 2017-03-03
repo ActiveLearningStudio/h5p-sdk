@@ -1,29 +1,11 @@
-@import "../base/mixins";
+.h5p {
+  .input-group {
+    position: relative;
 
-.input-group {
-  display: flex;
-  border: 1px solid gray;
-  overflow: hidden;
-  border-radius: 50px;
-  @include box-shadow(0, 0, 3px, 0, $c1, true);
-}
-
-input {
-  padding: 0.833em;
-  font-size: 1em;
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  font-style: italic;
-  font-color: $c1;
-}
-
-input:focus {
-  outline: none;
-}
-
-.input-button {
-  min-width: 80px;
-  text-align: center;
-  cursor: pointer;
+    .input-group-addon {
+      position: absolute;
+      top: 0.5em;
+      right: 0;
+    }
+  }
 }

@@ -17,36 +17,94 @@ time, mark, audio, video {
   vertical-align: baseline;
 }
 */
-/*
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block;
 }
-body {
-  line-height: 1;
-}
+
 ol, ul {
   list-style: none;
 }
+
 blockquote, q {
   quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none;
 }
-*/
+
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-body {
-  font-size: 24px;
+.h5p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.917em;
+  color: #1f2227;
 }
 
-.button {
+.h5p h1, .h5p h2, .h5p h3, .h5p h4, .h5p h5, .h5p h6 {
+  font-family: inherit;
+  color: inherit;
+  font-weight: 300;
+  line-height: 1.1;
+}
+
+.h5p h1, .h5p h2, .h5p h3 {
+  margin-top: 0.833em;
+  margin-bottom: 0.4165em;
+}
+
+.h5p h4, .h5p h5, .h5p h6 {
+  margin-top: 0.4165em;
+  margin-bottom: 0.4165em;
+  font-weight: 600;
+}
+
+.h5p h1 {
+  font-size: 1.733em;
+}
+
+.h5p h2 {
+  font-size: 1.458em;
+}
+
+.h5p h3 {
+  font-size: 1.250em;
+}
+
+.h5p h4 {
+  font-size: 1.042em;
+}
+
+.h5p h5 {
+  font-size: 0.938em;
+}
+
+.h5p h6 {
+  font-size: 0.875em;
+}
+
+.h5p small, .h5p .small {
+  color: #71757e;
+  font-size: 0.833em;
+}
+
+.h5p a {
+  color: #1f2227;
+  font-weight: 400;
+}
+
+.h5p .additional-information {
+  font-style: italic;
+  color: #71757e;
+}
+
+.h5p .button {
   font-size: 0.833em;
   font-weight: 600;
   text-decoration: none;
@@ -60,119 +118,132 @@ body {
   transition: background-color .35s ease;
 }
 
-.button:focus {
+.h5p .button:focus {
   outline: 0;
   box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
 }
 
-.button.button-primary {
+.h5p .button.button-primary {
   background-color: #0a78d1;
   color: white;
 }
 
-.button.button-primary:hover {
+.h5p .button.button-primary:hover {
   background-color: #1a93f4;
 }
 
-.button.button-primary:active {
+.h5p .button.button-primary:active {
   background-color: #085ca0;
 }
 
-.button.button-primary[disabled] {
+.h5p .button.button-primary[disabled] {
   background-color: #acd8fb;
 }
 
-.button.button-inverse-primary {
+.h5p .button.button-inverse-primary {
   background-color: white;
   color: #0a78d1;
   border: 0.125em solid #0a78d1;
 }
 
-.button.button-inverse-primary:hover {
+.h5p .button.button-inverse-primary:hover {
   color: #1a93f4;
   border-color: #1a93f4;
 }
 
-.button.button-inverse-primary:active {
+.h5p .button.button-inverse-primary:active {
   color: #085ca0;
   border-color: #085ca0;
 }
 
-.button.button-inverse-primary[disabled] {
+.h5p .button.button-inverse-primary[disabled] {
   color: #acd8fb;
   border-color: #acd8fb;
 }
 
-.img-responsive {
+.h5p .img-responsive {
   max-width: 100%;
 }
 
-.input-group {
-  display: flex;
-  border: 1px solid gray;
-  overflow: hidden;
-  border-radius: 50px;
-  -webkit-box-shadow: inset 0 0 3px, 0 #697585;
-  -moz-box-shadow: inset 0 0 3px, 0 #697585;
-  box-shadow: inset 0 0 3px, 0, #697585;
-}
-
-input {
-  padding: 0.833em;
-  font-size: 1em;
+.h5p .form-control {
+  display: block;
   width: 100%;
-  border: none;
-  background-color: transparent;
-  font-style: italic;
-  font-color: #697585;
+  padding: 0.833em;
+  font-size: 0.917em;
+  border: 0.125em solid #ced6e3;
 }
 
-input:focus {
-  outline: none;
+.h5p .form-control::-webkit-input-placeholder {
+  color: #ced6e3;
 }
 
-.input-button {
-  min-width: 80px;
-  text-align: center;
-  cursor: pointer;
+.h5p .form-control:-moz-placeholder {
+  color: #ced6e3;
 }
 
-.panel {
+.h5p .form-control::-moz-placeholder {
+  color: #ced6e3;
+}
+
+.h5p .form-control:-ms-input-placeholder {
+  color: #ced6e3;
+}
+
+.h5p .form-control.form-control-rounded {
+  border-radius: 2em;
+}
+
+.h5p .form-control:focus {
+  outline: 0;
+  box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
+}
+
+.h5p .input-group {
+  position: relative;
+}
+
+.h5p .input-group .input-group-addon {
+  position: absolute;
+  top: 0.5em;
+  right: 0;
+}
+
+.h5p .panel {
   border: 0.042em solid #ced6e3;
 }
 
-.panel .panel-header {
+.h5p .panel .panel-header {
   background-color: #f3f3f3;
   color: #1f2227;
   padding: 0.833em;
 }
 
-.panel .panel-header[aria-expanded] {
+.h5p .panel .panel-header[aria-expanded] {
   cursor: pointer;
 }
 
-.panel .panel-body {
+.h5p .panel .panel-body {
   overflow: hidden;
 }
 
-.panel .panel-body[aria-hidden="true"] {
+.h5p .panel .panel-body[aria-hidden="true"] {
   display: none;
 }
 
-.panel .panel-body .panel-body-inner {
+.h5p .panel .panel-body .panel-body-inner {
   border-top: 0.042em solid #ced6e3;
   padding: 0.833em;
 }
 
-.panel-group .panel:not(:first-child) {
+.h5p .panel-group .panel:not(:first-child) {
   margin-top: -1px;
 }
 
-.tab-panel {
+.h5p .tab-panel {
   border: 0.042em solid #ced6e3;
 }
 
-.tab-panel [role="tablist"] {
+.h5p .tab-panel [role="tablist"] {
   background-color: #f3f3f3;
   list-style: none;
   padding: 0;
@@ -180,7 +251,7 @@ input:focus {
   border-bottom: 0.042em solid #ced6e3;
 }
 
-.tab-panel [role="tab"] {
+.h5p .tab-panel [role="tab"] {
   display: inline-block;
   padding: 0.833em;
   text-decoration: none;
@@ -188,21 +259,21 @@ input:focus {
   cursor: pointer;
 }
 
-.tab-panel [role="tab"][aria-selected="true"] {
+.h5p .tab-panel [role="tab"][aria-selected="true"] {
   -webkit-box-shadow: inset 0 -5px 0, 0 #0a78d1;
   -moz-box-shadow: inset 0 -5px 0, 0 #0a78d1;
   box-shadow: inset 0 -5px 0, 0, #0a78d1;
 }
 
-.tab-panel [role="tabpanel"] .tab-panel-inner {
+.h5p .tab-panel [role="tabpanel"] .tab-panel-inner {
   padding: 0.833em;
 }
 
-.tab-panel [role="tabpanel"][aria-hidden="true"] {
+.h5p .tab-panel [role="tabpanel"][aria-hidden="true"] {
   display: none;
 }
 
-.h5p-menu {
+.h5p .h5p-menu {
   border: 0.042em solid #ced6e3;
   background-color: #f3f3f3;
   list-style: none;
@@ -211,132 +282,88 @@ input:focus {
   margin: 0;
 }
 
-.h5p-menu [role="menuitem"] {
+.h5p .h5p-menu [role="menuitem"] {
   display: inline-block;
   padding: 0.833em;
   text-decoration: none;
   cursor: pointer;
 }
 
-.h5p-menu [role="menuitem"][aria-selected="true"] {
+.h5p .h5p-menu [role="menuitem"][aria-selected="true"] {
   box-shadow: inset 0 -5px #0a78d1;
 }
 
-.message {
+.h5p .message {
   margin: 0.833em 0;
   padding: 1.250em;
   text-align: right;
 }
 
-.message h3 {
+.h5p .message h3 {
   font-size: 1.042em;
   color: #1f2227;
 }
 
-.message p {
+.h5p .message p {
   font-size: 0.833em;
   color: #71757e;
 }
 
-.message .close {
+.h5p .message .close {
   display: none;
 }
 
-.info {
+.h5p .info {
+  -webkit-box-shadow: 0.167em 0 0 0, #00aa54, true;
+  -moz-box-shadow: 0.167em 0 0 0, #00aa54, true;
+  box-shadow: 0.167em 0 0 0, #00aa54, true;
   background: rgba(0, 170, 84, 0.15);
-  box-shadow: inset 0.167em 0 #00aa54;
 }
 
-.info .button {
+.h5p .info .button {
   color: #00aa54;
 }
 
-.success {
+.h5p .success {
+  -webkit-box-shadow: 0.167em 0 0 0, #ffcc33, true;
+  -moz-box-shadow: 0.167em 0 0 0, #ffcc33, true;
+  box-shadow: 0.167em 0 0 0, #ffcc33, true;
   background: rgba(255, 204, 51, 0.15);
-  box-shadow: inset 0.167em 0 #ffcc33;
 }
 
-.success .button {
+.h5p .success .button {
   color: #1f2227;
 }
 
-.error {
+.h5p .error {
+  -webkit-box-shadow: 0.167em 0 0 0, #c64750, true;
+  -moz-box-shadow: 0.167em 0 0 0, #c64750, true;
+  box-shadow: 0.167em 0 0 0, #c64750, true;
   background: rgba(198, 71, 80, 0.15);
-  box-shadow: inset 0.167em 0 #c64750;
 }
 
-.error .button {
+.h5p .error .button {
   color: #c64750;
 }
 
-.dismissible {
+.h5p .dismissible {
   overflow: auto;
 }
 
-.dismissible .message-content {
+.h5p .dismissible .message-content {
   float: right;
 }
 
-.dismissible .close {
+.h5p .dismissible .close {
   display: block;
   float: right;
   padding-top: 1.250em;
   padding-left: 1.250em;
 }
 
-.dismissible .button {
+.h5p .dismissible .button {
   border: solid 1px;
   background-color: transparent;
-}
-
-.h5p {
-  font-family: 'Open Sans', sans-serif;
-  font-size: 0.917em;
-  /*
-* big-body: 0.917em (22px)
-* small-body: 0.833em (20px)
-*/
-}
-
-.h5p h1, .h5p h2, .h5p h3, .h5p h4, .h5p h5, .h5p h6 {
-  color: #1f2227;
-  font-weight: 300;
-}
-
-.h5p h2 {
-  font-size: 1.458em;
-}
-
-.h5p h3 {
-  font-size: 1.250em;
-}
-
-.h5p h4 {
-  font-size: 1.042em;
-  font-weight: 600;
-}
-
-.h5p h5 {
-  font-weight: 600;
-}
-
-.h5p h6 {
-  font-weight: 600;
-}
-
-.h5p small, .h5p .small {
-  color: #71757e;
-  font-size: 0.833em;
-}
-
-.h5p a {
-  color: #1f2227;
-  weight: 400;
-}
-
-.h5p .additional-information {
-  font-style: italic;
-  color: #71757e;
 }
 
 /*# sourceMappingURL=h5p-sdk.css.map*/

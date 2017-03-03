@@ -40,29 +40,30 @@
   }
 }
 
-.button {
-  font-size: $text-body-small;
-  font-weight: 600;
-  text-decoration: none;
-  padding: 0.708em 1.375em;
-  border-radius: 1.375em;
-  background-color: $c3;
-  color: $text-dark;
-  display: inline-block;
-  cursor: pointer;
-  border: transparent;
-  transition: background-color .35s ease;
+.h5p {
+  .button {
+    font-size: $text-body-small;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.708em 1.375em;
+    border-radius: 1.375em;
+    background-color: $c3;
+    color: $text-dark;
+    display: inline-block;
+    cursor: pointer;
+    border: transparent;
+    transition: background-color .35s ease;
 
-  &:focus {
-    @include blueGlow
-  }
+    &:focus {
+      @include blueGlow
+    }
 
-  &.button-primary {
-    @include button-filled($ac1, white);
-  }
+    &.button-primary {
+      @include button-filled($ac1, white);
+    }
 
-  &.button-inverse-primary {
-    @include button-inverse(white, $ac1);
+    &.button-inverse-primary {
+      @include button-inverse(white, $ac1);
+    }
   }
 }
-

@@ -13,7 +13,7 @@
   </style>
 </head>
 <body>
-<div class="h5p" style="max-width: 1000px; display: block; margin-left: auto; margin-right: auto;">
+<div class="h5p" style="max-width: 1000px; display: block; margin-left: auto; margin-right: auto; font-size: 24px;">
   <h2>Typography</h2>
 
   <!-- TYPOGRAPHY -->
@@ -42,16 +42,32 @@
   <button class="button">Use</button>
 
   <h5>Colored buttons</h5>
-  <span class="button button-primary" tabindex="0">Use</span>
+  <a class="button button-primary" tabindex="0">Use</a>
   <button class="button button-primary" disabled>Use</button>
 
   <h5>Inverse</h5>
-  <button class="button button-inverse-primary" tabindex="0">Install</button>
+  <a class="button button-inverse-primary" tabindex="0">Install</a>
   <button class="button button-inverse-primary" disabled>Install</button>
 
   <h5>Link</h5>
 
   <a href="#">I am a link</a>
+
+  <!-- INPUT -->
+  <h2>Input fields</h2>
+
+  <p>
+    <input class="form-control" placeholder="Arne Banan" tabindex="0" />
+  </p>
+  <p>
+    <input type="email" class="form-control form-control-rounded" placeholder="arne@example.com" tabindex="0" />
+  </p>
+
+  <h5>Input field group</h5>
+  <div class="input-group">
+    <input type="text" class="form-control form-control-rounded" placeholder="Search for Content Types">
+    <div class="input-group-addon">&#x2753;</div>
+  </div>
 
   <!-- PANEL -->
   <h2>Panels</h2>
@@ -109,12 +125,6 @@
       <li role="menuitem">Recomended</li>
     </ul>
   </nav>
-
-  <h2>Input Field</h2>
-  <div class="input-group shadow">
-    <input type="text" class="hub-search" name="" value="" placeholder="Search for Content Types">
-    <div class="input-button">search</div>
-  </div>
 
   <h1>Messages</h3>
   <div class="message info simple">

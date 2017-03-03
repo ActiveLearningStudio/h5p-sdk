@@ -1,35 +1,37 @@
 @import "../base/colors";
 @import "../base/variables";
 
-.panel {
-  border: 0.042em solid $c2;
+.h5p {
+  .panel {
+    border: 0.042em solid $c2;
 
-  .panel-header {
-    background-color: $c3;
-    color: $text-dark;
-    padding: $padding;
-
-    &[aria-expanded] {
-      cursor: pointer;
-    }
-  }
-
-  .panel-body {
-    &[aria-hidden="true"] {
-      display: none;
-    }
-
-    overflow: hidden;
-
-    .panel-body-inner {
-      border-top: 0.042em solid $c2;
+    .panel-header {
+      background-color: $c3;
+      color: $text-dark;
       padding: $padding;
+
+      &[aria-expanded] {
+        cursor: pointer;
+      }
+    }
+
+    .panel-body {
+      &[aria-hidden="true"] {
+        display: none;
+      }
+
+      overflow: hidden;
+
+      .panel-body-inner {
+        border-top: 0.042em solid $c2;
+        padding: $padding;
+      }
     }
   }
-}
 
-.panel-group {
-  .panel:not(:first-child) {
-    margin-top: -1px;
+  .panel-group {
+    .panel:not(:first-child) {
+      margin-top: -1px;
+    }
   }
 }
