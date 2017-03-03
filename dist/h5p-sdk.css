@@ -181,18 +181,22 @@ table {
 
 .h5p .form-control::-webkit-input-placeholder {
   color: #ced6e3;
+  font-style: italic;
 }
 
 .h5p .form-control:-moz-placeholder {
   color: #ced6e3;
+  font-style: italic;
 }
 
 .h5p .form-control::-moz-placeholder {
   color: #ced6e3;
+  font-style: italic;
 }
 
 .h5p .form-control:-ms-input-placeholder {
   color: #ced6e3;
+  font-style: italic;
 }
 
 .h5p .form-control.form-control-rounded {
@@ -200,8 +204,8 @@ table {
 }
 
 .h5p .form-control:focus {
-  outline: 0;
-  box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
+  border-color: #7bc1f9;
+  outline: none;
 }
 
 .h5p .input-group {

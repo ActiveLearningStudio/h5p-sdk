@@ -14,6 +14,7 @@
 
     @include placeholder {
       color: $c2;
+      font-style: italic;
     }
 
     &.form-control-rounded {
@@ -21,7 +22,8 @@
     }
 
     &:focus {
-      @include blueGlow
+      border-color: lighten($ac1, 30%);
+      outline: none;
     }
   }
 
