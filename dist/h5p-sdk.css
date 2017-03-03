@@ -293,77 +293,81 @@ table {
   box-shadow: inset 0 -5px #0a78d1;
 }
 
-.h5p .message {
+.message {
   margin: 0.833em 0;
   padding: 1.250em;
   text-align: right;
 }
 
-.h5p .message h3 {
+.message h3 {
   font-size: 1.042em;
   color: #1f2227;
 }
 
-.h5p .message p {
+.message p {
   font-size: 0.833em;
   color: #71757e;
 }
 
-.h5p .message .close {
+.message .close {
   display: none;
 }
 
-.h5p .info {
+.info {
   -webkit-box-shadow: 0.167em 0 0 0, #00aa54, true;
   -moz-box-shadow: 0.167em 0 0 0, #00aa54, true;
   box-shadow: 0.167em 0 0 0, #00aa54, true;
   background: rgba(0, 170, 84, 0.15);
+  box-shadow: inset 0.167em 0 #00aa54;
 }
 
-.h5p .info .button {
+.info .button {
   color: #00aa54;
+  border: solid 1px;
+  background-color: transparent;
 }
 
-.h5p .success {
+.success {
   -webkit-box-shadow: 0.167em 0 0 0, #ffcc33, true;
   -moz-box-shadow: 0.167em 0 0 0, #ffcc33, true;
   box-shadow: 0.167em 0 0 0, #ffcc33, true;
   background: rgba(255, 204, 51, 0.15);
+  box-shadow: inset 0.167em 0 #ffcc33;
 }
 
-.h5p .success .button {
+.success .button {
   color: #1f2227;
+  border: solid 1px;
+  background-color: transparent;
 }
 
-.h5p .error {
+.error {
   -webkit-box-shadow: 0.167em 0 0 0, #c64750, true;
   -moz-box-shadow: 0.167em 0 0 0, #c64750, true;
   box-shadow: 0.167em 0 0 0, #c64750, true;
   background: rgba(198, 71, 80, 0.15);
+  box-shadow: inset 0.167em 0 #c64750;
 }
 
-.h5p .error .button {
+.error .button {
   color: #c64750;
+  border: solid 1px;
+  background-color: transparent;
 }
 
-.h5p .dismissible {
+.dismissible {
   overflow: auto;
 }
 
-.h5p .dismissible .message-content {
+.dismissible .message-content {
   float: right;
 }
 
-.h5p .dismissible .close {
+.dismissible .close {
   display: block;
   float: right;
   padding-top: 1.250em;
   padding-left: 1.250em;
-}
-
-.h5p .dismissible .button {
-  border: solid 1px;
-  background-color: transparent;
 }
 
 /*# sourceMappingURL=h5p-sdk.css.map*/

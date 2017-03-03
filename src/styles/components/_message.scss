@@ -9,59 +9,57 @@
 
   .button {
     color: $color;
+    border: solid 1px;
+    background-color: transparent;
   }
 }
 
-.h5p {
-  .message {
-    margin: $padding 0;
-    padding: 1.250em;
-    text-align: right;
+.message {
+  margin: $padding 0;
+  padding: 1.250em;
+  text-align: right;
 
-    h3 {
-      font-size: $text-list-title;
-      color: $text-dark;
-    }
-
-    p {
-      font-size: $text-body-small;
-      color: $text-light;
-    }
-
-    .close {
-      display: none;
-    }
+  h3 {
+    font-size: $text-list-title;
+    color: $text-dark;
   }
 
-  .info {
-    @include message-level($ac-success, $ac-success);
+  p {
+    font-size: $text-body-small;
+    color: $text-light;
   }
 
-  .success {
-    @include message-level($ac-warning, $text-dark);
+  .close {
+    display: none;
+  }
+}
+
+.info {
+  @include message-level($ac-success, $ac-success);
+  box-shadow: inset 0.167em 0 $ac-success;
+}
+
+.success {
+  @include message-level($ac-warning, $text-dark);
+  box-shadow: inset 0.167em 0 $ac-warning;
+}
+
+.error {
+  @include message-level($ac-error, $ac-error);
+  box-shadow: inset 0.167em 0 $ac-error;
+}
+
+.dismissible {
+  overflow: auto;
+
+  .message-content {
+    float: right;
   }
 
-  .error {
-    @include message-level($ac-error, $ac-error);
-  }
-
-  .dismissible {
-    overflow: auto;
-
-    .message-content {
-      float: right;
-    }
-
-    .close {
-      display: block;
-      float: right;
-      padding-top: 1.250em;
-      padding-left: 1.250em;
-    }
-
-    .button {
-      border: solid 1px;
-      background-color: transparent;
-    }
+  .close {
+    display: block;
+    float: right;
+    padding-top: 1.250em;
+    padding-left: 1.250em;
   }
 }
