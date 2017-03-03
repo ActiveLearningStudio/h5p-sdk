@@ -211,7 +211,7 @@ table {
 .h5p .input-group .input-group-addon {
   position: absolute;
   top: 0.5em;
-  right: 0;
+  right: 1em;
 }
 
 .h5p .panel {
@@ -285,7 +285,7 @@ table {
   list-style: none;
   color: #1f2227;
   padding: 0;
-  margin: 0;
+  margin: 0 0 0.833em 0;
 }
 
 .h5p .h5p-menu [role="menuitem"] {

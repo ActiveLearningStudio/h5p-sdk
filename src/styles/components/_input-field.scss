@@ -7,7 +7,7 @@
   .form-control {
     display: block;
     width: 100%;
-    padding: $padding;
+    padding: $gutter;
     font-size: $text-body-large;
     border: 0.125em solid $c2;
     box-sizing: border-box;
@@ -32,7 +32,7 @@
     .input-group-addon {
       position: absolute;
       top: 0.5em;
-      right: 0;
+      right: 1em;
     }
   }
 }

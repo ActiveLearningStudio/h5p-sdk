@@ -14,13 +14,13 @@
   }
 
   h1, h2, h3 {
-    margin-top: $padding;
-    margin-bottom: $padding / 2;
+    margin-top: $gutter;
+    margin-bottom: $gutter / 2;
   }
 
   h4, h5, h6 {
-    margin-top: $padding / 2;
-    margin-bottom: $padding / 2;
+    margin-top: $gutter / 2;
+    margin-bottom: $gutter / 2;
     font-weight: 600;
   }
 
