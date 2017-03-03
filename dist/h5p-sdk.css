@@ -267,8 +267,8 @@ table {
 
 .h5p .tab-panel [role="tab"][aria-selected="true"] {
   -webkit-box-shadow: inset 0 -5px 0, 0 #0a78d1;
-  -moz-box-shadow: inset 0 -5px 0, 0 #0a78d1;
-  box-shadow: inset 0 -5px 0, 0, #0a78d1;
+  -moz-box-shadow: inset 0 -5px 0 0 #0a78d1;
+  box-shadow: inset 0 -5px 0 0 #0a78d1;
 }
 
 .h5p .tab-panel [role="tabpanel"] .tab-panel-inner {
@@ -320,9 +320,9 @@ table {
 }
 
 .info {
-  -webkit-box-shadow: 0.167em 0 0 0, #00aa54, true;
-  -moz-box-shadow: 0.167em 0 0 0, #00aa54, true;
-  box-shadow: 0.167em 0 0 0, #00aa54, true;
+  -webkit-box-shadow: 0.167em 0 0 0 #00aa54 true;
+  -moz-box-shadow: 0.167em 0 0 0 #00aa54 true;
+  box-shadow: 0.167em 0 0 0 #00aa54 true;
   background: rgba(0, 170, 84, 0.15);
   box-shadow: inset 0.167em 0 #00aa54;
 }
@@ -334,9 +334,9 @@ table {
 }
 
 .success {
-  -webkit-box-shadow: 0.167em 0 0 0, #ffcc33, true;
-  -moz-box-shadow: 0.167em 0 0 0, #ffcc33, true;
-  box-shadow: 0.167em 0 0 0, #ffcc33, true;
+  -webkit-box-shadow: 0.167em 0 0 0 #ffcc33 true;
+  -moz-box-shadow: 0.167em 0 0 0 #ffcc33 true;
+  box-shadow: 0.167em 0 0 0 #ffcc33 true;
   background: rgba(255, 204, 51, 0.15);
   box-shadow: inset 0.167em 0 #ffcc33;
 }
@@ -348,9 +348,9 @@ table {
 }
 
 .error {
-  -webkit-box-shadow: 0.167em 0 0 0, #c64750, true;
-  -moz-box-shadow: 0.167em 0 0 0, #c64750, true;
-  box-shadow: 0.167em 0 0 0, #c64750, true;
+  -webkit-box-shadow: 0.167em 0 0 0 #c64750 true;
+  -moz-box-shadow: 0.167em 0 0 0 #c64750 true;
+  box-shadow: 0.167em 0 0 0 #c64750 true;
   background: rgba(198, 71, 80, 0.15);
   box-shadow: inset 0.167em 0 #c64750;
 }
