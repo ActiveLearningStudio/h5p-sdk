@@ -263,18 +263,42 @@ table {
   border-bottom: 0.042em solid #ced6e3;
 }
 
+.h5p .tab-panel [role="tablist"] > span {
+  display: block;
+  height: 7px;
+  background: #0a78d1;
+  position: relative;
+  transition: all .5s ease;
+}
+
 .h5p .tab-panel [role="tab"] {
   display: inline-block;
   padding: 0.833em;
   text-decoration: none;
+  text-align: center;
   color: #1f2227;
   cursor: pointer;
+  transition: all .5s ease;
 }
 
-.h5p .tab-panel [role="tab"][aria-selected="true"] {
-  -webkit-box-shadow: inset 0 -5px 0, 0 #0a78d1;
-  -moz-box-shadow: inset 0 -5px 0 0 #0a78d1;
-  box-shadow: inset 0 -5px 0 0 #0a78d1;
+> .h5p .tab-panel [role="tab"]:nth-child(1) {
+  width: 8em;
+}
+
+> .h5p .tab-panel [role="tab"]:nth-child(2) {
+  width: 3em;
+}
+
+.h5p .tab-panel [role="tab"]:nth-child(1) ~ span,
+.h5p .tab-panel [role="tab"]:nth-child(1)[aria-selected="true"] ~ span {
+  width: 200px;
+  right: 0;
+}
+
+.h5p .tab-panel [role="tab"]:nth-child(2) ~ span,
+.h5p .tab-panel [role="tab"]:nth-child(2)[aria-selected="true"] ~ span {
+  width: 4em;
+  right: -230px;
 }
 
 .h5p .tab-panel [role="tabpanel"] .tab-panel-inner {
