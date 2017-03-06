@@ -316,7 +316,7 @@ table {
   visibility: visible;
   opacity: 1;
   height: auto;
-  transition: visibility 0s, opacity 1s linear;
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .h5p .h5p-menu {
