@@ -177,6 +177,7 @@ table {
   font-size: 0.917em;
   border: 0.125em solid #ced6e3;
   box-sizing: border-box;
+  font-weight: 600;
 }
 
 .h5p .form-control::-webkit-input-placeholder {
@@ -205,6 +206,7 @@ table {
 
 .h5p .form-control:focus {
   border-color: #7bc1f9;
+  box-shadow: inset 0px 0px 0.8em -0.125em rgba(0, 0, 0, 0.4);
   outline: none;
 }
 

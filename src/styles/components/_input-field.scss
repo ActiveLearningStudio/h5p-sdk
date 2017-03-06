@@ -11,6 +11,7 @@
     font-size: $text-body-large;
     border: 0.125em solid $c2;
     box-sizing: border-box;
+    font-weight: 600;
 
     @include placeholder {
       color: $c2;
@@ -23,6 +24,7 @@
 
     &:focus {
       border-color: lighten($ac1, 30%);
+      box-shadow: inset 0px 0px 0.8em -0.125em rgba(0,0,0,0.4);
       outline: none;
     }
   }
