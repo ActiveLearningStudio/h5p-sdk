@@ -1,0 +1,27 @@
+.h5p {
+  .carousel {
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    position: relative;
+
+    ul {
+      width: 140%;
+      padding: 0;
+      margin: 0 auto;
+      word-wrap: break-word;
+    }
+
+    li {
+      width: 20%;
+      padding: 0;
+      margin: 0;
+      list-style-type: none;
+      float: left;
+    }
+
+    img {
+      max-width: 100%;
+    }
+  }
+}
