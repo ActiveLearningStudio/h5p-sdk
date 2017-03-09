@@ -1,6 +1,6 @@
 # H5P SDK
 
-System development kit containing resources for building H5P releated UIs.
+Software development kit containing resources for building H5P releated UIs.
 
 ## Building
 

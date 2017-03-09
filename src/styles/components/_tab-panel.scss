@@ -11,17 +11,43 @@
       padding: 0;
       margin: 0;
       border-bottom: 0.042em solid $c2;
+
+      > span {
+      	display: block;
+      	height: 7px;
+      	background: $ac1;
+      	position: relative;
+        transition: all .5s ease;
+      }
     }
 
     [role="tab"] {
       display: inline-block;
       padding: $gutter;
       text-decoration: none;
+      text-align: center;
       color: $text-dark;
       cursor: pointer;
+      transition: all .5s ease;
 
-      &[aria-selected="true"] {
-        @include box-shadow(0, -5px, 0, 0, $ac1, true);
+      > &:nth-child(1) {
+        width: 8em;
+      }
+
+      > &:nth-child(2) {
+        width: 3em;
+      }
+
+      &:nth-child(1) ~ span,
+      &:nth-child(1)[aria-selected="true"] ~ span {
+        width: 200px;
+        right: 0;
+      }
+
+      &:nth-child(2) ~ span,
+      &:nth-child(2)[aria-selected="true"] ~ span {
+        width: 4em;
+        right: -230px;
       }
     }
 
@@ -41,7 +67,7 @@
         visibility: visible;
         opacity: 1;
         height: auto;
-        transition: visibility 0s, opacity 1s linear;
+        transition: visibility 0s, opacity 0.5s linear;
       }
     }
   }
