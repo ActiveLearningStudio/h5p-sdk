@@ -165,6 +165,32 @@ table {
   max-width: 100%;
 }
 
+.h5p .carousel {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+}
+
+.h5p .carousel ul {
+  width: 140%;
+  padding: 0;
+  margin: 0 auto;
+  word-wrap: break-word;
+}
+
+.h5p .carousel li {
+  width: 20%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  float: left;
+}
+
+.h5p .carousel img {
+  max-width: 100%;
+}
+
 .h5p {
   /* Form control */
   /* Input Group */
