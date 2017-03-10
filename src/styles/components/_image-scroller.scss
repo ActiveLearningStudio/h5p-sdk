@@ -1,15 +1,30 @@
+@import "../base/colors";
+@import "../base/variables";
+
+$size-button: 1.3em;
+$color-button: rgba($c1, .8);
+
 .h5p {
   .carousel {
     width: 100%;
     box-sizing: border-box;
-    overflow: hidden;
     position: relative;
 
+    [aria-hidden="true"] {
+      display: none;
+    }
+
+    .scroller {
+      overflow: hidden;
+      width: 100%;
+    }
+
     ul {
-      width: 140%;
+      width: 100%;
       padding: 0;
       margin: 0 auto;
       word-wrap: break-word;
+      transition: margin 0.3s ease-out;
     }
 
     li {
@@ -18,10 +33,52 @@
       margin: 0;
       list-style-type: none;
       float: left;
+      box-sizing: border-box;
+
+      &:not(:first-child) {
+        img {
+          margin-left: ($gutter / 4);
+        }
+      }
+
+      &:not(:last-child) {
+        img {
+          margin-right: ($gutter / 4);
+        }
+      }
     }
 
     img {
       max-width: 100%;
+      cursor: pointer;
+    }
+
+    .carousel-button {
+      background-color: $color-button;
+      position: absolute;
+      top: 30%;
+      color: white;
+      height: $size-button;
+      width: $size-button;
+      border-radius: $size-button;
+      cursor: pointer;
+
+      &:hover {
+        background-color: lighten($color-button, 10%);
+      }
+
+      &[disabled] {
+        background-color: lighten($color-button, 30%);
+        cursor: default;
+      }
+
+      &.previous {
+        left: (-$gutter / 2);
+      }
+
+      &.next {
+        right: (-$gutter / 2);
+      }
     }
   }
 }

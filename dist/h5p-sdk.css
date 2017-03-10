@@ -156,7 +156,7 @@ table {
   border-color: #085ca0;
 }
 
-.h5p .button.button-inverse-primary[disabled] {
+.h5p .button.button-inverse-primary[disabled], .h5p .button.button-inverse-primary[aria-disabled] {
   color: #acd8fb;
   border-color: #acd8fb;
 }
@@ -168,15 +168,24 @@ table {
 .h5p .carousel {
   width: 100%;
   box-sizing: border-box;
-  overflow: hidden;
   position: relative;
 }
 
+.h5p .carousel [aria-hidden="true"] {
+  display: none;
+}
+
+.h5p .carousel .scroller {
+  overflow: hidden;
+  width: 100%;
+}
+
 .h5p .carousel ul {
-  width: 140%;
+  width: 100%;
   padding: 0;
   margin: 0 auto;
   word-wrap: break-word;
+  transition: margin 0.3s ease-out;
 }
 
 .h5p .carousel li {
@@ -185,10 +194,48 @@ table {
   margin: 0;
   list-style-type: none;
   float: left;
+  box-sizing: border-box;
+}
+
+.h5p .carousel li:not(:first-child) img {
+  margin-left: 0.20825em;
+}
+
+.h5p .carousel li:not(:last-child) img {
+  margin-right: 0.20825em;
 }
 
 .h5p .carousel img {
   max-width: 100%;
+  cursor: pointer;
+}
+
+.h5p .carousel .carousel-button {
+  background-color: rgba(105, 117, 133, 0.8);
+  position: absolute;
+  top: 30%;
+  color: white;
+  height: 1.3em;
+  width: 1.3em;
+  border-radius: 1.3em;
+  cursor: pointer;
+}
+
+.h5p .carousel .carousel-button:hover {
+  background-color: rgba(132, 143, 158, 0.8);
+}
+
+.h5p .carousel .carousel-button[disabled] {
+  background-color: rgba(189, 195, 203, 0.8);
+  cursor: default;
+}
+
+.h5p .carousel .carousel-button.previous {
+  left: -0.4165em;
+}
+
+.h5p .carousel .carousel-button.next {
+  right: -0.4165em;
 }
 
 .h5p {

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 5);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -379,6 +379,111 @@ var _functional = __webpack_require__(0);
 /**
  * @type {function}
  */
+var disable = (0, _elements.setAttribute)('disabled', '');
+
+/**
+ * @type {function}
+ */
+var enable = (0, _elements.removeAttribute)('disabled');
+
+/**
+ * @param {HTMLElement} element
+ * @param {boolean} enabled
+ */
+var toggleEnabled = function toggleEnabled(element, enabled) {
+  return (enabled ? enable : disable)(element);
+};
+
+/**
+ * @type {function}
+ */
+var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
+
+/**
+ * @type {function}
+ */
+var show = (0, _elements.setAttribute)('aria-hidden', 'false');
+
+/**
+ * @type {function}
+ */
+var isDisabled = (0, _elements.hasAttribute)('disabled');
+/**
+ * Initializes a panel
+ *
+ * @param {HTMLElement} element
+ * @return {HTMLElement}
+ */
+function init(element) {
+  var imagesShown = 5;
+  var prevButton = element.querySelector('.previous');
+  var nextButton = element.querySelector('.next');
+  var list = element.querySelector('ul');
+  var items = element.querySelectorAll('li');
+  var imageCount = list.childElementCount; // 7
+  var totalListWidth = 100 / imagesShown * imageCount;
+  var listItemWidth = 100 / imageCount;
+  var position = 0;
+
+  // initialize size
+  list.style.width = totalListWidth + '%';
+  items.forEach(function (element) {
+    return element.style.width = listItemWidth + '%';
+  });
+
+  // update function
+  var updatePosition = function updatePosition() {
+    list.style.marginLeft = position * (100 / imagesShown) + '%';
+
+    toggleEnabled(prevButton, position > imagesShown - imageCount);
+    toggleEnabled(nextButton, position < 0);
+  };
+
+  // show buttons if overflowing
+  if (imageCount > imagesShown) {
+    show(prevButton);
+    show(nextButton);
+  }
+
+  prevButton.addEventListener('click', function (event) {
+    if (!isDisabled(event.target)) {
+      position--;
+      updatePosition();
+    }
+  });
+
+  nextButton.addEventListener('click', function (event) {
+    if (!isDisabled(event.target)) {
+      position++;
+      updatePosition();
+    }
+  });
+
+  // initialize position
+  updatePosition();
+
+  return element;
+}
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = init;
+
+var _elements = __webpack_require__(1);
+
+var _functional = __webpack_require__(0);
+
+/**
+ * @type {function}
+ */
 var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
 
 /**
@@ -452,7 +557,7 @@ function init(element) {
 }
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -506,25 +611,26 @@ function init(element) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(4);
+__webpack_require__(5);
 
 // Load library
 H5P = H5P || {};
 H5P.sdk = H5P.sdk || {};
-H5P.sdk.initPanel = __webpack_require__(2).default;
-H5P.sdk.initTabPanel = __webpack_require__(3).default;
+H5P.sdk.initPanel = __webpack_require__(3).default;
+H5P.sdk.initTabPanel = __webpack_require__(4).default;
+H5P.sdk.initImageScroller = __webpack_require__(2).default;
 
 /***/ })
 /******/ ]);
