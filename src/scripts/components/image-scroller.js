@@ -113,11 +113,13 @@ export default function init(element) {
   let observer = new MutationObserver(forEach(record => {
     updateView(element, Object.assign(state, {
       position: 0,
-      displayCount: record.target.getAttribute(ATTRIBUTE_SIZE)
+      displayCount: element.getAttribute(ATTRIBUTE_SIZE)
     }));
   }));
 
   observer.observe(element, {
+    subtree: true,
+    childList: true,
     attributes: true,
     attributeOldValue: true,
     attributeFilter: [ATTRIBUTE_SIZE]

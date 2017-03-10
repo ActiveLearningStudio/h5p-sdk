@@ -515,11 +515,13 @@ function init(element) {
   var observer = new MutationObserver((0, _functional.forEach)(function (record) {
     updateView(element, _extends(state, {
       position: 0,
-      displayCount: record.target.getAttribute(ATTRIBUTE_SIZE)
+      displayCount: element.getAttribute(ATTRIBUTE_SIZE)
     }));
   }));
 
   observer.observe(element, {
+    subtree: true,
+    childList: true,
     attributes: true,
     attributeOldValue: true,
     attributeFilter: [ATTRIBUTE_SIZE]
