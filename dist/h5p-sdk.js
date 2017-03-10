@@ -237,7 +237,7 @@ var inverseBooleanString = exports.inverseBooleanString = function inverseBoolea
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+exports.removeAllChildren = exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 
 var _functional = __webpack_require__(0);
 
@@ -359,6 +359,19 @@ var querySelector = exports.querySelector = (0, _functional.curry)(function (sel
 var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(function (selector, el) {
   return el.querySelectorAll(selector);
 });
+
+/**
+ * Removes
+ *
+ * @param {HTMLElement} el
+ *
+ * @return {HTMLElement}
+ */
+var removeAllChildren = exports.removeAllChildren = function removeAllChildren(el) {
+  while (el.hasChildNodes()) {
+    el.removeChild(el.lastChild);
+  }return el;
+};
 
 /***/ }),
 /* 2 */

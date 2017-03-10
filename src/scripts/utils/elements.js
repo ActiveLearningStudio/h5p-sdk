@@ -118,3 +118,16 @@ export const querySelector = curry(function (selector, el) {
 export const querySelectorAll = curry(function (selector, el) {
   return el.querySelectorAll(selector);
 });
+
+/**
+ * Removes
+ *
+ * @param {HTMLElement} el
+ *
+ * @return {HTMLElement}
+ */
+export const removeAllChildren = function (el) {
+  while(el.hasChildNodes()) el.removeChild(el.lastChild);
+  return el;
+};
+
