@@ -54,9 +54,12 @@
     font-size: $text-body-small;
   }
 
+  .link,
   a {
     color: $text-dark;
     font-weight: 400;
+    cursor: pointer;
+    text-decoration: underline;
   }
 
   .additional-information {

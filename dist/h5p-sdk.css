@@ -94,9 +94,12 @@ table {
   font-size: 0.833em;
 }
 
+.h5p .link,
 .h5p a {
   color: #1f2227;
   font-weight: 400;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .h5p .additional-information {
