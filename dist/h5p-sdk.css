@@ -242,6 +242,7 @@ table {
 
 .h5p .carousel .carousel-button[disabled] {
   background-color: rgba(189, 195, 203, 0.8);
+  color: rgba(255, 255, 255, 0.2);
   cursor: default;
 }
 
