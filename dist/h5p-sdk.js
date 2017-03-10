@@ -370,11 +370,19 @@ var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(functio
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 exports.default = init;
 
 var _elements = __webpack_require__(1);
 
 var _functional = __webpack_require__(0);
+
+/**
+ * @constant
+ */
+var ATTRIBUTE_SIZE = 'data-size';
 
 /**
  * @type {function}
@@ -395,19 +403,63 @@ var toggleEnabled = function toggleEnabled(element, enabled) {
 };
 
 /**
- * @type {function}
+ * @param {HTMLElement} element
+ * @param {boolean} hidden
  */
-var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
-
-/**
- * @type {function}
- */
-var show = (0, _elements.setAttribute)('aria-hidden', 'false');
+var toggleVisibility = (0, _functional.curry)(function (hidden, element) {
+  return (0, _elements.setAttribute)('aria-hidden', hidden.toString(), element);
+});
 
 /**
  * @type {function}
  */
 var isDisabled = (0, _elements.hasAttribute)('disabled');
+
+/**
+ * Update the view
+ *
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ */
+var updateView = function updateView(element, state) {
+  var prevButton = element.querySelector('.previous');
+  var nextButton = element.querySelector('.next');
+  var list = element.querySelector('ul');
+  var totalCount = list.childElementCount;
+
+  // update list sizes
+  list.style.width = 100 / state.displayCount * totalCount + '%';
+  list.style.marginLeft = state.position * (100 / state.displayCount) + '%';
+
+  // update image sizes
+  element.querySelectorAll('li').forEach(function (element) {
+    return element.style.width = 100 / totalCount + '%';
+  });
+
+  // toggle button visibility
+  [prevButton, nextButton].forEach(toggleVisibility(state.displayCount >= totalCount));
+
+  // toggle button enable, disabled
+  toggleEnabled(nextButton, state.position > state.displayCount - totalCount);
+  toggleEnabled(prevButton, state.position < 0);
+};
+
+/**
+ * Handles button clicked
+ *
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ * @param {function} updateState
+ * @param {Event}
+ * @type {function}
+ */
+var onButtonClick = (0, _functional.curry)(function (element, state, updateState, event) {
+  if (!isDisabled(event.target)) {
+    updateState(state);
+    updateView(element, state);
+  }
+});
+
 /**
  * Initializes a panel
  *
@@ -415,52 +467,53 @@ var isDisabled = (0, _elements.hasAttribute)('disabled');
  * @return {HTMLElement}
  */
 function init(element) {
-  var imagesShown = 5;
-  var prevButton = element.querySelector('.previous');
-  var nextButton = element.querySelector('.next');
-  var list = element.querySelector('ul');
-  var items = element.querySelectorAll('li');
-  var imageCount = list.childElementCount; // 7
-  var totalListWidth = 100 / imagesShown * imageCount;
-  var listItemWidth = 100 / imageCount;
-  var position = 0;
-
-  // initialize size
-  list.style.width = totalListWidth + '%';
-  items.forEach(function (element) {
-    return element.style.width = listItemWidth + '%';
-  });
-
-  // update function
-  var updatePosition = function updatePosition() {
-    list.style.marginLeft = position * (100 / imagesShown) + '%';
-
-    toggleEnabled(prevButton, position > imagesShown - imageCount);
-    toggleEnabled(nextButton, position < 0);
+  /**
+   * @typedef {object} ImageScrollerState
+   * @property {number} displayCount
+   * @property {number} position
+   */
+  var state = {
+    displayCount: element.getAttribute(ATTRIBUTE_SIZE) || 5,
+    position: 0
   };
 
-  // show buttons if overflowing
-  if (imageCount > imagesShown) {
-    show(prevButton);
-    show(nextButton);
-  }
+  // initialize buttons
+  element.querySelector('.next').addEventListener('click', onButtonClick(element, state, function (state) {
+    return state.position--;
+  }));
+  element.querySelector('.previous').addEventListener('click', onButtonClick(element, state, function (state) {
+    return state.position++;
+  }));
 
-  prevButton.addEventListener('click', function (event) {
-    if (!isDisabled(event.target)) {
-      position--;
-      updatePosition();
-    }
+  // initialize images
+  element.querySelectorAll('[aria-controls]').forEach(function (image) {
+    var targetId = image.getAttribute('aria-controls');
+    var target = element.querySelector('#' + targetId);
+
+    target.addEventListener('click', function (event) {
+      return target.setAttribute('aria-hidden', 'true');
+    });
+    image.addEventListener('click', function (event) {
+      return target.setAttribute('aria-hidden', 'false');
+    });
   });
 
-  nextButton.addEventListener('click', function (event) {
-    if (!isDisabled(event.target)) {
-      position++;
-      updatePosition();
-    }
+  // listen for updates to data-size
+  var observer = new MutationObserver((0, _functional.forEach)(function (record) {
+    updateView(element, _extends(state, {
+      position: 0,
+      displayCount: record.target.getAttribute(ATTRIBUTE_SIZE)
+    }));
+  }));
+
+  observer.observe(element, {
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: [ATTRIBUTE_SIZE]
   });
 
   // initialize position
-  updatePosition();
+  updateView(element, state);
 
   return element;
 }

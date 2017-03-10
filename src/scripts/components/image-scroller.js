@@ -2,6 +2,11 @@ import { setAttribute, removeAttribute, hasAttribute } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 
 /**
+ * @constant
+ */
+const ATTRIBUTE_SIZE = 'data-size';
+
+/**
  * @type {function}
  */
 const disable = setAttribute('disabled', '');
@@ -18,19 +23,61 @@ const enable = removeAttribute('disabled');
 const toggleEnabled = (element, enabled) => (enabled ? enable : disable)(element);
 
 /**
- * @type {function}
+ * @param {HTMLElement} element
+ * @param {boolean} hidden
  */
-const hide = setAttribute('aria-hidden', 'true');
-
-/**
- * @type {function}
- */
-const show = setAttribute('aria-hidden', 'false');
+const toggleVisibility = curry((hidden, element) => setAttribute('aria-hidden', hidden.toString(), element));
 
 /**
  * @type {function}
  */
 const isDisabled = hasAttribute('disabled');
+
+/**
+ * Update the view
+ *
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ */
+const updateView = (element, state) => {
+  const prevButton = element.querySelector('.previous');
+  const nextButton = element.querySelector('.next');
+  const list = element.querySelector('ul');
+  const totalCount = list.childElementCount;
+
+  // update list sizes
+  list.style.width = `${100 / state.displayCount * totalCount}%`;
+  list.style.marginLeft = `${state.position * (100 / state.displayCount)}%`;
+
+  // update image sizes
+  element.querySelectorAll('li')
+    .forEach(element => element.style.width = `${100 / totalCount}%`);
+
+  // toggle button visibility
+  [prevButton, nextButton]
+    .forEach(toggleVisibility(state.displayCount >= totalCount));
+
+  // toggle button enable, disabled
+  toggleEnabled(nextButton, state.position > (state.displayCount - totalCount));
+  toggleEnabled(prevButton, state.position < 0);
+};
+
+/**
+ * Handles button clicked
+ *
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ * @param {function} updateState
+ * @param {Event}
+ * @type {function}
+ */
+const onButtonClick = curry((element, state, updateState, event) => {
+  if(!isDisabled(event.target)){
+    updateState(state);
+    updateView(element, state);
+  }
+});
+
 /**
  * Initializes a panel
  *
@@ -38,50 +85,46 @@ const isDisabled = hasAttribute('disabled');
  * @return {HTMLElement}
  */
 export default function init(element) {
-  const imagesShown = 5;
-  const prevButton = element.querySelector('.previous');
-  const nextButton = element.querySelector('.next');
-  const list = element.querySelector('ul');
-  const items = element.querySelectorAll('li');
-  const imageCount = list.childElementCount; // 7
-  const totalListWidth = 100 / imagesShown * imageCount;
-  let listItemWidth = (100 / imageCount);
-  let position = 0;
-
-  // initialize size
-  list.style.width = `${totalListWidth}%`;
-  items.forEach(element => element.style.width = `${listItemWidth}%`);
-
-  // update function
-  const updatePosition = () => {
-    list.style.marginLeft = `${position * (100 / imagesShown)}%`;
-
-    toggleEnabled(prevButton, position > (imagesShown - imageCount));
-    toggleEnabled(nextButton, position < 0);
+  /**
+   * @typedef {object} ImageScrollerState
+   * @property {number} displayCount
+   * @property {number} position
+   */
+  const state = {
+    displayCount: element.getAttribute(ATTRIBUTE_SIZE) || 5,
+    position: 0
   };
 
-  // show buttons if overflowing
-  if(imageCount > imagesShown){
-    show(prevButton);
-    show(nextButton);
-  }
+  // initialize buttons
+  element.querySelector('.next').addEventListener('click', onButtonClick(element, state, state => state.position--));
+  element.querySelector('.previous').addEventListener('click', onButtonClick(element, state, state => state.position++));
 
-  prevButton.addEventListener('click', function(event) {
-    if(!isDisabled(event.target)){
-      position--;
-      updatePosition();
-    }
-  });
+  // initialize images
+  element.querySelectorAll('[aria-controls]')
+    .forEach(image => {
+      let targetId = image.getAttribute('aria-controls');
+      let target = element.querySelector(`#${targetId}`);
 
-  nextButton.addEventListener('click', function(event) {
-    if(!isDisabled(event.target)) {
-      position++;
-      updatePosition();
-    }
+      target.addEventListener('click', event => target.setAttribute('aria-hidden', 'true'));
+      image.addEventListener('click', event => target.setAttribute('aria-hidden', 'false'))
+    });
+
+  // listen for updates to data-size
+  let observer = new MutationObserver(forEach(record => {
+    updateView(element, Object.assign(state, {
+      position: 0,
+      displayCount: record.target.getAttribute(ATTRIBUTE_SIZE)
+    }));
+  }));
+
+  observer.observe(element, {
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: [ATTRIBUTE_SIZE]
   });
 
   // initialize position
-  updatePosition();
+  updateView(element, state);
 
   return element;
 }
