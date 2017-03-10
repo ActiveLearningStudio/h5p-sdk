@@ -1,4 +1,4 @@
-import { setAttribute, removeAttribute, hasAttribute } from '../utils/elements';
+import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 
 /**
@@ -71,11 +71,43 @@ const updateView = (element, state) => {
  * @param {Event}
  * @type {function}
  */
-const onButtonClick = curry((element, state, updateState, event) => {
+const onNavigationButtonClick = curry((element, state, updateState, event) => {
   if(!isDisabled(event.target)){
     updateState(state);
     updateView(element, state);
   }
+});
+
+const initImage = curry((element, image) => {
+  let targetId = image.getAttribute('aria-controls');
+  let target = element.querySelector(`#${targetId}`);
+
+  target.addEventListener('click', event => target.setAttribute('aria-hidden', 'true'));
+  image.addEventListener('click', event => target.setAttribute('aria-hidden', 'false'))
+});
+
+/**
+ * Callback for when the dom is updated
+ *
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ * @param {MutationRecord} record
+ * @function
+ */
+const handleDomUpdate = curry((element, state, record) => {
+  // on add image run initialization
+  if(record.type === 'childList') {
+    nodeListToArray(record.addedNodes)
+      .filter(classListContains('slide'))
+      .map(querySelector('img'))
+      .forEach(initImage(element));
+  }
+
+  // update the view
+  updateView(element, Object.assign(state, {
+    displayCount: element.getAttribute(ATTRIBUTE_SIZE) || 5,
+    position: 0
+  }));
 });
 
 /**
@@ -96,26 +128,14 @@ export default function init(element) {
   };
 
   // initialize buttons
-  element.querySelector('.next').addEventListener('click', onButtonClick(element, state, state => state.position--));
-  element.querySelector('.previous').addEventListener('click', onButtonClick(element, state, state => state.position++));
+  element.querySelector('.next').addEventListener('click', onNavigationButtonClick(element, state, state => state.position--));
+  element.querySelector('.previous').addEventListener('click', onNavigationButtonClick(element, state, state => state.position++));
 
   // initialize images
-  element.querySelectorAll('[aria-controls]')
-    .forEach(image => {
-      let targetId = image.getAttribute('aria-controls');
-      let target = element.querySelector(`#${targetId}`);
-
-      target.addEventListener('click', event => target.setAttribute('aria-hidden', 'true'));
-      image.addEventListener('click', event => target.setAttribute('aria-hidden', 'false'))
-    });
+  element.querySelectorAll('[aria-controls]').forEach(initImage(element));
 
   // listen for updates to data-size
-  let observer = new MutationObserver(forEach(record => {
-    updateView(element, Object.assign(state, {
-      position: 0,
-      displayCount: element.getAttribute(ATTRIBUTE_SIZE)
-    }));
-  }));
+  let observer = new MutationObserver(forEach(handleDomUpdate(element, state)));
 
   observer.observe(element, {
     subtree: true,

@@ -9,9 +9,7 @@ import {curry, inverseBooleanString} from './functional'
  * @function
  * @return {string}
  */
-export const getAttribute = curry(function (name, el) {
-  return el.getAttribute(name);
-});
+export const getAttribute = curry((name, el) => el.getAttribute(name));
 
 /**
  * Set an attribute on a html element
@@ -22,9 +20,7 @@ export const getAttribute = curry(function (name, el) {
  *
  * @function
  */
-export const setAttribute = curry(function (name, value, el) {
-  el.setAttribute(name, value);
-});
+export const setAttribute = curry((name, value, el) => el.setAttribute(name, value));
 
 /**
  * Remove attribute from html element
@@ -34,9 +30,7 @@ export const setAttribute = curry(function (name, value, el) {
  *
  * @function
  */
-export const removeAttribute = curry(function (name, el) {
-  el.removeAttribute(name);
-});
+export const removeAttribute = curry((name, el) => el.removeAttribute(name));
 
 /**
  * Check if element has an attribute
@@ -47,9 +41,7 @@ export const removeAttribute = curry(function (name, el) {
  * @function
  * @return {boolean}
  */
-export const hasAttribute = curry(function (name, el) {
-  return el.hasAttribute(name);
-});
+export const hasAttribute = curry((name, el) => el.hasAttribute(name));
 
 /**
  * Check if element has an attribute that equals
@@ -61,9 +53,7 @@ export const hasAttribute = curry(function (name, el) {
  * @function
  * @return {boolean}
  */
-export const attributeEquals = curry(function (name, value, el) {
-  return el.getAttribute(name) === value;
-});
+export const attributeEquals = curry((name, value, el) => el.getAttribute(name) === value);
 
 /**
  * Toggles an attribute between 'true' and 'false';
@@ -73,7 +63,7 @@ export const attributeEquals = curry(function (name, value, el) {
  *
  * @function
  */
-export const toggleAttribute = curry(function (name, el) {
+export const toggleAttribute = curry((name, el) => {
   const value = getAttribute(name, el);
   setAttribute(name, inverseBooleanString(value), el);
 });
@@ -87,9 +77,7 @@ export const toggleAttribute = curry(function (name, el) {
  * @function
  * @return {HTMLElement}
  */
-export const appendChild = curry(function (parent, child) {
-  return parent.appendChild(child);
-});
+export const appendChild = curry((parent, child) => parent.appendChild(child));
 
 /**
  * Returns the first element that is a descendant of the element on which it is invoked
@@ -101,9 +89,7 @@ export const appendChild = curry(function (parent, child) {
  * @function
  * @return {HTMLElement}
  */
-export const querySelector = curry(function (selector, el) {
-  return el.querySelector(selector);
-});
+export const querySelector = curry((selector, el) => el.querySelector(selector));
 
 /**
  * Returns a non-live NodeList of all elements descended from the element on which it
@@ -115,19 +101,33 @@ export const querySelector = curry(function (selector, el) {
  * @function
  * @return {NodeList}
  */
-export const querySelectorAll = curry(function (selector, el) {
-  return el.querySelectorAll(selector);
-});
+export const querySelectorAll = curry((selector, el) => el.querySelectorAll(selector));
 
 /**
- * Removes
+ * The removeChild() method removes a child node from the DOM. Returns removed node.
  *
+ * @param {Node} parent
+ * @param {Node} oldChild
+ *
+ * @return {Node}
+ */
+export const removeChild = curry((parent, oldChild) => parent.removeChild(oldChild));
+
+/**
+ * Returns true if a node has a class
+ *
+ * @param {string} cls
  * @param {HTMLElement} el
  *
- * @return {HTMLElement}
+ * @function
  */
-export const removeAllChildren = function (el) {
-  while(el.hasChildNodes()) el.removeChild(el.lastChild);
-  return el;
-};
+export const classListContains = curry((cls, el) => el.classList.contains(cls));
 
+/**
+ * Transforms a NodeList to an Array
+ *
+ * @param {NodeList} nodeList
+ *
+ * @return {Node[]}
+ */
+export const nodeListToArray = nodeList => Array.prototype.slice.call(nodeList);

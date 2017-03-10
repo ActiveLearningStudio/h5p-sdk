@@ -237,7 +237,7 @@ var inverseBooleanString = exports.inverseBooleanString = function inverseBoolea
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.removeAllChildren = exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+exports.nodeListToArray = exports.classListContains = exports.removeChild = exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 
 var _functional = __webpack_require__(0);
 
@@ -264,7 +264,7 @@ var getAttribute = exports.getAttribute = (0, _functional.curry)(function (name,
  * @function
  */
 var setAttribute = exports.setAttribute = (0, _functional.curry)(function (name, value, el) {
-  el.setAttribute(name, value);
+  return el.setAttribute(name, value);
 });
 
 /**
@@ -276,7 +276,7 @@ var setAttribute = exports.setAttribute = (0, _functional.curry)(function (name,
  * @function
  */
 var removeAttribute = exports.removeAttribute = (0, _functional.curry)(function (name, el) {
-  el.removeAttribute(name);
+  return el.removeAttribute(name);
 });
 
 /**
@@ -361,16 +361,38 @@ var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(functio
 });
 
 /**
- * Removes
+ * The removeChild() method removes a child node from the DOM. Returns removed node.
  *
+ * @param {Node} parent
+ * @param {Node} oldChild
+ *
+ * @return {Node}
+ */
+var removeChild = exports.removeChild = (0, _functional.curry)(function (parent, oldChild) {
+  return parent.removeChild(oldChild);
+});
+
+/**
+ * Returns true if a node has a class
+ *
+ * @param {string} cls
  * @param {HTMLElement} el
  *
- * @return {HTMLElement}
+ * @function
  */
-var removeAllChildren = exports.removeAllChildren = function removeAllChildren(el) {
-  while (el.hasChildNodes()) {
-    el.removeChild(el.lastChild);
-  }return el;
+var classListContains = exports.classListContains = (0, _functional.curry)(function (cls, el) {
+  return el.classList.contains(cls);
+});
+
+/**
+ * Transforms a NodeList to an Array
+ *
+ * @param {NodeList} nodeList
+ *
+ * @return {Node[]}
+ */
+var nodeListToArray = exports.nodeListToArray = function nodeListToArray(nodeList) {
+  return Array.prototype.slice.call(nodeList);
 };
 
 /***/ }),
@@ -466,11 +488,44 @@ var updateView = function updateView(element, state) {
  * @param {Event}
  * @type {function}
  */
-var onButtonClick = (0, _functional.curry)(function (element, state, updateState, event) {
+var onNavigationButtonClick = (0, _functional.curry)(function (element, state, updateState, event) {
   if (!isDisabled(event.target)) {
     updateState(state);
     updateView(element, state);
   }
+});
+
+var initImage = (0, _functional.curry)(function (element, image) {
+  var targetId = image.getAttribute('aria-controls');
+  var target = element.querySelector('#' + targetId);
+
+  target.addEventListener('click', function (event) {
+    return target.setAttribute('aria-hidden', 'true');
+  });
+  image.addEventListener('click', function (event) {
+    return target.setAttribute('aria-hidden', 'false');
+  });
+});
+
+/**
+ * Callback for when the dom is updated
+ *
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ * @param {MutationRecord} record
+ * @function
+ */
+var handleDomUpdate = (0, _functional.curry)(function (element, state, record) {
+  // on add image run initialization
+  if (record.type === 'childList') {
+    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).forEach(initImage(element));
+  }
+
+  // update the view
+  updateView(element, _extends(state, {
+    displayCount: element.getAttribute(ATTRIBUTE_SIZE) || 5,
+    position: 0
+  }));
 });
 
 /**
@@ -491,33 +546,18 @@ function init(element) {
   };
 
   // initialize buttons
-  element.querySelector('.next').addEventListener('click', onButtonClick(element, state, function (state) {
+  element.querySelector('.next').addEventListener('click', onNavigationButtonClick(element, state, function (state) {
     return state.position--;
   }));
-  element.querySelector('.previous').addEventListener('click', onButtonClick(element, state, function (state) {
+  element.querySelector('.previous').addEventListener('click', onNavigationButtonClick(element, state, function (state) {
     return state.position++;
   }));
 
   // initialize images
-  element.querySelectorAll('[aria-controls]').forEach(function (image) {
-    var targetId = image.getAttribute('aria-controls');
-    var target = element.querySelector('#' + targetId);
-
-    target.addEventListener('click', function (event) {
-      return target.setAttribute('aria-hidden', 'true');
-    });
-    image.addEventListener('click', function (event) {
-      return target.setAttribute('aria-hidden', 'false');
-    });
-  });
+  element.querySelectorAll('[aria-controls]').forEach(initImage(element));
 
   // listen for updates to data-size
-  var observer = new MutationObserver((0, _functional.forEach)(function (record) {
-    updateView(element, _extends(state, {
-      position: 0,
-      displayCount: element.getAttribute(ATTRIBUTE_SIZE)
-    }));
-  }));
+  var observer = new MutationObserver((0, _functional.forEach)(handleDomUpdate(element, state)));
 
   observer.observe(element, {
     subtree: true,
