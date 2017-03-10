@@ -69,7 +69,7 @@ const updateView = (element, state) => {
  * @param {ImageScrollerState} state
  * @param {function} updateState
  * @param {Event}
- * @type {function}
+ * @function
  */
 const onNavigationButtonClick = curry((element, state, updateState, event) => {
   if(!isDisabled(event.target)){

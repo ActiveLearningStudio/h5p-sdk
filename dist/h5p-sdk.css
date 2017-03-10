@@ -227,9 +227,9 @@ table {
   position: absolute;
   top: 30%;
   color: white;
-  height: 2em;
-  width: 2em;
-  border-radius: 2em;
+  height: 2.1em;
+  width: 2.1em;
+  border-radius: 2.1em;
   cursor: pointer;
 }
 

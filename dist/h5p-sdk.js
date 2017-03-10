@@ -486,7 +486,7 @@ var updateView = function updateView(element, state) {
  * @param {ImageScrollerState} state
  * @param {function} updateState
  * @param {Event}
- * @type {function}
+ * @function
  */
 var onNavigationButtonClick = (0, _functional.curry)(function (element, state, updateState, event) {
   if (!isDisabled(event.target)) {
