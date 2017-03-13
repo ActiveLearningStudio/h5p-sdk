@@ -48,6 +48,12 @@
     font-size: 0.875em;
   }
 
+  hr {
+    border: 0;
+    height: 0;
+    margin: $gutter 0;
+    border-bottom: 1px solid $c3;
+  }
 
   small, .small {
     color: $text-light;
