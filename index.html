@@ -191,6 +191,7 @@
       <li role="menuitem">Newest</li>
       <li role="menuitem">Most Popular</li>
       <li role="menuitem">Recomended</li>
+      <span></span>
     </ul>
   </nav>
 
@@ -252,6 +253,9 @@
 
   const tabPanels = document.querySelectorAll('.tab-panel');
   tabPanels.forEach(H5P.sdk.initTabPanel);
+
+  const menus = document.querySelectorAll('.h5p-menu');
+  menus.forEach(H5P.sdk.initMenu);
 
   const imageScrollers = document.querySelectorAll('.carousel');
   imageScrollers.forEach(H5P.sdk.initImageScroller);

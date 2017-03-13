@@ -5,4 +5,5 @@ H5P = H5P || {};
 H5P.sdk = H5P.sdk || {};
 H5P.sdk.initPanel = require('../scripts/components/panel').default;
 H5P.sdk.initTabPanel = require('../scripts/components/tab-panel').default;
+H5P.sdk.initMenu = require('../scripts/components/menu').default;
 H5P.sdk.initImageScroller = require('../scripts/components/image-scroller').default;

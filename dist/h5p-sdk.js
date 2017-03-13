@@ -738,7 +738,54 @@ H5P = H5P || {};
 H5P.sdk = H5P.sdk || {};
 H5P.sdk.initPanel = __webpack_require__(3).default;
 H5P.sdk.initTabPanel = __webpack_require__(4).default;
+H5P.sdk.initMenu = __webpack_require__(10).default;
 H5P.sdk.initImageScroller = __webpack_require__(2).default;
+
+/***/ }),
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = init;
+
+var _elements = __webpack_require__(1);
+
+var _functional = __webpack_require__(0);
+
+/**
+ * @type {function}
+ */
+var show = (0, _elements.setAttribute)('aria-hidden', 'false');
+
+/**
+ * @type {function}
+ */
+var unSelectAll = (0, _functional.forEach)((0, _elements.setAttribute)('aria-selected', 'false'));
+
+/**
+ * Initiates a tab panel
+ *
+ * @param {HTMLElement} element
+ */
+function init(element) {
+  var menuItems = element.querySelectorAll('[role="menuitem"]');
+
+  menus.forEach(function (menuItem) {
+    menuItem.addEventListener('click', function (event) {
+      console.log('click');
+      unSelectAll(menuItems);
+      event.target.setAttribute('aria-selected', 'true');
+    });
+  });
+}
 
 /***/ })
 /******/ ]);
