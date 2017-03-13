@@ -778,7 +778,7 @@ var unSelectAll = (0, _functional.forEach)((0, _elements.setAttribute)('aria-sel
 function init(element) {
   var menuItems = element.querySelectorAll('[role="menuitem"]');
 
-  menus.forEach(function (menuItem) {
+  menuItems.forEach(function (menuItem) {
     menuItem.addEventListener('click', function (event) {
       console.log('click');
       unSelectAll(menuItems);

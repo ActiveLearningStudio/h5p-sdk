@@ -19,7 +19,7 @@ const unSelectAll = forEach(setAttribute('aria-selected', 'false'));
 export default function init(element) {
   const menuItems = element.querySelectorAll('[role="menuitem"]');
 
-  menus.forEach(menuItem => {
+  menuItems.forEach(menuItem => {
     menuItem.addEventListener('click', function (event) {
       console.log('click');
       unSelectAll(menuItems);
