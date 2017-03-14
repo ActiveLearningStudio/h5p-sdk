@@ -67,17 +67,25 @@ const updateView = (element, state) => {
  *
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {HTMLElement} button
  * @param {function} updateState
  * @param {Event}
  * @function
  */
-const onNavigationButtonClick = curry((element, state, updateState, event) => {
-  if(!isDisabled(event.target)){
+const onNavigationButtonClick = curry((element, state, button, updateState, event) => {
+  if(!isDisabled(button)){
     updateState(state);
     updateView(element, state);
   }
 });
 
+/**
+ * Initializes an image
+ *
+ * @param {HTMLElement} element
+ * @param {HTMLElement} image
+ * @function
+ */
 const initImage = curry((element, image) => {
   let targetId = image.getAttribute('aria-controls');
   let target = element.querySelector(`#${targetId}`);
@@ -117,6 +125,10 @@ const handleDomUpdate = curry((element, state, record) => {
  * @return {HTMLElement}
  */
 export default function init(element) {
+  // get button html elements
+  const nextButton = element.querySelector('.next');
+  const prevButton = element.querySelector('.previous');
+
   /**
    * @typedef {object} ImageScrollerState
    * @property {number} displayCount
@@ -128,8 +140,8 @@ export default function init(element) {
   };
 
   // initialize buttons
-  element.querySelector('.next').addEventListener('click', onNavigationButtonClick(element, state, state => state.position--));
-  element.querySelector('.previous').addEventListener('click', onNavigationButtonClick(element, state, state => state.position++));
+  nextButton.addEventListener('click', onNavigationButtonClick(element, state, nextButton, state => state.position--));
+  prevButton.addEventListener('click', onNavigationButtonClick(element, state, prevButton, state => state.position++));
 
   // initialize images
   element.querySelectorAll('[aria-controls]').forEach(initImage(element));

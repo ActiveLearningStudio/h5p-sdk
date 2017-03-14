@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 6);
+/******/ 	return __webpack_require__(__webpack_require__.s = 7);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -484,17 +484,25 @@ var updateView = function updateView(element, state) {
  *
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {HTMLElement} button
  * @param {function} updateState
  * @param {Event}
  * @function
  */
-var onNavigationButtonClick = (0, _functional.curry)(function (element, state, updateState, event) {
-  if (!isDisabled(event.target)) {
+var onNavigationButtonClick = (0, _functional.curry)(function (element, state, button, updateState, event) {
+  if (!isDisabled(button)) {
     updateState(state);
     updateView(element, state);
   }
 });
 
+/**
+ * Initializes an image
+ *
+ * @param {HTMLElement} element
+ * @param {HTMLElement} image
+ * @function
+ */
 var initImage = (0, _functional.curry)(function (element, image) {
   var targetId = image.getAttribute('aria-controls');
   var target = element.querySelector('#' + targetId);
@@ -535,6 +543,10 @@ var handleDomUpdate = (0, _functional.curry)(function (element, state, record) {
  * @return {HTMLElement}
  */
 function init(element) {
+  // get button html elements
+  var nextButton = element.querySelector('.next');
+  var prevButton = element.querySelector('.previous');
+
   /**
    * @typedef {object} ImageScrollerState
    * @property {number} displayCount
@@ -546,10 +558,10 @@ function init(element) {
   };
 
   // initialize buttons
-  element.querySelector('.next').addEventListener('click', onNavigationButtonClick(element, state, function (state) {
+  nextButton.addEventListener('click', onNavigationButtonClick(element, state, nextButton, function (state) {
     return state.position--;
   }));
-  element.querySelector('.previous').addEventListener('click', onNavigationButtonClick(element, state, function (state) {
+  prevButton.addEventListener('click', onNavigationButtonClick(element, state, prevButton, function (state) {
     return state.position++;
   }));
 
@@ -575,6 +587,49 @@ function init(element) {
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = init;
+
+var _elements = __webpack_require__(1);
+
+var _functional = __webpack_require__(0);
+
+/**
+ * @type {function}
+ */
+var show = (0, _elements.setAttribute)('aria-hidden', 'false');
+
+/**
+ * @type {function}
+ */
+var unSelectAll = (0, _functional.forEach)((0, _elements.setAttribute)('aria-selected', 'false'));
+
+/**
+ * Initiates a tab panel
+ *
+ * @param {HTMLElement} element
+ */
+function init(element) {
+  var menuItems = element.querySelectorAll('[role="menuitem"]');
+
+  menuItems.forEach(function (menuItem) {
+    menuItem.addEventListener('click', function (event) {
+      console.log('click');
+      unSelectAll(menuItems);
+      event.target.setAttribute('aria-selected', 'true');
+    });
+  });
+}
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -665,7 +720,7 @@ function init(element) {
 }
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -719,73 +774,27 @@ function init(element) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(5);
+__webpack_require__(6);
 
 // Load library
 H5P = H5P || {};
 H5P.sdk = H5P.sdk || {};
-H5P.sdk.initPanel = __webpack_require__(3).default;
-H5P.sdk.initTabPanel = __webpack_require__(4).default;
-H5P.sdk.initMenu = __webpack_require__(10).default;
+H5P.sdk.initPanel = __webpack_require__(4).default;
+H5P.sdk.initTabPanel = __webpack_require__(5).default;
+H5P.sdk.initMenu = __webpack_require__(3).default;
 H5P.sdk.initImageScroller = __webpack_require__(2).default;
-
-/***/ }),
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = init;
-
-var _elements = __webpack_require__(1);
-
-var _functional = __webpack_require__(0);
-
-/**
- * @type {function}
- */
-var show = (0, _elements.setAttribute)('aria-hidden', 'false');
-
-/**
- * @type {function}
- */
-var unSelectAll = (0, _functional.forEach)((0, _elements.setAttribute)('aria-selected', 'false'));
-
-/**
- * Initiates a tab panel
- *
- * @param {HTMLElement} element
- */
-function init(element) {
-  var menuItems = element.querySelectorAll('[role="menuitem"]');
-
-  menuItems.forEach(function (menuItem) {
-    menuItem.addEventListener('click', function (event) {
-      console.log('click');
-      unSelectAll(menuItems);
-      event.target.setAttribute('aria-selected', 'true');
-    });
-  });
-}
 
 /***/ })
 /******/ ]);
