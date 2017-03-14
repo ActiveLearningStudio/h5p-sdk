@@ -14,11 +14,14 @@
       margin-right: auto;
       font-size: 24px;
     }
+
+    [aria-hidden="true"] {
+      display: none;
+    }
   </style>
 </head>
 <body>
 <div class="h5p">
-
   <!-- Image carousel -->
   <h5>Image carousel</h5>
 
@@ -146,6 +149,23 @@
     </div>
   </div>
 
+  <!-- Menu -->
+  <h2>Menu</h2>
+  <nav class="navbar">
+    <span class="navbar-toggler navbar-toggler-right" aria-controls="menu-1" aria-expanded="false">
+      <span>&#9776;</span>
+    </span>
+
+    <span class="navbar-brand">Browse content types</span>
+
+    <ul id="menu-1" class="navbar-nav" aria-hidden="true">
+      <li role="menuitem" aria-selected="true">All</li>
+      <li role="menuitem">My Content Types</li>
+      <li role="menuitem">Most Popular</li>
+      <span class="menuitem-underline"></span>
+    </ul>
+  </nav>
+
   <!-- TAB PANEL -->
   <h2>Tab Panel</h2>
   <div class="tab-panel">
@@ -171,17 +191,6 @@
       </div>
     </div>
   </div>
-
-  <h2>Menu</h2>
-  <nav>
-    <ul role="menubar" class="h5p-menu">
-      <li role="menuitem" aria-selected="true">My Content Types</li>
-      <li role="menuitem">Newest</li>
-      <li role="menuitem">Most Popular</li>
-      <li role="menuitem">Recomended</li>
-      <span></span>
-    </ul>
-  </nav>
 
   <h1>Messages</h3>
   <div class="message info simple">
@@ -242,7 +251,7 @@
   const tabPanels = document.querySelectorAll('.tab-panel');
   tabPanels.forEach(H5P.sdk.initTabPanel);
 
-  const menus = document.querySelectorAll('.h5p-menu');
+  const menus = document.querySelectorAll('.navbar');
   menus.forEach(H5P.sdk.initMenu);
 
   const imageScrollers = document.querySelectorAll('.carousel');

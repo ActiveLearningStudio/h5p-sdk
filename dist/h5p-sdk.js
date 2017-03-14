@@ -63,11 +63,203 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 7);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.toggleVisibility = exports.show = exports.hide = exports.nodeListToArray = exports.classListContains = exports.removeChild = exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+
+var _functional = __webpack_require__(1);
+
+/**
+ * Get an attribute value from element
+ *
+ * @param {string} name
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {string}
+ */
+var getAttribute = exports.getAttribute = (0, _functional.curry)(function (name, el) {
+  return el.getAttribute(name);
+});
+
+/**
+ * Set an attribute on a html element
+ *
+ * @param {string} name
+ * @param {string} value
+ * @param {HTMLElement} el
+ *
+ * @function
+ */
+var setAttribute = exports.setAttribute = (0, _functional.curry)(function (name, value, el) {
+  return el.setAttribute(name, value);
+});
+
+/**
+ * Remove attribute from html element
+ *
+ * @param {string} name
+ * @param {HTMLElement} el
+ *
+ * @function
+ */
+var removeAttribute = exports.removeAttribute = (0, _functional.curry)(function (name, el) {
+  return el.removeAttribute(name);
+});
+
+/**
+ * Check if element has an attribute
+ *
+ * @param {string} name
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {boolean}
+ */
+var hasAttribute = exports.hasAttribute = (0, _functional.curry)(function (name, el) {
+  return el.hasAttribute(name);
+});
+
+/**
+ * Check if element has an attribute that equals
+ *
+ * @param {string} name
+ * @param {string} value
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {boolean}
+ */
+var attributeEquals = exports.attributeEquals = (0, _functional.curry)(function (name, value, el) {
+  return el.getAttribute(name) === value;
+});
+
+/**
+ * Toggles an attribute between 'true' and 'false';
+ *
+ * @param {string} name
+ * @param {HTMLElement} el
+ *
+ * @function
+ */
+var toggleAttribute = exports.toggleAttribute = (0, _functional.curry)(function (name, el) {
+  var value = getAttribute(name, el);
+  setAttribute(name, (0, _functional.inverseBooleanString)(value), el);
+});
+
+/**
+ * The appendChild() method adds a node to the end of the list of children of a specified parent node.
+ *
+ * @param {HTMLElement} parent
+ * @param {HTMLElement} child
+ *
+ * @function
+ * @return {HTMLElement}
+ */
+var appendChild = exports.appendChild = (0, _functional.curry)(function (parent, child) {
+  return parent.appendChild(child);
+});
+
+/**
+ * Returns the first element that is a descendant of the element on which it is invoked
+ * that matches the specified group of selectors.
+ *
+ * @param {string} selector
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {HTMLElement}
+ */
+var querySelector = exports.querySelector = (0, _functional.curry)(function (selector, el) {
+  return el.querySelector(selector);
+});
+
+/**
+ * Returns a non-live NodeList of all elements descended from the element on which it
+ * is invoked that matches the specified group of CSS selectors.
+ *
+ * @param {string} selector
+ * @param {HTMLElement} el
+ *
+ * @function
+ * @return {NodeList}
+ */
+var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(function (selector, el) {
+  return el.querySelectorAll(selector);
+});
+
+/**
+ * The removeChild() method removes a child node from the DOM. Returns removed node.
+ *
+ * @param {Node} parent
+ * @param {Node} oldChild
+ *
+ * @return {Node}
+ */
+var removeChild = exports.removeChild = (0, _functional.curry)(function (parent, oldChild) {
+  return parent.removeChild(oldChild);
+});
+
+/**
+ * Returns true if a node has a class
+ *
+ * @param {string} cls
+ * @param {HTMLElement} el
+ *
+ * @function
+ */
+var classListContains = exports.classListContains = (0, _functional.curry)(function (cls, el) {
+  return el.classList.contains(cls);
+});
+
+/**
+ * Transforms a NodeList to an Array
+ *
+ * @param {NodeList} nodeList
+ *
+ * @return {Node[]}
+ */
+var nodeListToArray = exports.nodeListToArray = function nodeListToArray(nodeList) {
+  return Array.prototype.slice.call(nodeList);
+};
+
+/**
+ * Adds aria-hidden=true to an element
+ *
+ * @param {HTMLElement} element
+ * @function
+ */
+var hide = exports.hide = setAttribute('aria-hidden', 'true');
+
+/**
+ * Adds aria-hidden=false to an element
+ * @function
+ */
+var show = exports.show = setAttribute('aria-hidden', 'false');
+
+/**
+ * Toggles aria-hidden on an element
+ *
+ * @param {boolean} visible
+ * @param {HTMLElement} element
+ */
+var toggleVisibility = exports.toggleVisibility = (0, _functional.curry)(function (visible, element) {
+  return (visible ? show : hide)(element);
+});
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -228,7 +420,7 @@ var inverseBooleanString = exports.inverseBooleanString = function inverseBoolea
 };
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -237,166 +429,51 @@ var inverseBooleanString = exports.inverseBooleanString = function inverseBoolea
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.nodeListToArray = exports.classListContains = exports.removeChild = exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+exports.initCollapsible = undefined;
 
-var _functional = __webpack_require__(0);
-
-/**
- * Get an attribute value from element
- *
- * @param {string} name
- * @param {HTMLElement} el
- *
- * @function
- * @return {string}
- */
-var getAttribute = exports.getAttribute = (0, _functional.curry)(function (name, el) {
-  return el.getAttribute(name);
-});
+var _elements = __webpack_require__(0);
 
 /**
- * Set an attribute on a html element
+ * Returns true if aria-expanded=true on element
  *
- * @param {string} name
- * @param {string} value
- * @param {HTMLElement} el
- *
+ * @param {HTMLElement} element
  * @function
  */
-var setAttribute = exports.setAttribute = (0, _functional.curry)(function (name, value, el) {
-  return el.setAttribute(name, value);
-});
+var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
 
 /**
- * Remove attribute from html element
+ * Toggles aria-hidden on 'collapsible' when aria-expanded changes on 'toggler',
+ * and toggles aria-expanded on 'toggler' on click
  *
- * @param {string} name
- * @param {HTMLElement} el
- *
- * @function
+ * @param {HTMLElement} element
  */
-var removeAttribute = exports.removeAttribute = (0, _functional.curry)(function (name, el) {
-  return el.removeAttribute(name);
-});
+var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
+  // elements
+  var toggler = element.querySelector('[aria-controls][aria-expanded]');
+  var collapsible = document.getElementById(toggler.getAttribute('aria-controls'));
 
-/**
- * Check if element has an attribute
- *
- * @param {string} name
- * @param {HTMLElement} el
- *
- * @function
- * @return {boolean}
- */
-var hasAttribute = exports.hasAttribute = (0, _functional.curry)(function (name, el) {
-  return el.hasAttribute(name);
-});
+  // set observer on title for aria-expanded
+  var observer = new MutationObserver(function () {
+    return (0, _elements.toggleVisibility)(isExpanded(toggler), collapsible);
+  });
 
-/**
- * Check if element has an attribute that equals
- *
- * @param {string} name
- * @param {string} value
- * @param {HTMLElement} el
- *
- * @function
- * @return {boolean}
- */
-var attributeEquals = exports.attributeEquals = (0, _functional.curry)(function (name, value, el) {
-  return el.getAttribute(name) === value;
-});
+  observer.observe(toggler, {
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: ["aria-expanded"]
+  });
 
-/**
- * Toggles an attribute between 'true' and 'false';
- *
- * @param {string} name
- * @param {HTMLElement} el
- *
- * @function
- */
-var toggleAttribute = exports.toggleAttribute = (0, _functional.curry)(function (name, el) {
-  var value = getAttribute(name, el);
-  setAttribute(name, (0, _functional.inverseBooleanString)(value), el);
-});
+  // Set click listener that toggles aria-expanded
+  toggler.addEventListener('click', function () {
+    return (0, _elements.toggleAttribute)("aria-expanded", toggler);
+  });
 
-/**
- * The appendChild() method adds a node to the end of the list of children of a specified parent node.
- *
- * @param {HTMLElement} parent
- * @param {HTMLElement} child
- *
- * @function
- * @return {HTMLElement}
- */
-var appendChild = exports.appendChild = (0, _functional.curry)(function (parent, child) {
-  return parent.appendChild(child);
-});
-
-/**
- * Returns the first element that is a descendant of the element on which it is invoked
- * that matches the specified group of selectors.
- *
- * @param {string} selector
- * @param {HTMLElement} el
- *
- * @function
- * @return {HTMLElement}
- */
-var querySelector = exports.querySelector = (0, _functional.curry)(function (selector, el) {
-  return el.querySelector(selector);
-});
-
-/**
- * Returns a non-live NodeList of all elements descended from the element on which it
- * is invoked that matches the specified group of CSS selectors.
- *
- * @param {string} selector
- * @param {HTMLElement} el
- *
- * @function
- * @return {NodeList}
- */
-var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(function (selector, el) {
-  return el.querySelectorAll(selector);
-});
-
-/**
- * The removeChild() method removes a child node from the DOM. Returns removed node.
- *
- * @param {Node} parent
- * @param {Node} oldChild
- *
- * @return {Node}
- */
-var removeChild = exports.removeChild = (0, _functional.curry)(function (parent, oldChild) {
-  return parent.removeChild(oldChild);
-});
-
-/**
- * Returns true if a node has a class
- *
- * @param {string} cls
- * @param {HTMLElement} el
- *
- * @function
- */
-var classListContains = exports.classListContains = (0, _functional.curry)(function (cls, el) {
-  return el.classList.contains(cls);
-});
-
-/**
- * Transforms a NodeList to an Array
- *
- * @param {NodeList} nodeList
- *
- * @return {Node[]}
- */
-var nodeListToArray = exports.nodeListToArray = function nodeListToArray(nodeList) {
-  return Array.prototype.slice.call(nodeList);
+  // initialize
+  (0, _elements.toggleVisibility)(isExpanded(toggler), collapsible);
 };
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -410,9 +487,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 exports.default = init;
 
-var _elements = __webpack_require__(1);
+var _elements = __webpack_require__(0);
 
-var _functional = __webpack_require__(0);
+var _functional = __webpack_require__(1);
 
 /**
  * @constant
@@ -586,49 +663,6 @@ function init(element) {
 }
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = init;
-
-var _elements = __webpack_require__(1);
-
-var _functional = __webpack_require__(0);
-
-/**
- * @type {function}
- */
-var show = (0, _elements.setAttribute)('aria-hidden', 'false');
-
-/**
- * @type {function}
- */
-var unSelectAll = (0, _functional.forEach)((0, _elements.setAttribute)('aria-selected', 'false'));
-
-/**
- * Initiates a tab panel
- *
- * @param {HTMLElement} element
- */
-function init(element) {
-  var menuItems = element.querySelectorAll('[role="menuitem"]');
-
-  menuItems.forEach(function (menuItem) {
-    menuItem.addEventListener('click', function (event) {
-      console.log('click');
-      unSelectAll(menuItems);
-      event.target.setAttribute('aria-selected', 'true');
-    });
-  });
-}
-
-/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -640,83 +674,48 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = init;
 
-var _elements = __webpack_require__(1);
+var _elements = __webpack_require__(0);
 
-var _functional = __webpack_require__(0);
+var _functional = __webpack_require__(1);
 
-/**
- * @type {function}
- */
-var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
+var _aria = __webpack_require__(2);
 
 /**
- * @type {function}
- */
-var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
-
-/**
- * @type {function}
- */
-var show = (0, _elements.setAttribute)('aria-hidden', 'false');
-
-/**
- * Toggles the body visibility
+ * Unselects all elements in an array
  *
- * @param {HTMLElement} bodyElement
- * @param {boolean} isExpanded
- */
-var toggleBodyVisibility = function toggleBodyVisibility(bodyElement, isExpanded) {
-  if (!isExpanded) {
-    hide(bodyElement);
-    //bodyElement.style.height = "0";
-  } else /*if(bodyElement.scrollHeight > 0)*/{
-      show(bodyElement);
-      //bodyElement.style.height = `${bodyElement.scrollHeight}px`;
-    }
-};
-
-/**
- * Handles changes to aria-expanded
- *
- * @param {HTMLElement} bodyElement
- * @param {MutationRecord} event
- *
+ * @param {HTMLElement[]} elements
  * @function
  */
-var onAriaExpandedChange = (0, _functional.curry)(function (bodyElement, event) {
-  toggleBodyVisibility(bodyElement, isExpanded(event.target));
-});
+var unSelectAll = (0, _functional.forEach)((0, _elements.setAttribute)('aria-selected', 'false'));
 
 /**
- * Initializes a panel
+ * Sets the aria-expanded attribute on an element to false
  *
  * @param {HTMLElement} element
- * @return {HTMLElement}
+ */
+var unExpand = (0, _elements.setAttribute)('aria-expanded', 'false');
+
+/**
+ * Initiates a tab panel
+ *
+ * @param {HTMLElement} element
  */
 function init(element) {
-  var titleEl = element.querySelector('[aria-expanded]');
-  var bodyId = titleEl.getAttribute('aria-controls');
-  var bodyEl = element.querySelector('#' + bodyId);
+  // elements
+  var menuItems = element.querySelectorAll('[role="menuitem"]');
+  var toggler = element.querySelector('[aria-controls][aria-expanded]');
 
-  if (titleEl) {
-    // set observer on title for aria-expanded
-    var observer = new MutationObserver((0, _functional.forEach)(onAriaExpandedChange(bodyEl)));
-
-    observer.observe(titleEl, {
-      attributes: true,
-      attributeOldValue: true,
-      attributeFilter: ["aria-expanded"]
+  // move select
+  menuItems.forEach(function (menuItem) {
+    menuItem.addEventListener('click', function (event) {
+      unSelectAll(menuItems);
+      event.target.setAttribute('aria-selected', 'true');
+      unExpand(toggler);
     });
+  });
 
-    // Set click listener that toggles aria-expanded
-    titleEl.addEventListener('click', function (event) {
-      (0, _elements.toggleAttribute)("aria-expanded", event.target);
-    });
-
-    toggleBodyVisibility(bodyEl, isExpanded(titleEl));
-  }
-
-  return element;
+  // init collapse and open
+  (0, _aria.initCollapsible)(element);
 }
 
 /***/ }),
@@ -731,9 +730,33 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = init;
 
-var _elements = __webpack_require__(1);
+var _aria = __webpack_require__(2);
 
-var _functional = __webpack_require__(0);
+/**
+ * Initializes a panel
+ *
+ * @param {HTMLElement} element
+ * @return {HTMLElement}
+ */
+function init(element) {
+  (0, _aria.initCollapsible)(element);
+}
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = init;
+
+var _elements = __webpack_require__(0);
+
+var _functional = __webpack_require__(1);
 
 /**
  * @type {function}
@@ -774,27 +797,27 @@ function init(element) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(6);
+__webpack_require__(7);
 
 // Load library
 H5P = H5P || {};
 H5P.sdk = H5P.sdk || {};
-H5P.sdk.initPanel = __webpack_require__(4).default;
-H5P.sdk.initTabPanel = __webpack_require__(5).default;
-H5P.sdk.initMenu = __webpack_require__(3).default;
-H5P.sdk.initImageScroller = __webpack_require__(2).default;
+H5P.sdk.initPanel = __webpack_require__(5).default;
+H5P.sdk.initTabPanel = __webpack_require__(6).default;
+H5P.sdk.initMenu = __webpack_require__(4).default;
+H5P.sdk.initImageScroller = __webpack_require__(3).default;
 
 /***/ })
 /******/ ]);

@@ -131,3 +131,25 @@ export const classListContains = curry((cls, el) => el.classList.contains(cls));
  * @return {Node[]}
  */
 export const nodeListToArray = nodeList => Array.prototype.slice.call(nodeList);
+
+/**
+ * Adds aria-hidden=true to an element
+ *
+ * @param {HTMLElement} element
+ * @function
+ */
+export const hide = setAttribute('aria-hidden', 'true');
+
+/**
+ * Adds aria-hidden=false to an element
+ * @function
+ */
+export const show = setAttribute('aria-hidden', 'false');
+
+/**
+ * Toggles aria-hidden on an element
+ *
+ * @param {boolean} visible
+ * @param {HTMLElement} element
+ */
+export const toggleVisibility = curry((visible, element) => (visible ? show : hide)(element));
