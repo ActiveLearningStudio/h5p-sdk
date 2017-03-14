@@ -17,7 +17,8 @@ const isExpanded = attributeEquals("aria-expanded", 'true');
 export const initCollapsible = (element) => {
   // elements
   const toggler = element.querySelector('[aria-controls][aria-expanded]');
-  const collapsible = document.getElementById(toggler.getAttribute('aria-controls'));
+  const collapsibleId = toggler.getAttribute('aria-controls');
+  const collapsible = element.querySelector(`#${collapsibleId}`);
 
   // set observer on title for aria-expanded
   let observer = new MutationObserver(() => toggleVisibility(isExpanded(toggler), collapsible));

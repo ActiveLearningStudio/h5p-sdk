@@ -450,7 +450,8 @@ var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
 var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
   // elements
   var toggler = element.querySelector('[aria-controls][aria-expanded]');
-  var collapsible = document.getElementById(toggler.getAttribute('aria-controls'));
+  var collapsibleId = toggler.getAttribute('aria-controls');
+  var collapsible = element.querySelector('#' + collapsibleId);
 
   // set observer on title for aria-expanded
   var observer = new MutationObserver(function () {
