@@ -29,7 +29,7 @@
     color: $text-light;
   }
 
-  .close {
+  .message-close {
     display: none;
   }
 }
@@ -56,7 +56,8 @@
     float: right;
   }
 
-  .close {
+  .message-close {
+    cursor: pointer;
     display: block;
     float: right;
     padding-top: 1.250em;
