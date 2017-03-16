@@ -66,7 +66,6 @@ $width-menu-item: 12em;
         text-align: center;
         text-decoration: none;
         cursor: pointer;
-        transition: all .5s ease;
 
         &:not(:last-of-type) {
           border-bottom: 0;
@@ -86,7 +85,9 @@ $width-menu-item: 12em;
         height: 7px;
         background: $ac1;
         position: relative;
-        transition: all .5s ease;
+        transition: width .5s ease;
+        transition: right .5s ease;
+        transition: visibility 0.2s ease-in-out;
       }
     }
   }
