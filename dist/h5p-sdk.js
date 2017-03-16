@@ -819,6 +819,44 @@ H5P.sdk.initPanel = __webpack_require__(5).default;
 H5P.sdk.initTabPanel = __webpack_require__(6).default;
 H5P.sdk.initMenu = __webpack_require__(4).default;
 H5P.sdk.initImageScroller = __webpack_require__(3).default;
+H5P.sdk.initUploadForm = __webpack_require__(12).default;
+
+/***/ }),
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = init;
+/**
+ * Initiates an upload form and adds logic
+ * to bind the elements together.
+ *
+ * @param {HTMLElement} element
+ */
+function init(element) {
+  var uploadInput = element.querySelector('.upload input[type="file"]');
+  var uploadPath = element.querySelector('.upload-path');
+  var useButton = element.querySelector('.use-button');
+
+  uploadInput.onchange = function () {
+    if (this.value !== '') {
+
+      // Replace the placeholder text with the selected filepath 
+      uploadPath.value = this.value.replace('C:\\fakepath\\', '');
+
+      // Only show the 'use' button once a file has been selected
+      useButton.style.display = 'inline-block';
+    }
+  };
+}
 
 /***/ })
 /******/ ]);

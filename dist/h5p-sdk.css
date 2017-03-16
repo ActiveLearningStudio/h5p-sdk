@@ -438,6 +438,7 @@ time, mark, audio, video {
 
 .h5p-sdk .navbar .navbar-brand {
   float: left;
+  font-size: 1.25em;
 }
 
 .h5p-sdk .navbar .navbar-toggler {
@@ -519,7 +520,7 @@ time, mark, audio, video {
   }
   .h5p-sdk .navbar .menuitem-underline {
     display: block;
-    height: 7px;
+    height: 0.250em;
     background: #0a78d1;
     position: relative;
     transition: right .5s ease, visibility 0.2s ease-in-out;
@@ -602,6 +603,35 @@ time, mark, audio, video {
   float: right;
   padding-top: 1.250em;
   padding-left: 1.250em;
+}
+
+.container {
+  margin: 50px;
+}
+
+.upload input[type="file"] {
+  display: none;
+}
+
+.upload-path {
+  display: inline-block;
+  border-radius: 1.375em;
+  min-width: 200px;
+  padding: 10px;
+  border: 0.125em solid #ced6e3;
+  color: #747474;
+}
+
+.button.use-button {
+  display: none;
+  background: #697585;
+  color: #f3f3f3;
+}
+
+.upload .button.button-inverse-primary {
+  border: 0.125em solid #697585;
+  color: #697585;
+  display: inline-block;
 }
 
 /*# sourceMappingURL=h5p-sdk.css.map*/
