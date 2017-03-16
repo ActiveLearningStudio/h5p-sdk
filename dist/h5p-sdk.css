@@ -472,7 +472,7 @@ table {
     float: right;
   }
   .h5p .navbar .navbar-nav[aria-hidden='true'] {
-    display: block;
+    display: block !important;
   }
   .h5p .navbar [role="menuitem"] {
     display: inline-block;
@@ -489,22 +489,22 @@ table {
   .h5p .navbar [role="menuitem"]:nth-child(1) ~ .menuitem-underline,
   .h5p .navbar [role="menuitem"]:nth-child(1)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: 0em;
+    right: 0.833em;
   }
   .h5p .navbar [role="menuitem"]:nth-child(2) ~ .menuitem-underline,
   .h5p .navbar [role="menuitem"]:nth-child(2)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: -12em;
+    right: -11.167em;
   }
   .h5p .navbar [role="menuitem"]:nth-child(3) ~ .menuitem-underline,
   .h5p .navbar [role="menuitem"]:nth-child(3)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: -24em;
+    right: -23.167em;
   }
   .h5p .navbar [role="menuitem"]:nth-child(4) ~ .menuitem-underline,
   .h5p .navbar [role="menuitem"]:nth-child(4)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: -36em;
+    right: -35.167em;
   }
   .h5p .navbar .menuitem-underline {
     display: block;
@@ -531,7 +531,7 @@ table {
   color: #71757e;
 }
 
-.message .close {
+.message .message-close {
   display: none;
 }
 
@@ -585,7 +585,8 @@ table {
   float: right;
 }
 
-.dismissible .close {
+.dismissible .message-close {
+  cursor: pointer;
   display: block;
   float: right;
   padding-top: 1.250em;
