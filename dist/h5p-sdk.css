@@ -103,7 +103,8 @@ table {
 
 .h5p small, .h5p .small {
   color: #71757e;
-  font-size: 0.833em;
+  line-height: 1.7em;
+  font-size: 0.93em;
 }
 
 .h5p .link,
@@ -120,9 +121,11 @@ table {
 }
 
 .h5p .button {
-  font-size: 0.833em;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.93em;
   font-weight: 600;
   text-decoration: none;
+  line-height: 1em;
   padding: 0.708em 1.375em;
   border-radius: 1.375em;
   background-color: #f3f3f3;
@@ -204,7 +207,9 @@ table {
 
 .h5p .carousel .scroller {
   overflow: hidden;
-  width: 100%;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .h5p .carousel ul {
@@ -259,11 +264,11 @@ table {
 }
 
 .h5p .carousel .carousel-button.previous {
-  left: -0.4165em;
+  left: 0;
 }
 
 .h5p .carousel .carousel-button.next {
-  right: -0.4165em;
+  right: 0;
 }
 
 .h5p {
@@ -426,7 +431,7 @@ table {
   list-style: none;
   color: #1f2227;
   margin: 0 0 0.833em 0;
-  font-size: 0.833em;
+  font-size: 0.93em;
   padding: 0.833em;
   overflow: auto;
 }
@@ -527,7 +532,7 @@ table {
 }
 
 .message p {
-  font-size: 0.833em;
+  font-size: 0.93em;
   color: #71757e;
 }
 
