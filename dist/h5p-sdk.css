@@ -483,7 +483,6 @@ time, mark, audio, video {
     display: inline-block;
     width: 12em;
     text-align: center;
-    margin-right: -5px;
     text-decoration: none;
     cursor: pointer;
     transition: all .5s ease;
@@ -494,22 +493,22 @@ time, mark, audio, video {
   .h5p-sdk .navbar [role="menuitem"]:nth-child(1) ~ .menuitem-underline,
   .h5p-sdk .navbar [role="menuitem"]:nth-child(1)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: 0.833em;
+    right: 0em;
   }
   .h5p-sdk .navbar [role="menuitem"]:nth-child(2) ~ .menuitem-underline,
   .h5p-sdk .navbar [role="menuitem"]:nth-child(2)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: -11.167em;
+    right: -12em;
   }
   .h5p-sdk .navbar [role="menuitem"]:nth-child(3) ~ .menuitem-underline,
   .h5p-sdk .navbar [role="menuitem"]:nth-child(3)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: -23.167em;
+    right: -24em;
   }
   .h5p-sdk .navbar [role="menuitem"]:nth-child(4) ~ .menuitem-underline,
   .h5p-sdk .navbar [role="menuitem"]:nth-child(4)[aria-selected="true"] ~ .menuitem-underline {
     width: 12em;
-    right: -35.167em;
+    right: -36em;
   }
   .h5p-sdk .navbar .menuitem-underline {
     display: block;

@@ -64,7 +64,6 @@ $width-menu-item: 12em;
         display: inline-block;
         width: $width-menu-item;
         text-align: center;
-        margin-right: -5px;
         text-decoration: none;
         cursor: pointer;
         transition: all .5s ease;
@@ -77,7 +76,7 @@ $width-menu-item: 12em;
           &:nth-child(#{$i}) ~ .menuitem-underline,
           &:nth-child(#{$i})[aria-selected="true"] ~ .menuitem-underline {
             width: $width-menu-item;
-            right: -($width-menu-item * ($i - 1)) + $gutter;
+            right: -($width-menu-item * ($i - 1));
           }
         }
       }
