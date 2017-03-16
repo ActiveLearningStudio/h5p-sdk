@@ -26,6 +26,18 @@ $width-menu-item: 12em;
       float: right;
     }
 
+    &.deactivated {
+      .menuitem-underline {
+        visibility: hidden;
+      }
+
+      [role="menuitem"] {
+        &[aria-selected="true"] {
+          font-weight: 400;
+        }
+      }
+    }
+
     [role="menuitem"] {
       box-sizing: border-box;
       padding: $gutter;
@@ -36,7 +48,7 @@ $width-menu-item: 12em;
       }
 
       &[aria-selected="true"] {
-        font-weight: 600;
+        font-weight: bold;
       }
     }
 
@@ -85,9 +97,7 @@ $width-menu-item: 12em;
         height: 7px;
         background: $ac1;
         position: relative;
-        transition: width .5s ease;
-        transition: right .5s ease;
-        transition: visibility 0.2s ease-in-out;
+        transition: right .5s ease, visibility 0.2s ease-in-out;
       }
     }
   }
