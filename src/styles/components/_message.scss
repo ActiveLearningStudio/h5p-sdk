@@ -14,53 +14,55 @@
   }
 }
 
-.message {
-  margin: $gutter 0;
-  padding: 1.250em;
-  text-align: right;
+.h5p-sdk {
+  .message {
+    margin: $gutter 0;
+    padding: 1.250em;
+    text-align: right;
 
-  h3 {
-    font-size: $text-list-title;
-    color: $text-dark;
+    h3 {
+      font-size: $text-list-title;
+      color: $text-dark;
+    }
+
+    p {
+      font-size: $text-body-small;
+      color: $text-light;
+    }
+
+    .message-close {
+      display: none;
+    }
   }
 
-  p {
-    font-size: $text-body-small;
-    color: $text-light;
+  .message.info {
+    @include message-level($ac-success, $ac-success);
+    box-shadow: inset 0.167em 0 $ac-success;
   }
 
-  .message-close {
-    display: none;
-  }
-}
-
-.info {
-  @include message-level($ac-success, $ac-success);
-  box-shadow: inset 0.167em 0 $ac-success;
-}
-
-.success {
-  @include message-level($ac-warning, $text-dark);
-  box-shadow: inset 0.167em 0 $ac-warning;
-}
-
-.error {
-  @include message-level($ac-error, $ac-error);
-  box-shadow: inset 0.167em 0 $ac-error;
-}
-
-.dismissible {
-  overflow: auto;
-
-  .message-content {
-    float: right;
+  .message.success {
+    @include message-level($ac-warning, $text-dark);
+    box-shadow: inset 0.167em 0 $ac-warning;
   }
 
-  .message-close {
-    cursor: pointer;
-    display: block;
-    float: right;
-    padding-top: 1.250em;
-    padding-left: 1.250em;
+  .message.error {
+    @include message-level($ac-error, $ac-error);
+    box-shadow: inset 0.167em 0 $ac-error;
+  }
+
+  .message.dismissible {
+    overflow: auto;
+
+    .message-content {
+      float: right;
+    }
+
+    .message-close {
+      cursor: pointer;
+      display: block;
+      float: right;
+      padding-top: 1.250em;
+      padding-left: 1.250em;
+    }
   }
 }

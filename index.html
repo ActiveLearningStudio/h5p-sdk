@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/h5p-sdk.css">
   <style>
-    .h5p {
+    .h5p-sdk {
       max-width: 1000px;
       margin-bottom: 100px;
       display: block;
@@ -21,7 +21,7 @@
   </style>
 </head>
 <body>
-<div class="h5p">
+<div class="h5p-sdk">
   <!-- Menu -->
   <h2>Menu</h2>
   <nav class="navbar">
@@ -67,8 +67,20 @@
     </div>
   </div>
 
+  <h2>File Upload</h2>
+  
+  <div class="upload-form">
+    <input class="upload-path" disabled />
+    <span class="button use-button">Use</span>
+    <label class="upload">
+      <input type="file" />
+      <span class="button button-inverse-primary">Upload a file</span>
+    </label>
+  </div>
+
+
   <!-- Image carousel -->
-  <h5>Image carousel</h5>
+  <h2>Image carousel</h2>
 
   <div class="carousel" role="region" data-size="5">
     <span class="carousel-button previous" aria-hidden="true"><span>&larr;</span></span>
@@ -258,6 +270,9 @@
 
   const imageScrollers = document.querySelectorAll('.carousel');
   imageScrollers.forEach(H5P.sdk.initImageScroller);
+
+  const uploadForm = document.querySelector('.upload-form');
+  H5P.sdk.initUploadForm(uploadForm);
 </script>
 </body>
 </html>

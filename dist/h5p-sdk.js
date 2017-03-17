@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -431,7 +431,63 @@ var inverseBooleanString = exports.inverseBooleanString = function inverseBoolea
 };
 
 /***/ }),
-/* 2 */,
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initCollapsible = undefined;
+
+var _elements = __webpack_require__(0);
+
+/**
+ * Returns true if aria-expanded=true on element
+ *
+ * @param {HTMLElement} element
+ * @function
+ */
+var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
+
+/**
+ * Toggles aria-hidden on 'collapsible' when aria-expanded changes on 'toggler',
+ * and toggles aria-expanded on 'toggler' on click
+ *
+ * @param {HTMLElement} element
+ * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
+ */
+var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
+  var targetHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _elements.toggleVisibility;
+
+  // elements
+  var toggler = element.querySelector('[aria-controls][aria-expanded]');
+  var collapsibleId = toggler.getAttribute('aria-controls');
+  var collapsible = element.querySelector('#' + collapsibleId);
+
+  // set observer on title for aria-expanded
+  var observer = new MutationObserver(function () {
+    return targetHandler(isExpanded(toggler), collapsible);
+  });
+
+  observer.observe(toggler, {
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: ["aria-expanded"]
+  });
+
+  // Set click listener that toggles aria-expanded
+  toggler.addEventListener('click', function () {
+    return (0, _elements.toggleAttribute)("aria-expanded", toggler);
+  });
+
+  // initialize
+  targetHandler(isExpanded(toggler), collapsible);
+};
+
+/***/ }),
 /* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -871,7 +927,7 @@ var _elements = __webpack_require__(0);
 
 var _functional = __webpack_require__(1);
 
-var _collapsible = __webpack_require__(13);
+var _collapsible = __webpack_require__(2);
 
 var _keyboard = __webpack_require__(3);
 
@@ -954,7 +1010,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = init;
 
-var _collapsible = __webpack_require__(13);
+var _collapsible = __webpack_require__(2);
 
 /**
  * Initializes a panel
@@ -1075,32 +1131,6 @@ function init(element) {
 
 /***/ }),
 /* 8 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-__webpack_require__(8);
-
-// Load library
-H5P = H5P || {};
-H5P.sdk = H5P.sdk || {};
-H5P.sdk.initPanel = __webpack_require__(6).default;
-H5P.sdk.initTabPanel = __webpack_require__(7).default;
-H5P.sdk.initNavbar = __webpack_require__(5).default;
-H5P.sdk.initImageScroller = __webpack_require__(4).default;
-
-/***/ }),
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1109,52 +1139,53 @@ H5P.sdk.initImageScroller = __webpack_require__(4).default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.initCollapsible = undefined;
-
-var _elements = __webpack_require__(0);
-
+exports.default = init;
 /**
- * Returns true if aria-expanded=true on element
+ * Initiates an upload form and adds logic
+ * to bind the elements together.
  *
  * @param {HTMLElement} element
- * @function
  */
-var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
+function init(element) {
+  var uploadInput = element.querySelector('.upload input[type="file"]');
+  var uploadPath = element.querySelector('.upload-path');
+  var useButton = element.querySelector('.use-button');
 
-/**
- * Toggles aria-hidden on 'collapsible' when aria-expanded changes on 'toggler',
- * and toggles aria-expanded on 'toggler' on click
- *
- * @param {HTMLElement} element
- * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
- */
-var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
-  var targetHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _elements.toggleVisibility;
+  uploadInput.onchange = function () {
+    if (this.value !== '') {
 
-  // elements
-  var toggler = element.querySelector('[aria-controls][aria-expanded]');
-  var collapsibleId = toggler.getAttribute('aria-controls');
-  var collapsible = element.querySelector('#' + collapsibleId);
+      // Replace the placeholder text with the selected filepath 
+      uploadPath.value = this.value.replace('C:\\fakepath\\', '');
 
-  // set observer on title for aria-expanded
-  var observer = new MutationObserver(function () {
-    return targetHandler(isExpanded(toggler), collapsible);
-  });
+      // Only show the 'use' button once a file has been selected
+      useButton.style.display = 'inline-block';
+    }
+  };
+}
 
-  observer.observe(toggler, {
-    attributes: true,
-    attributeOldValue: true,
-    attributeFilter: ["aria-expanded"]
-  });
+/***/ }),
+/* 9 */
+/***/ (function(module, exports) {
 
-  // Set click listener that toggles aria-expanded
-  toggler.addEventListener('click', function () {
-    return (0, _elements.toggleAttribute)("aria-expanded", toggler);
-  });
+// removed by extract-text-webpack-plugin
 
-  // initialize
-  targetHandler(isExpanded(toggler), collapsible);
-};
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+__webpack_require__(9);
+
+// Load library
+H5P = H5P || {};
+H5P.sdk = H5P.sdk || {};
+H5P.sdk.initPanel = __webpack_require__(6).default;
+H5P.sdk.initTabPanel = __webpack_require__(7).default;
+H5P.sdk.initNavbar = __webpack_require__(5).default;
+H5P.sdk.initImageScroller = __webpack_require__(4).default;
+H5P.sdk.initUploadForm = __webpack_require__(8).default;
 
 /***/ })
 /******/ ]);
