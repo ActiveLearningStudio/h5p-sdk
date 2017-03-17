@@ -38,7 +38,6 @@ const updateTabbable = (elements, index) => {
   if(selectedElement) {
     removeTabIndexForAll(elements);
     addTabIndex(selectedElement);
-    selectedElement.focus();
   }
 };
 
@@ -156,6 +155,7 @@ export default class Keyboard {
     }
 
     updateTabbable(this.elements, this.selectedIndex);
+    this.elements[this.selectedIndex].focus();
   };
 
   /**

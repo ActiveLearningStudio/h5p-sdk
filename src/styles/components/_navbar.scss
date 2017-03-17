@@ -2,6 +2,7 @@
 @import "../base/variables";
 
 $width-menu-item: 12em;
+$height-menuitem-underline: 0.250em;
 
 .h5p-sdk {
   .navbar {
@@ -110,7 +111,8 @@ $width-menu-item: 12em;
 
       .menuitem-underline {
         display: block;
-        height: 0.250em;
+        height: $height-menuitem-underline;
+        margin-top: -$height-menuitem-underline;
         background: $ac1;
         position: relative;
         transition: right .5s ease, visibility 0.2s ease-in-out;
