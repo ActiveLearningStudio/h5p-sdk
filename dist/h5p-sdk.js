@@ -543,7 +543,6 @@ var updateTabbable = function updateTabbable(elements, index) {
   if (selectedElement) {
     removeTabIndexForAll(elements);
     addTabIndex(selectedElement);
-    selectedElement.focus();
   }
 };
 
@@ -684,6 +683,7 @@ var Keyboard = function () {
       }
 
       updateTabbable(this.elements, this.selectedIndex);
+      this.elements[this.selectedIndex].focus();
     }
   }, {
     key: 'forceSelectedIndex',

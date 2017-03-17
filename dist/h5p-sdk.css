@@ -413,17 +413,16 @@ time, mark, audio, video {
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="true"] {
-  opacity: 0;
-  height: 0;
+  display: block;
   overflow: hidden;
-  visibility: hidden;
+  opacity: 0.5;
+  height: 0;
+  transition: opacity 0.5s;
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="false"] {
-  visibility: visible;
   opacity: 1;
-  height: auto;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: opacity 0.5s;
 }
 
 .h5p-sdk .navbar {
