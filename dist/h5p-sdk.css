@@ -438,7 +438,7 @@ time, mark, audio, video {
 
 .h5p-sdk .navbar .navbar-brand {
   float: left;
-  font-size: 1.25em;
+  font-size: 1.250em;
 }
 
 .h5p-sdk .navbar .navbar-toggler {
@@ -605,15 +605,11 @@ time, mark, audio, video {
   padding-left: 1.250em;
 }
 
-.container {
-  margin: 50px;
-}
-
-.upload input[type="file"] {
+.upload-form .upload input[type="file"] {
   display: none;
 }
 
-.upload-path {
+.upload-form .upload-path {
   display: inline-block;
   border-radius: 1.375em;
   min-width: 200px;
@@ -622,16 +618,15 @@ time, mark, audio, video {
   color: #747474;
 }
 
-.button.use-button {
+.upload-form .button.use-button {
   display: none;
   background: #697585;
   color: #f3f3f3;
 }
 
-.upload .button.button-inverse-primary {
+.upload-form .upload .button.button-inverse-primary {
   border: 0.125em solid #697585;
   color: #697585;
-  display: inline-block;
 }
 
 /*# sourceMappingURL=h5p-sdk.css.map*/

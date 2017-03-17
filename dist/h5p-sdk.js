@@ -845,11 +845,10 @@ function init(element) {
   var uploadInput = element.querySelector('.upload input[type="file"]');
   var uploadPath = element.querySelector('.upload-path');
   var useButton = element.querySelector('.use-button');
-
   uploadInput.onchange = function () {
     if (this.value !== '') {
 
-      // Replace the placeholder text with the selected filepath 
+      // Replace the placeholder text with the selected filepath
       uploadPath.value = this.value.replace('C:\\fakepath\\', '');
 
       // Only show the 'use' button once a file has been selected
