@@ -69,15 +69,15 @@ const updateView = (element, state) => {
  * @param {ImageScrollerState} state
  * @param {HTMLElement} button
  * @param {function} updateState
- * @param {Event}
+ *
  * @function
  */
-const onNavigationButtonClick = curry((element, state, button, updateState, event) => {
+const onNavigationButtonClick = (element, state, button, updateState) => {
   if(!isDisabled(button)){
     updateState(state);
     updateView(element, state);
   }
-});
+};
 
 /**
  * Initializes an image
@@ -140,8 +140,8 @@ export default function init(element) {
   };
 
   // initialize buttons
-  nextButton.addEventListener('click', onNavigationButtonClick(element, state, nextButton, state => state.position--));
-  prevButton.addEventListener('click', onNavigationButtonClick(element, state, prevButton, state => state.position++));
+  nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, state => state.position--));
+  prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
 
   // initialize images
   element.querySelectorAll('[aria-controls]').forEach(initImage(element));

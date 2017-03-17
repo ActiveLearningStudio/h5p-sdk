@@ -13,15 +13,16 @@ const isExpanded = attributeEquals("aria-expanded", 'true');
  * and toggles aria-expanded on 'toggler' on click
  *
  * @param {HTMLElement} element
+ * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
  */
-export const initCollapsible = (element) => {
+export const initCollapsible = (element, targetHandler = toggleVisibility) => {
   // elements
   const toggler = element.querySelector('[aria-controls][aria-expanded]');
   const collapsibleId = toggler.getAttribute('aria-controls');
   const collapsible = element.querySelector(`#${collapsibleId}`);
 
   // set observer on title for aria-expanded
-  let observer = new MutationObserver(() => toggleVisibility(isExpanded(toggler), collapsible));
+  let observer = new MutationObserver(() => targetHandler(isExpanded(toggler), collapsible));
 
   observer.observe(toggler, {
     attributes: true,
@@ -33,5 +34,5 @@ export const initCollapsible = (element) => {
   toggler.addEventListener('click', () => toggleAttribute("aria-expanded", toggler));
 
   // initialize
-  toggleVisibility(isExpanded(toggler), collapsible);
+  targetHandler(isExpanded(toggler), collapsible);
 };
