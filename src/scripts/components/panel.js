@@ -1,4 +1,4 @@
-import {initCollapsible} from '../utils/aria';
+import { initCollapsible } from '../utils/collapsible';
 
 
 /**

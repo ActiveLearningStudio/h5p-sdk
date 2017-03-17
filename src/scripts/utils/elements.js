@@ -153,3 +153,12 @@ export const show = setAttribute('aria-hidden', 'false');
  * @param {HTMLElement} element
  */
 export const toggleVisibility = curry((visible, element) => (visible ? show : hide)(element));
+
+/**
+ * Toggles a class on an element
+ *
+ * @param {string} cls
+ * @param {boolean} add
+ * @param {HTMLElement} element
+ */
+export const toggleClass = curry((cls, add, element) => element.classList[add ? 'add' : 'remove'](cls));

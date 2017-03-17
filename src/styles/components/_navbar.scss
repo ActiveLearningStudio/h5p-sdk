@@ -14,22 +14,33 @@ $width-menu-item: 12em;
     padding: $gutter;
     overflow: auto;
 
+    .navbar-header {
+      overflow: auto;
+    }
+
     .navbar-brand {
       float: left;
     }
 
     .navbar-toggler {
       cursor: pointer;
+      background: none;
+      border: 0;
     }
 
     .navbar-toggler-right {
       float: right;
     }
 
+    .collapsed {
+      display: none;
+    }
+
     [role="menuitem"] {
       box-sizing: border-box;
       padding: $gutter;
       text-align: right;
+      outline-color: $ac1;
 
       &:not(:last-of-type) {
         border-bottom: 1px solid $c2;
@@ -43,6 +54,10 @@ $width-menu-item: 12em;
     @media (min-width: $screen-small) {
       padding: 0 $gutter;
 
+      .navbar-header {
+        display: inline-block;
+      }
+
       .navbar-brand {
         padding: $gutter;
       }
@@ -55,7 +70,7 @@ $width-menu-item: 12em;
         display: inline-block;
         float: right;
 
-        &[aria-hidden='true'] {
+        &.collapsed {
           display: block ! important;
         }
       }
