@@ -543,6 +543,7 @@ var updateTabbable = function updateTabbable(elements, index) {
   if (selectedElement) {
     removeTabIndexForAll(elements);
     addTabIndex(selectedElement);
+    selectedElement.focus();
   }
 };
 
@@ -683,7 +684,6 @@ var Keyboard = function () {
       }
 
       updateTabbable(this.elements, this.selectedIndex);
-      this.elements[this.selectedIndex].focus();
     }
   }, {
     key: 'forceSelectedIndex',
@@ -995,7 +995,9 @@ function init(element) {
   });
 
   // init collapse and open
-  (0, _collapsible.initCollapsible)(element, (0, _elements.toggleClass)('collapsed'));
+  (0, _collapsible.initCollapsible)(element, function (expanded, element) {
+    return (0, _elements.toggleClass)('collapsed', !expanded, element);
+  });
 }
 
 /***/ }),
