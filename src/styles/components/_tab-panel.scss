@@ -8,13 +8,13 @@
     [role="tablist"] {
       background-color: $c3;
       list-style: none;
-      padding: 0;
+      padding-left: 1em;
       margin: 0;
       border-bottom: 0.042em solid $c2;
 
       > span {
       	display: block;
-      	height: 7px;
+      	height: 0.3em;
       	background: $ac1;
       	position: relative;
         transition: all .5s ease;
@@ -62,12 +62,12 @@
         overflow: hidden;
         opacity: 0.5;
         height: 0;
-        transition: opacity 0.5s;
+        transition: opacity 0.3s;
       }
 
       &[aria-hidden="false"] {
         opacity: 1;
-        transition: opacity 0.5s;
+        transition: opacity 0.3s;
       }
     }
   }

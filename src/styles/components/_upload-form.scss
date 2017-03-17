@@ -8,22 +8,22 @@
   .upload-path {
     display: inline-block;
     border-radius: 1.375em;
-    min-width: 200px;
+    min-width: 14em;
     padding: 10px;
-    border: 0.125em solid $c2;
+    border: 0.125em solid $c1;
     color: $c6;
+    cursor: pointer;
+  }
+
+  .button.upload-button{
+    background: transparent;
+    color: $c1;
+    border: 0.125em solid $c1;
   }
 
   .button.use-button {
     display: none;
     background: $c1;
-    color: $c3
-  }
-
-  .upload {
-    .button.button-inverse-primary {
-      border: 0.125em solid $c1;
-      color: $c1;
-    }
+    color: white;
   }
 }
