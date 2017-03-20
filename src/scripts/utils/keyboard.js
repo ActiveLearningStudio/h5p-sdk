@@ -87,6 +87,7 @@ export default class Keyboard {
    * @param {HTMLElement} element
    *
    * @public
+   * @return {HTMLElement}
    */
   addElement(element) {
     this.elements.push(element);
@@ -95,6 +96,8 @@ export default class Keyboard {
     if (this.elements.length === 1) { // if first
       addTabIndex(element);
     }
+
+    return element
   };
 
   /**
@@ -103,6 +106,7 @@ export default class Keyboard {
    * @param {HTMLElement} element
    *
    * @public
+   * @return {HTMLElement}
    */
   removeElement(element) {
     this.elements = without([element], this.elements);
@@ -116,6 +120,8 @@ export default class Keyboard {
       this.selectedIndex = 0;
       updateTabbable(this.elements, this.selectedIndex);
     }
+
+    return element;
   };
 
   /**

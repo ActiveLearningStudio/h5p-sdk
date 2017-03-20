@@ -542,6 +542,7 @@ var Keyboard = function () {
    * @param {HTMLElement} element
    *
    * @public
+   * @return {HTMLElement}
    */
 
 
@@ -555,6 +556,8 @@ var Keyboard = function () {
         // if first
         addTabIndex(element);
       }
+
+      return element;
     }
   }, {
     key: 'removeElement',
@@ -566,6 +569,7 @@ var Keyboard = function () {
      * @param {HTMLElement} element
      *
      * @public
+     * @return {HTMLElement}
      */
     value: function removeElement(element) {
       this.elements = (0, _functional.without)([element], this.elements);
@@ -579,6 +583,8 @@ var Keyboard = function () {
         this.selectedIndex = 0;
         updateTabbable(this.elements, this.selectedIndex);
       }
+
+      return element;
     }
   }, {
     key: 'handleKeyDown',
@@ -739,6 +745,12 @@ var _elements = __webpack_require__(0);
 
 var _functional = __webpack_require__(1);
 
+var _keyboard = __webpack_require__(2);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 /**
  * @constant
  */
@@ -826,18 +838,24 @@ var onNavigationButtonClick = function onNavigationButtonClick(element, state, b
  *
  * @param {HTMLElement} element
  * @param {HTMLElement} image
+ *
  * @function
+ * @return {HTMLElement}
  */
-var initImage = (0, _functional.curry)(function (element, image) {
+var initImage = (0, _functional.curry)(function (element, keyboard, image) {
   var targetId = image.getAttribute('aria-controls');
-  var target = element.querySelector('#' + targetId);
+  var lightBox = element.querySelector('#' + targetId);
 
-  target.addEventListener('click', function (event) {
-    return target.setAttribute('aria-hidden', 'true');
+  lightBox.addEventListener('click', function (event) {
+    return lightBox.setAttribute('aria-hidden', 'true');
   });
   image.addEventListener('click', function (event) {
-    return target.setAttribute('aria-hidden', 'false');
+    return lightBox.setAttribute('aria-hidden', 'false');
   });
+
+  keyboard.addElement(image);
+
+  return image;
 });
 
 /**
@@ -848,10 +866,10 @@ var initImage = (0, _functional.curry)(function (element, image) {
  * @param {MutationRecord} record
  * @function
  */
-var handleDomUpdate = (0, _functional.curry)(function (element, state, record) {
+var handleDomUpdate = (0, _functional.curry)(function (element, state, keyboard, record) {
   // on add image run initialization
   if (record.type === 'childList') {
-    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).forEach(initImage(element));
+    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).forEach(initImage(element, keyboard));
   }
 
   // update the view
@@ -871,6 +889,7 @@ function init(element) {
   // get button html elements
   var nextButton = element.querySelector('.next');
   var prevButton = element.querySelector('.previous');
+  var keyboard = new _keyboard2.default();
 
   /**
    * @typedef {object} ImageScrollerState
@@ -895,10 +914,10 @@ function init(element) {
   });
 
   // initialize images
-  element.querySelectorAll('[aria-controls]').forEach(initImage(element));
+  (0, _elements.nodeListToArray)(element.querySelectorAll('[aria-controls]')).forEach(initImage(element, keyboard));
 
   // listen for updates to data-size
-  var observer = new MutationObserver((0, _functional.forEach)(handleDomUpdate(element, state)));
+  var observer = new MutationObserver((0, _functional.forEach)(handleDomUpdate(element, state, keyboard)));
 
   observer.observe(element, {
     subtree: true,
