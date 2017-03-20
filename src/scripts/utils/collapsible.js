@@ -14,10 +14,11 @@ const isExpanded = attributeEquals("aria-expanded", 'true');
  *
  * @param {HTMLElement} element
  * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
+ * @param {string} [togglerSelector]
  */
-export const initCollapsible = (element, targetHandler = toggleVisibility) => {
+export const initCollapsible = (element, targetHandler = toggleVisibility, togglerSelector = '[aria-controls][aria-expanded]') => {
   // elements
-  const togglers = querySelectorAll('[aria-controls][aria-expanded]', element);
+  const togglers = querySelectorAll(togglerSelector, element);
 
   togglers.forEach(toggler => {
     const collapsibleId = toggler.getAttribute('aria-controls');

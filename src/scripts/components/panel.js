@@ -1,6 +1,6 @@
 import { initCollapsible } from '../utils/collapsible';
 import Keyboard from '../utils/keyboard';
-import { toggleAttribute, querySelectorAll } from '../utils/elements';
+import { toggleAttribute, querySelectorAll, toggleVisibility } from '../utils/elements';
 
 /**
  * Initializes a panel
@@ -10,12 +10,13 @@ import { toggleAttribute, querySelectorAll } from '../utils/elements';
  */
 export default function init(element) {
   const keyboard = new Keyboard();
+  const togglerSelector = '[role="heading"] [aria-controls][aria-expanded]';
   keyboard.onSelect = el => toggleAttribute('aria-expanded', el);
 
   // collapse/expand on header press
-  initCollapsible(element);
+  initCollapsible(element, (expanded, element) => toggleVisibility(expanded, element), togglerSelector);
 
   // Add keyboard support to expand collapse
-  querySelectorAll('[aria-controls][aria-expanded]', element)
+  querySelectorAll(togglerSelector, element)
     .forEach(el => keyboard.addElement(el));
 }

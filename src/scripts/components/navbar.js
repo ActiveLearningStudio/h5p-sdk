@@ -63,5 +63,5 @@ export default function init(element) {
   });
 
   // init collapse and open
-  initCollapsible(element, (expanded, element) => toggleClass('collapsed', !expanded, element));
+  initCollapsible(element, (expanded, el) => toggleClass('collapsed', !expanded, el));
 }

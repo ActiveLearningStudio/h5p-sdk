@@ -161,4 +161,6 @@ export const toggleVisibility = curry((visible, element) => (visible ? show : hi
  * @param {boolean} add
  * @param {HTMLElement} element
  */
-export const toggleClass = curry((cls, add, element) => element.classList[add ? 'add' : 'remove'](cls));
+export const toggleClass = curry((cls, add, element) => {
+  element.classList[add ? 'add' : 'remove'](cls)
+});

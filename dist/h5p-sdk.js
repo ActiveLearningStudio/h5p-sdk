@@ -266,7 +266,9 @@ var toggleVisibility = exports.toggleVisibility = (0, _functional.curry)(functio
  * @param {HTMLElement} element
  */
 var toggleClass = exports.toggleClass = (0, _functional.curry)(function (cls, add, element) {
-  return element.classList[add ? 'add' : 'remove'](cls);
+  if (element) {
+    element.classList[add ? 'add' : 'remove'](cls);
+  }
 });
 
 /***/ }),
@@ -694,12 +696,14 @@ var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
  *
  * @param {HTMLElement} element
  * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
+ * @param {string} [togglerSelector]
  */
 var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
   var targetHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _elements.toggleVisibility;
+  var togglerSelector = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : '[aria-controls][aria-expanded]';
 
   // elements
-  var togglers = (0, _elements.querySelectorAll)('[aria-controls][aria-expanded]', element);
+  var togglers = (0, _elements.querySelectorAll)(togglerSelector, element);
 
   togglers.forEach(function (toggler) {
     var collapsibleId = toggler.getAttribute('aria-controls');
@@ -1017,8 +1021,8 @@ function init(element) {
   });
 
   // init collapse and open
-  (0, _collapsible.initCollapsible)(element, function (expanded, element) {
-    return (0, _elements.toggleClass)('collapsed', !expanded, element);
+  (0, _collapsible.initCollapsible)(element, function (expanded, el) {
+    return (0, _elements.toggleClass)('collapsed', !expanded, el);
   });
 }
 
@@ -1052,15 +1056,18 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
  */
 function init(element) {
   var keyboard = new _keyboard2.default();
+  var togglerSelector = '[role="heading"] [aria-controls][aria-expanded]';
   keyboard.onSelect = function (el) {
     return (0, _elements.toggleAttribute)('aria-expanded', el);
   };
 
   // collapse/expand on header press
-  (0, _collapsible.initCollapsible)(element);
+  (0, _collapsible.initCollapsible)(element, function (expanded, element) {
+    return (0, _elements.toggleVisibility)(expanded, element);
+  }, togglerSelector);
 
   // Add keyboard support to expand collapse
-  (0, _elements.querySelectorAll)('[aria-controls][aria-expanded]', element).forEach(function (el) {
+  (0, _elements.querySelectorAll)(togglerSelector, element).forEach(function (el) {
     return keyboard.addElement(el);
   });
 }
