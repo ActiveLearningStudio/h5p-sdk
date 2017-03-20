@@ -1,4 +1,4 @@
-import { setAttribute, removeAttribute,  nodeListToArray, toggleClass } from '../utils/elements';
+import { setAttribute, removeAttribute, querySelectorAll, toggleClass } from '../utils/elements';
 import { forEach } from '../utils/functional';
 import { initCollapsible } from '../utils/collapsible';
 import Keyboard from '../utils/keyboard';
@@ -37,7 +37,7 @@ const onSelectMenuItem = (menuItems, element) => {
  */
 export default function init(element) {
   // elements
-  const menuItems = nodeListToArray(element.querySelectorAll('[role="menuitem"]'));
+  const menuItems = querySelectorAll('[role="menuitem"]', element);
   const toggler = element.querySelector('[aria-controls][aria-expanded]');
   const keyboard = new Keyboard();
 

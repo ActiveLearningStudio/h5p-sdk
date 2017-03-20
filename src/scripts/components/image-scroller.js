@@ -1,4 +1,4 @@
-import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray } from '../utils/elements';
+import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray, querySelectorAll } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
@@ -51,7 +51,7 @@ const updateView = (element, state) => {
   list.style.marginLeft = `${state.position * (100 / state.displayCount)}%`;
 
   // update image sizes
-  element.querySelectorAll('li')
+  querySelectorAll('li', element)
     .forEach(element => element.style.width = `${100 / totalCount}%`);
 
   // toggle button visibility
@@ -152,7 +152,7 @@ export default function init(element) {
   prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
 
   // initialize images
-  nodeListToArray(element.querySelectorAll('[aria-controls]'))
+  querySelectorAll('[aria-controls]', element)
     .forEach(initImage(element, keyboard));
 
   // listen for updates to data-size

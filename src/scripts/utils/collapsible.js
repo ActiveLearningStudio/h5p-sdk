@@ -1,4 +1,4 @@
-import {attributeEquals, toggleAttribute, toggleVisibility} from '../utils/elements';
+import {attributeEquals, toggleAttribute, toggleVisibility, querySelectorAll } from '../utils/elements';
 
 /**
  * Returns true if aria-expanded=true on element
@@ -17,7 +17,7 @@ const isExpanded = attributeEquals("aria-expanded", 'true');
  */
 export const initCollapsible = (element, targetHandler = toggleVisibility) => {
   // elements
-  const togglers = element.querySelectorAll('[aria-controls][aria-expanded]');
+  const togglers = querySelectorAll('[aria-controls][aria-expanded]', element);
 
   togglers.forEach(toggler => {
     const collapsibleId = toggler.getAttribute('aria-controls');

@@ -92,6 +92,15 @@ export const appendChild = curry((parent, child) => parent.appendChild(child));
 export const querySelector = curry((selector, el) => el.querySelector(selector));
 
 /**
+ * Transforms a NodeList to an Array
+ *
+ * @param {NodeList} nodeList
+ *
+ * @return {Node[]}
+ */
+export const nodeListToArray = nodeList => Array.prototype.slice.call(nodeList);
+
+/**
  * Returns a non-live NodeList of all elements descended from the element on which it
  * is invoked that matches the specified group of CSS selectors.
  *
@@ -99,9 +108,9 @@ export const querySelector = curry((selector, el) => el.querySelector(selector))
  * @param {HTMLElement} el
  *
  * @function
- * @return {NodeList}
+ * @return {Node[]}
  */
-export const querySelectorAll = curry((selector, el) => el.querySelectorAll(selector));
+export const querySelectorAll = curry((selector, el) => nodeListToArray(el.querySelectorAll(selector)));
 
 /**
  * The removeChild() method removes a child node from the DOM. Returns removed node.
@@ -122,15 +131,6 @@ export const removeChild = curry((parent, oldChild) => parent.removeChild(oldChi
  * @function
  */
 export const classListContains = curry((cls, el) => el.classList.contains(cls));
-
-/**
- * Transforms a NodeList to an Array
- *
- * @param {NodeList} nodeList
- *
- * @return {Node[]}
- */
-export const nodeListToArray = nodeList => Array.prototype.slice.call(nodeList);
 
 /**
  * Adds aria-hidden=true to an element

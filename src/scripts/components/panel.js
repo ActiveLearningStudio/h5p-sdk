@@ -1,6 +1,6 @@
 import { initCollapsible } from '../utils/collapsible';
 import Keyboard from '../utils/keyboard';
-import { toggleAttribute } from '../utils/elements';
+import { toggleAttribute, querySelectorAll } from '../utils/elements';
 
 /**
  * Initializes a panel
@@ -16,6 +16,6 @@ export default function init(element) {
   initCollapsible(element);
 
   // Add keyboard support to expand collapse
-  element.querySelectorAll('[aria-controls][aria-expanded]')
+  querySelectorAll('[aria-controls][aria-expanded]', element)
     .forEach(el => keyboard.addElement(el));
 }

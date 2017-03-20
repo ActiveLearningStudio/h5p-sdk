@@ -76,7 +76,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.toggleClass = exports.toggleVisibility = exports.show = exports.hide = exports.nodeListToArray = exports.classListContains = exports.removeChild = exports.querySelectorAll = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
+exports.toggleClass = exports.toggleVisibility = exports.show = exports.hide = exports.classListContains = exports.removeChild = exports.querySelectorAll = exports.nodeListToArray = exports.querySelector = exports.appendChild = exports.toggleAttribute = exports.attributeEquals = exports.hasAttribute = exports.removeAttribute = exports.setAttribute = exports.getAttribute = undefined;
 
 var _functional = __webpack_require__(1);
 
@@ -186,6 +186,17 @@ var querySelector = exports.querySelector = (0, _functional.curry)(function (sel
 });
 
 /**
+ * Transforms a NodeList to an Array
+ *
+ * @param {NodeList} nodeList
+ *
+ * @return {Node[]}
+ */
+var nodeListToArray = exports.nodeListToArray = function nodeListToArray(nodeList) {
+  return Array.prototype.slice.call(nodeList);
+};
+
+/**
  * Returns a non-live NodeList of all elements descended from the element on which it
  * is invoked that matches the specified group of CSS selectors.
  *
@@ -193,10 +204,10 @@ var querySelector = exports.querySelector = (0, _functional.curry)(function (sel
  * @param {HTMLElement} el
  *
  * @function
- * @return {NodeList}
+ * @return {Node[]}
  */
 var querySelectorAll = exports.querySelectorAll = (0, _functional.curry)(function (selector, el) {
-  return el.querySelectorAll(selector);
+  return nodeListToArray(el.querySelectorAll(selector));
 });
 
 /**
@@ -222,17 +233,6 @@ var removeChild = exports.removeChild = (0, _functional.curry)(function (parent,
 var classListContains = exports.classListContains = (0, _functional.curry)(function (cls, el) {
   return el.classList.contains(cls);
 });
-
-/**
- * Transforms a NodeList to an Array
- *
- * @param {NodeList} nodeList
- *
- * @return {Node[]}
- */
-var nodeListToArray = exports.nodeListToArray = function nodeListToArray(nodeList) {
-  return Array.prototype.slice.call(nodeList);
-};
 
 /**
  * Adds aria-hidden=true to an element
@@ -699,7 +699,7 @@ var initCollapsible = exports.initCollapsible = function initCollapsible(element
   var targetHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _elements.toggleVisibility;
 
   // elements
-  var togglers = element.querySelectorAll('[aria-controls][aria-expanded]');
+  var togglers = (0, _elements.querySelectorAll)('[aria-controls][aria-expanded]', element);
 
   togglers.forEach(function (toggler) {
     var collapsibleId = toggler.getAttribute('aria-controls');
@@ -804,7 +804,7 @@ var updateView = function updateView(element, state) {
   list.style.marginLeft = state.position * (100 / state.displayCount) + '%';
 
   // update image sizes
-  element.querySelectorAll('li').forEach(function (element) {
+  (0, _elements.querySelectorAll)('li', element).forEach(function (element) {
     return element.style.width = 100 / totalCount + '%';
   });
 
@@ -914,7 +914,7 @@ function init(element) {
   });
 
   // initialize images
-  (0, _elements.nodeListToArray)(element.querySelectorAll('[aria-controls]')).forEach(initImage(element, keyboard));
+  (0, _elements.querySelectorAll)('[aria-controls]', element).forEach(initImage(element, keyboard));
 
   // listen for updates to data-size
   var observer = new MutationObserver((0, _functional.forEach)(handleDomUpdate(element, state, keyboard)));
@@ -991,7 +991,7 @@ var onSelectMenuItem = function onSelectMenuItem(menuItems, element) {
  */
 function init(element) {
   // elements
-  var menuItems = (0, _elements.nodeListToArray)(element.querySelectorAll('[role="menuitem"]'));
+  var menuItems = (0, _elements.querySelectorAll)('[role="menuitem"]', element);
   var toggler = element.querySelector('[aria-controls][aria-expanded]');
   var keyboard = new _keyboard2.default();
 
@@ -1060,7 +1060,7 @@ function init(element) {
   (0, _collapsible.initCollapsible)(element);
 
   // Add keyboard support to expand collapse
-  element.querySelectorAll('[aria-controls][aria-expanded]').forEach(function (el) {
+  (0, _elements.querySelectorAll)('[aria-controls][aria-expanded]', element).forEach(function (el) {
     return keyboard.addElement(el);
   });
 }
@@ -1118,7 +1118,7 @@ var addAriaSelectedObserver = function addAriaSelectedObserver(element, tab) {
   var observer = new MutationObserver(function () {
     var panelId = tab.getAttribute('aria-controls');
     var panel = element.querySelector('#' + panelId);
-    var allPanels = element.querySelectorAll('[role="tabpanel"]');
+    var allPanels = (0, _elements.querySelectorAll)('[role="tabpanel"]', element);
 
     if (isSelected(tab)) {
       hideAll(allPanels);
@@ -1151,7 +1151,7 @@ var selectTab = (0, _functional.curry)(function (allTabs, element) {
  * @param {HTMLElement} element
  */
 function init(element) {
-  var tabs = (0, _elements.nodeListToArray)(element.querySelectorAll('[role="tab"]'));
+  var tabs = (0, _elements.querySelectorAll)('[role="tab"]', element);
   var keyboard = new _keyboard2.default();
 
   // handle enter + space click

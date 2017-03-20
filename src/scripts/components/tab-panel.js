@@ -1,4 +1,4 @@
-import {setAttribute, removeAttribute, attributeEquals, nodeListToArray} from '../utils/elements';
+import {setAttribute, removeAttribute, attributeEquals, querySelectorAll } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
@@ -33,7 +33,7 @@ const addAriaSelectedObserver = (element, tab) => {
   let observer = new MutationObserver(() => {
     let panelId = tab.getAttribute('aria-controls');
     let panel = element.querySelector(`#${panelId}`);
-    let allPanels = element.querySelectorAll('[role="tabpanel"]');
+    let allPanels = querySelectorAll('[role="tabpanel"]', element);
 
     if(isSelected(tab)) {
       hideAll(allPanels);
@@ -66,7 +66,7 @@ const selectTab = curry((allTabs, element) => {
  * @param {HTMLElement} element
  */
 export default function init(element) {
-  const tabs = nodeListToArray(element.querySelectorAll('[role="tab"]'));
+  const tabs = querySelectorAll('[role="tab"]', element);
   const keyboard = new Keyboard();
 
   // handle enter + space click
