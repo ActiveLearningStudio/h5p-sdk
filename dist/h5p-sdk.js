@@ -440,63 +440,6 @@ var inverseBooleanString = exports.inverseBooleanString = function inverseBoolea
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.initCollapsible = undefined;
-
-var _elements = __webpack_require__(0);
-
-/**
- * Returns true if aria-expanded=true on element
- *
- * @param {HTMLElement} element
- * @function
- */
-var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
-
-/**
- * Toggles aria-hidden on 'collapsible' when aria-expanded changes on 'toggler',
- * and toggles aria-expanded on 'toggler' on click
- *
- * @param {HTMLElement} element
- * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
- */
-var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
-  var targetHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _elements.toggleVisibility;
-
-  // elements
-  var toggler = element.querySelector('[aria-controls][aria-expanded]');
-  var collapsibleId = toggler.getAttribute('aria-controls');
-  var collapsible = element.querySelector('#' + collapsibleId);
-
-  // set observer on title for aria-expanded
-  var observer = new MutationObserver(function () {
-    return targetHandler(isExpanded(toggler), collapsible);
-  });
-
-  observer.observe(toggler, {
-    attributes: true,
-    attributeOldValue: true,
-    attributeFilter: ["aria-expanded"]
-  });
-
-  // Set click listener that toggles aria-expanded
-  toggler.addEventListener('click', function () {
-    return (0, _elements.toggleAttribute)("aria-expanded", toggler);
-  });
-
-  // initialize
-  targetHandler(isExpanded(toggler), collapsible);
-};
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -718,6 +661,66 @@ var Keyboard = function () {
 exports.default = Keyboard;
 
 /***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.initCollapsible = undefined;
+
+var _elements = __webpack_require__(0);
+
+/**
+ * Returns true if aria-expanded=true on element
+ *
+ * @param {HTMLElement} element
+ * @function
+ */
+var isExpanded = (0, _elements.attributeEquals)("aria-expanded", 'true');
+
+/**
+ * Toggles aria-hidden on 'collapsible' when aria-expanded changes on 'toggler',
+ * and toggles aria-expanded on 'toggler' on click
+ *
+ * @param {HTMLElement} element
+ * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
+ */
+var initCollapsible = exports.initCollapsible = function initCollapsible(element) {
+  var targetHandler = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : _elements.toggleVisibility;
+
+  // elements
+  var togglers = element.querySelectorAll('[aria-controls][aria-expanded]');
+
+  togglers.forEach(function (toggler) {
+    var collapsibleId = toggler.getAttribute('aria-controls');
+    var collapsible = element.querySelector('#' + collapsibleId);
+
+    // set observer on title for aria-expanded
+    var observer = new MutationObserver(function () {
+      return targetHandler(isExpanded(toggler), collapsible);
+    });
+
+    observer.observe(toggler, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: ["aria-expanded"]
+    });
+
+    // Set click listener that toggles aria-expanded
+    toggler.addEventListener('click', function () {
+      return (0, _elements.toggleAttribute)("aria-expanded", toggler);
+    });
+
+    // initialize
+    targetHandler(isExpanded(toggler), collapsible);
+  });
+};
+
+/***/ }),
 /* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -927,9 +930,9 @@ var _elements = __webpack_require__(0);
 
 var _functional = __webpack_require__(1);
 
-var _collapsible = __webpack_require__(2);
+var _collapsible = __webpack_require__(3);
 
-var _keyboard = __webpack_require__(3);
+var _keyboard = __webpack_require__(2);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 
@@ -1012,7 +1015,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = init;
 
-var _collapsible = __webpack_require__(2);
+var _collapsible = __webpack_require__(3);
+
+var _keyboard = __webpack_require__(2);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+var _elements = __webpack_require__(0);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Initializes a panel
@@ -1021,7 +1032,18 @@ var _collapsible = __webpack_require__(2);
  * @return {HTMLElement}
  */
 function init(element) {
+  var keyboard = new _keyboard2.default();
+  keyboard.onSelect = function (el) {
+    return (0, _elements.toggleAttribute)('aria-expanded', el);
+  };
+
+  // collapse/expand on header press
   (0, _collapsible.initCollapsible)(element);
+
+  // Add keyboard support to expand collapse
+  element.querySelectorAll('[aria-controls][aria-expanded]').forEach(function (el) {
+    return keyboard.addElement(el);
+  });
 }
 
 /***/ }),
@@ -1040,7 +1062,7 @@ var _elements = __webpack_require__(0);
 
 var _functional = __webpack_require__(1);
 
-var _keyboard = __webpack_require__(3);
+var _keyboard = __webpack_require__(2);
 
 var _keyboard2 = _interopRequireDefault(_keyboard);
 

@@ -41,6 +41,11 @@ time, mark, audio, video {
   border-spacing: 0;
 }
 
+.h5p-sdk dd, .h5p-sdk dt {
+  padding: 0;
+  margin: 0;
+}
+
 .h5p-sdk {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.917em;
@@ -328,33 +333,33 @@ time, mark, audio, video {
 
 .h5p-sdk .panel {
   border: 0.042em solid #ced6e3;
+  border-bottom: 0;
 }
 
-.h5p-sdk .panel .panel-header {
+.h5p-sdk .panel [role="heading"] {
+  border-bottom: 0.042em solid #ced6e3;
   background-color: #f3f3f3;
-  color: #1f2227;
+}
+
+.h5p-sdk .panel [role="heading"] [role="button"] {
+  display: block;
+  box-sizing: border-box;
+  text-decoration: none;
+  width: 100%;
   padding: 0.833em;
+  color: #1f2227;
 }
 
-.h5p-sdk .panel .panel-header[aria-expanded] {
-  cursor: pointer;
+.h5p-sdk .panel [role="region"] {
+  border-bottom: 0.042em solid #ced6e3;
 }
 
-.h5p-sdk .panel .panel-body {
-  overflow: hidden;
-}
-
-.h5p-sdk .panel .panel-body[aria-hidden="true"] {
+.h5p-sdk .panel [role="region"][aria-hidden="true"] {
   display: none;
 }
 
-.h5p-sdk .panel .panel-body .panel-body-inner {
-  border-top: 0.042em solid #ced6e3;
+.h5p-sdk .panel [role="region"] .panel-body {
   padding: 0.833em;
-}
-
-.h5p-sdk .panel-group .panel:not(:first-child) {
-  margin-top: -1px;
 }
 
 .h5p-sdk .tab-panel {

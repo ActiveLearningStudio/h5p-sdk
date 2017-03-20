@@ -17,22 +17,25 @@ const isExpanded = attributeEquals("aria-expanded", 'true');
  */
 export const initCollapsible = (element, targetHandler = toggleVisibility) => {
   // elements
-  const toggler = element.querySelector('[aria-controls][aria-expanded]');
-  const collapsibleId = toggler.getAttribute('aria-controls');
-  const collapsible = element.querySelector(`#${collapsibleId}`);
+  const togglers = element.querySelectorAll('[aria-controls][aria-expanded]');
 
-  // set observer on title for aria-expanded
-  let observer = new MutationObserver(() => targetHandler(isExpanded(toggler), collapsible));
+  togglers.forEach(toggler => {
+    const collapsibleId = toggler.getAttribute('aria-controls');
+    const collapsible = element.querySelector(`#${collapsibleId}`);
 
-  observer.observe(toggler, {
-    attributes: true,
-    attributeOldValue: true,
-    attributeFilter: ["aria-expanded"]
+    // set observer on title for aria-expanded
+    let observer = new MutationObserver(() => targetHandler(isExpanded(toggler), collapsible));
+
+    observer.observe(toggler, {
+      attributes: true,
+      attributeOldValue: true,
+      attributeFilter: ["aria-expanded"]
+    });
+
+    // Set click listener that toggles aria-expanded
+    toggler.addEventListener('click', () => toggleAttribute("aria-expanded", toggler));
+
+    // initialize
+    targetHandler(isExpanded(toggler), collapsible);
   });
-
-  // Set click listener that toggles aria-expanded
-  toggler.addEventListener('click', () => toggleAttribute("aria-expanded", toggler));
-
-  // initialize
-  targetHandler(isExpanded(toggler), collapsible);
 };
