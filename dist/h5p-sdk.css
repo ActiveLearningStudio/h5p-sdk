@@ -369,14 +369,14 @@ time, mark, audio, video {
 .h5p-sdk .tab-panel [role="tablist"] {
   background-color: #f3f3f3;
   list-style: none;
-  padding: 0;
+  padding-left: 1em;
   margin: 0;
   border-bottom: 0.042em solid #ced6e3;
 }
 
 .h5p-sdk .tab-panel [role="tablist"] > span {
   display: block;
-  height: 7px;
+  height: 0.3em;
   background: #0a78d1;
   position: relative;
   transition: all .5s ease;
@@ -422,12 +422,12 @@ time, mark, audio, video {
   overflow: hidden;
   opacity: 0.5;
   height: 0;
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="false"] {
   opacity: 1;
-  transition: opacity 0.5s;
+  transition: opacity 0.3s;
 }
 
 .h5p-sdk .navbar {
@@ -632,21 +632,23 @@ time, mark, audio, video {
 .upload-form .upload-path {
   display: inline-block;
   border-radius: 1.375em;
-  min-width: 200px;
+  min-width: 14em;
   padding: 10px;
-  border: 0.125em solid #ced6e3;
+  border: 0.125em solid #697585;
   color: #747474;
+  cursor: pointer;
+}
+
+.upload-form .button.upload-button {
+  background: transparent;
+  color: #697585;
+  border: 0.125em solid #697585;
 }
 
 .upload-form .button.use-button {
   display: none;
   background: #697585;
-  color: #f3f3f3;
-}
-
-.upload-form .upload .button.button-inverse-primary {
-  border: 0.125em solid #697585;
-  color: #697585;
+  color: white;
 }
 
 /*# sourceMappingURL=h5p-sdk.css.map*/
