@@ -634,7 +634,8 @@ time, mark, audio, video {
   border-radius: 1.375em;
   min-width: 14em;
   padding: 10px;
-  border: 0.125em solid #697585;
+  border: 0.125em solid #ced6e3;
+  background-color: #eef1f6;
   color: #747474;
   cursor: pointer;
 }

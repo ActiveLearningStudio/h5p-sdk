@@ -266,9 +266,7 @@ var toggleVisibility = exports.toggleVisibility = (0, _functional.curry)(functio
  * @param {HTMLElement} element
  */
 var toggleClass = exports.toggleClass = (0, _functional.curry)(function (cls, add, element) {
-  if (element) {
-    element.classList[add ? 'add' : 'remove'](cls);
-  }
+  element.classList[add ? 'add' : 'remove'](cls);
 });
 
 /***/ }),
