@@ -336,12 +336,12 @@ time, mark, audio, video {
   border-bottom: 0;
 }
 
-.h5p-sdk .panel [role="heading"] {
+.h5p-sdk .panel > [role="heading"] {
   border-bottom: 0.042em solid #ced6e3;
   background-color: #f3f3f3;
 }
 
-.h5p-sdk .panel [role="heading"] [role="button"] {
+.h5p-sdk .panel > [role="heading"] [role="button"] {
   display: block;
   box-sizing: border-box;
   text-decoration: none;
@@ -350,15 +350,15 @@ time, mark, audio, video {
   color: #1f2227;
 }
 
-.h5p-sdk .panel [role="region"] {
+.h5p-sdk .panel > [role="region"] {
   border-bottom: 0.042em solid #ced6e3;
 }
 
-.h5p-sdk .panel [role="region"][aria-hidden="true"] {
+.h5p-sdk .panel > [role="region"][aria-hidden="true"] {
   display: none;
 }
 
-.h5p-sdk .panel [role="region"] .panel-body {
+.h5p-sdk .panel > [role="region"] .panel-body {
   padding: 0.833em;
 }
 
