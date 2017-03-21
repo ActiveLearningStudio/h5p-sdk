@@ -75,6 +75,7 @@ export default class Keyboard {
      * @property {function} boundHandleKeyDown
      */
     this.boundHandleKeyDown = this.handleKeyDown.bind(this);
+    this.boundHandleFocus = this.handleFocus.bind(this);
     /**
      * @property {number} selectedIndex
      */
@@ -92,6 +93,7 @@ export default class Keyboard {
   addElement(element) {
     this.elements.push(element);
     element.addEventListener('keydown', this.boundHandleKeyDown);
+    element.addEventListener('focus', this.boundHandleFocus);
 
     if (this.elements.length === 1) { // if first
       addTabIndex(element);
@@ -112,6 +114,7 @@ export default class Keyboard {
     this.elements = without([element], this.elements);
 
     element.removeEventListener('keydown', this.boundHandleKeyDown);
+    element.removeEventListener('focus', this.boundHandleFocus);
 
     // if removed element was selected
     if(hasTabIndex(element)) {
@@ -163,6 +166,15 @@ export default class Keyboard {
     updateTabbable(this.elements, this.selectedIndex);
     this.elements[this.selectedIndex].focus();
   };
+
+  /**
+   * Updates the selected index with the focused element
+   *
+   * @param {FocusEvent} event
+   */
+  handleFocus(event) {
+    this.selectedIndex = this.elements.indexOf(event.srcElement);
+  }
 
   /**
    * Sets the selected index, and updates the tab index

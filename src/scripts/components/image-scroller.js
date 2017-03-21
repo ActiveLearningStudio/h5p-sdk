@@ -115,6 +115,7 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
     nodeListToArray(record.addedNodes)
       .filter(classListContains('slide'))
       .map(querySelector('img'))
+      .filter(image => image !== null)
       .forEach(initImage(element, keyboard));
   }
 

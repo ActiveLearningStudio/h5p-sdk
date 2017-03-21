@@ -530,6 +530,7 @@ var Keyboard = function () {
      * @property {function} boundHandleKeyDown
      */
     this.boundHandleKeyDown = this.handleKeyDown.bind(this);
+    this.boundHandleFocus = this.handleFocus.bind(this);
     /**
      * @property {number} selectedIndex
      */
@@ -551,6 +552,7 @@ var Keyboard = function () {
     value: function addElement(element) {
       this.elements.push(element);
       element.addEventListener('keydown', this.boundHandleKeyDown);
+      element.addEventListener('focus', this.boundHandleFocus);
 
       if (this.elements.length === 1) {
         // if first
@@ -575,6 +577,7 @@ var Keyboard = function () {
       this.elements = (0, _functional.without)([element], this.elements);
 
       element.removeEventListener('keydown', this.boundHandleKeyDown);
+      element.removeEventListener('focus', this.boundHandleFocus);
 
       // if removed element was selected
       if (hasTabIndex(element)) {
@@ -635,14 +638,26 @@ var Keyboard = function () {
       this.elements[this.selectedIndex].focus();
     }
   }, {
-    key: 'forceSelectedIndex',
+    key: 'handleFocus',
 
+
+    /**
+     * Updates the selected index with the focused element
+     *
+     * @param {FocusEvent} event
+     */
+    value: function handleFocus(event) {
+      this.selectedIndex = this.elements.indexOf(event.srcElement);
+    }
 
     /**
      * Sets the selected index, and updates the tab index
      *
      * @param {number} index
      */
+
+  }, {
+    key: 'forceSelectedIndex',
     value: function forceSelectedIndex(index) {
       this.selectedIndex = index;
       updateTabbable(this.elements, this.selectedIndex);
@@ -871,7 +886,9 @@ var initImage = (0, _functional.curry)(function (element, keyboard, image) {
 var handleDomUpdate = (0, _functional.curry)(function (element, state, keyboard, record) {
   // on add image run initialization
   if (record.type === 'childList') {
-    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).forEach(initImage(element, keyboard));
+    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).filter(function (image) {
+      return image !== null;
+    }).forEach(initImage(element, keyboard));
   }
 
   // update the view
