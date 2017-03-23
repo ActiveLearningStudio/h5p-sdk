@@ -418,16 +418,11 @@ time, mark, audio, video {
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="true"] {
-  display: block;
-  overflow: hidden;
-  opacity: 0.5;
-  height: 0;
-  transition: opacity 0.3s;
+  display: none;
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="false"] {
-  opacity: 1;
-  transition: opacity 0.3s;
+  display: block;
 }
 
 .h5p-sdk .navbar {
@@ -627,7 +622,11 @@ time, mark, audio, video {
   padding-left: 1.250em;
 }
 
-.upload-form .upload input[type="file"] {
+.upload-form .input-wrapper {
+  display: inline-block;
+}
+
+.upload-form .input-wrapper input[type="file"] {
   display: none;
 }
 

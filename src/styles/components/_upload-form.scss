@@ -1,8 +1,12 @@
 @import "../base/colors";
 
 .upload-form {
-  .upload input[type="file"] {
-    display: none; // Hide the default file input as it can't be styled
+  .input-wrapper {
+    display: inline-block;
+
+    input[type="file"] {
+      display: none; // Hide the default file input as it can't be styled
+    }
   }
 
   .upload-path {

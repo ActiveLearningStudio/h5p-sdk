@@ -58,16 +58,11 @@
       }
 
       &[aria-hidden="true"] {
-        display: block;
-        overflow: hidden;
-        opacity: 0.5;
-        height: 0;
-        transition: opacity 0.3s;
+        display: none;
       }
 
       &[aria-hidden="false"] {
-        opacity: 1;
-        transition: opacity 0.3s;
+        display: block;
       }
     }
   }
