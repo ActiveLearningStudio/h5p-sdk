@@ -57,6 +57,11 @@
     border: transparent;
     transition: background-color .35s ease;
 
+    // For disabled buttons, don't care about mouse events
+    &[disabled] {
+      pointer-events: none;
+    }
+
     &:focus {
       @include blueGlow
     }
