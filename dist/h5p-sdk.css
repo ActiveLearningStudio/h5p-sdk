@@ -150,6 +150,10 @@ time, mark, audio, video {
   transition: background-color .35s ease;
 }
 
+.h5p-sdk .button[disabled] {
+  pointer-events: none;
+}
+
 .h5p-sdk .button:focus {
   outline: 0;
   box-shadow: 0.06em 0 0.6em 0.1em #7bc1f9;
@@ -590,7 +594,7 @@ time, mark, audio, video {
   background-color: transparent;
 }
 
-.h5p-sdk .message.success {
+.h5p-sdk .message.warning {
   -webkit-box-shadow: 0.167em 0 0 0 #ffcc33 true;
   -moz-box-shadow: 0.167em 0 0 0 #ffcc33 true;
   box-shadow: 0.167em 0 0 0 #ffcc33 true;
@@ -598,7 +602,7 @@ time, mark, audio, video {
   box-shadow: inset 0.167em 0 #ffcc33;
 }
 
-.h5p-sdk .message.success .button {
+.h5p-sdk .message.warning .button {
   color: #1f2227;
   border: solid 1px;
   background-color: transparent;
