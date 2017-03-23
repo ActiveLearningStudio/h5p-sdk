@@ -227,6 +227,7 @@ time, mark, audio, video {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: 100%;
 }
 
 .h5p-sdk .imagelightbox-image img {
@@ -236,29 +237,54 @@ time, mark, audio, video {
 
 .h5p-sdk .imagelightbox-button {
   position: absolute;
-  background: pink;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em;
+  border: 2px dashed transparent;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2em;
+  line-height: 1;
+  text-align: center;
   cursor: pointer;
   user-select: none;
 }
 
 .h5p-sdk .imagelightbox-button.previous, .h5p-sdk .imagelightbox-button.next {
-  left: 0;
+  left: 0.25em;
   top: 50%;
   transform: translateY(-50%);
+  background: rgba(105, 117, 133, 0.8);
+}
+
+.h5p-sdk .imagelightbox-button.previous:before, .h5p-sdk .imagelightbox-button.next:before {
+  content: "\2B9C";
 }
 
 .h5p-sdk .imagelightbox-button.next {
   left: auto;
-  right: 0;
+  right: 0.25em;
+}
+
+.h5p-sdk .imagelightbox-button.next:before {
+  content: "\2B9E";
 }
 
 .h5p-sdk .imagelightbox-button.close {
-  top: 0;
-  right: 0;
+  top: 0.25em;
+  right: 0.25em;
+}
+
+.h5p-sdk .imagelightbox-button.close:before {
+  content: "\D7";
+}
+
+.h5p-sdk .imagelightbox-button:focus {
+  border-color: white;
 }
 
 .h5p-sdk .imagelightbox-button[aria-disabled] {
-  background: blue;
+  opacity: .5;
   cursor: default;
 }
 

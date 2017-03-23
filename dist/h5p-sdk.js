@@ -774,6 +774,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ATTRIBUTE_SHOW = 'data-show';
 
 /**
+ * @constant
+ * @type Object.<string, number>
+ */
+var KEY = {
+  TAB: 9,
+  ENTER: 13,
+  SHIFT: 16,
+  SPACE: 32
+};
+
+/**
+ * @constant
+ * @type Object.<string, number>
+ */
+var TAB_DIRECTION = {
+  FORWARD: 0,
+  BACKWARD: 1
+};
+
+/**
  * @function
  * @param {HTMLElement} element
  */
@@ -789,13 +809,19 @@ var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
  * @function
  * @param {HTMLElement} element
  */
-var enable = (0, _elements.removeAttribute)('aria-disabled');
+var enable = function enable(element) {
+  element.tabIndex = 0;
+  element.removeAttribute('aria-disabled');
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-var disable = (0, _elements.setAttribute)('aria-disabled', '');
+var disable = function disable(element) {
+  element.tabIndex = -1;
+  element.setAttribute('aria-disabled', 'true');
+};
 
 /**
  * @function
@@ -832,10 +858,27 @@ var showImageLightbox = (0, _functional.curry)(function (element, imageIndex) {
 
 /**
  * @function
- * @type {function}
  * @param {HTMLElement} element
  */
 var hideLightbox = (0, _elements.removeAttribute)(ATTRIBUTE_SHOW);
+
+/**
+ * Focus first element with tabindex from arguments
+ *
+ * @function
+ * @param {...HTMLElement} elements
+ */
+var focus = function focus() {
+  for (var _len = arguments.length, elements = Array(_len), _key = 0; _key < _len; _key++) {
+    elements[_key] = arguments[_key];
+  }
+
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i].tabIndex !== -1) {
+      return elements[i].focus();
+    }
+  }
+};
 
 /**
  * Update the view
@@ -887,6 +930,56 @@ var onNavigationButtonClick = function onNavigationButtonClick(element, button, 
 };
 
 /**
+ * @function
+ */
+var onButtonPress = function onButtonPress(button, handler) {
+  button.addEventListener('click', handler);
+  button.addEventListener('keypress', function (event) {
+    if (event.which === KEY.ENTER || event.which === KEY.SPACE) {
+      // Enter or space key pressed
+      handler();
+      event.preventDefault();
+    }
+  });
+};
+
+/**
+ * Keep track of which keys are currently pressed.
+ *
+ * @type Object.<number, boolean>
+ */
+var keysDown = {};
+
+/**
+ * Binds key listeners that traps focus when the lightbox is open.
+ *
+ * @function
+ */
+var onButtonTab = function onButtonTab(button, direction, handler) {
+  button.addEventListener('keydown', function (event) {
+    // Keep track of which keys are currently pressed
+    keysDown[event.which] = true;
+
+    if (event.which === KEY.TAB) {
+      // Tab key press
+
+      if (keysDown[KEY.SHIFT] && direction === TAB_DIRECTION.BACKWARD) {
+        // Shift is down, tab backward
+        handler();
+        event.preventDefault();
+      } else if (direction === TAB_DIRECTION.FORWARD) {
+        // Tab forward
+        handler();
+        event.preventDefault();
+      }
+    }
+  });
+  button.addEventListener('keyup', function (event) {
+    delete keysDown[event.which];
+  });
+};
+
+/**
  * Callback for when the dom is updated
  *
  * @function
@@ -931,14 +1024,25 @@ function init(element) {
   };
 
   // initialize buttons
-  prevButton.addEventListener('click', function () {
-    return onNavigationButtonClick(element, prevButton, state.currentImage - 1);
-  });
-  nextButton.addEventListener('click', function () {
+  onButtonPress(nextButton, function () {
     return onNavigationButtonClick(element, nextButton, state.currentImage + 1);
   });
-  closeButton.addEventListener('click', function () {
+  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, function () {
+    return focus(closeButton);
+  });
+
+  onButtonPress(prevButton, function () {
+    return onNavigationButtonClick(element, prevButton, state.currentImage - 1);
+  });
+  onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, function () {
+    return focus(nextButton, closeButton);
+  });
+
+  onButtonPress(closeButton, function () {
     return hideLightbox(element);
+  });
+  onButtonTab(closeButton, TAB_DIRECTION.FORWARD, function () {
+    return focus(nextButton, prevButton);
   });
 
   // listen for updates to data-size

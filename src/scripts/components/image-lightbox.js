@@ -8,6 +8,26 @@ import Keyboard from '../utils/keyboard';
 const ATTRIBUTE_SHOW = 'data-show';
 
 /**
+ * @constant
+ * @type Object.<string, number>
+ */
+const KEY = {
+  TAB:    9,
+  ENTER: 13,
+  SHIFT: 16,
+  SPACE: 32
+};
+
+/**
+ * @constant
+ * @type Object.<string, number>
+ */
+const TAB_DIRECTION = {
+  FORWARD: 0,
+  BACKWARD: 1
+};
+
+/**
  * @function
  * @param {HTMLElement} element
  */
@@ -23,13 +43,19 @@ const hide = setAttribute('aria-hidden', 'true');
  * @function
  * @param {HTMLElement} element
  */
-const enable = removeAttribute('aria-disabled');
+const enable = (element) => {
+  element.tabIndex = 0;
+  element.removeAttribute('aria-disabled');
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-const disable = setAttribute('aria-disabled', '');
+const disable = (element) => {
+  element.tabIndex = -1;
+  element.setAttribute('aria-disabled', 'true');
+};
 
 /**
  * @function
@@ -60,10 +86,23 @@ const showImageLightbox = curry((element, imageIndex) => setAttribute('data-show
 
 /**
  * @function
- * @type {function}
  * @param {HTMLElement} element
  */
 const hideLightbox = removeAttribute(ATTRIBUTE_SHOW);
+
+/**
+ * Focus first element with tabindex from arguments
+ *
+ * @function
+ * @param {...HTMLElement} elements
+ */
+const focus = (...elements) => {
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i].tabIndex !== -1) {
+      return elements[i].focus();
+    }
+  }
+}
 
 /**
  * Update the view
@@ -114,6 +153,57 @@ const onNavigationButtonClick = (element, button, imageIndex) => {
 };
 
 /**
+ * @function
+ */
+const onButtonPress = (button, handler) => {
+  button.addEventListener('click', handler);
+  button.addEventListener('keypress', (event) => {
+    if (event.which === KEY.ENTER || event.which === KEY.SPACE) {
+      // Enter or space key pressed
+      handler();
+      event.preventDefault();
+    }
+  });
+}
+
+/**
+ * Keep track of which keys are currently pressed.
+ *
+ * @type Object.<number, boolean>
+ */
+const keysDown = {};
+
+/**
+ * Binds key listeners that traps focus when the lightbox is open.
+ *
+ * @function
+ */
+const onButtonTab = (button, direction, handler) => {
+  button.addEventListener('keydown', (event) => {
+    // Keep track of which keys are currently pressed
+    keysDown[event.which] = true;
+
+    if (event.which === KEY.TAB) {
+      // Tab key press
+
+      if (keysDown[KEY.SHIFT] && direction === TAB_DIRECTION.BACKWARD) {
+        // Shift is down, tab backward
+        handler();
+        event.preventDefault();
+      }
+      else if (direction === TAB_DIRECTION.FORWARD) {
+        // Tab forward
+        handler();
+        event.preventDefault();
+      }
+    }
+  });
+  button.addEventListener('keyup', (event) => {
+    delete keysDown[event.which];
+  });
+}
+
+/**
  * Callback for when the dom is updated
  *
  * @function
@@ -160,9 +250,14 @@ export default function init(element) {
   };
 
   // initialize buttons
-  prevButton.addEventListener('click', () => onNavigationButtonClick(element, prevButton, state.currentImage - 1));
-  nextButton.addEventListener('click', () => onNavigationButtonClick(element, nextButton, state.currentImage + 1));
-  closeButton.addEventListener('click', () => hideLightbox(element));
+  onButtonPress(nextButton, () => onNavigationButtonClick(element, nextButton, state.currentImage + 1));
+  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, () => focus(closeButton));
+
+  onButtonPress(prevButton, () => onNavigationButtonClick(element, prevButton, state.currentImage - 1));
+  onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, () => focus(nextButton, closeButton));
+
+  onButtonPress(closeButton, () => hideLightbox(element));
+  onButtonTab(closeButton, TAB_DIRECTION.FORWARD, () => focus(nextButton, prevButton));
 
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));
