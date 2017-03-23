@@ -68,14 +68,23 @@
 
   .link,
   a {
+    font-family: 'Open Sans', sans-serif;
     color: $text-dark;
+    font-size: 1em;
     font-weight: 400;
     cursor: pointer;
     text-decoration: underline;
+    background-color: transparent;
+    border: 0;
+    padding: 0;
   }
 
   .additional-information {
     font-style: italic;
     color: $text-light;
+  }
+
+  .hidden {
+    display: none;
   }
 }

@@ -42,3 +42,10 @@
    box-shadow: 0.06em 0 0.6em 0.1em lighten($ac1, 30%);
    //@include box-shadow(0.06em, 0, 0.6em, 0.1em, lighten($ac1, 30%))
 }
+
+@mixin reset-list {
+  background: transparent;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

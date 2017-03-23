@@ -8,7 +8,7 @@ $border-panel: 0.042em solid $c2;
     border: $border-panel;
     border-bottom: 0;
 
-    [role="heading"] {
+    &> [role="heading"] {
       border-bottom: $border-panel;
       background-color: $c3;
 
@@ -22,7 +22,7 @@ $border-panel: 0.042em solid $c2;
       }
     }
 
-    [role="region"] {
+    &> [role="region"] {
       border-bottom: $border-panel;
 
       &[aria-hidden="true"] {

@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 10);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -530,6 +530,7 @@ var Keyboard = function () {
      * @property {function} boundHandleKeyDown
      */
     this.boundHandleKeyDown = this.handleKeyDown.bind(this);
+    this.boundHandleFocus = this.handleFocus.bind(this);
     /**
      * @property {number} selectedIndex
      */
@@ -551,6 +552,7 @@ var Keyboard = function () {
     value: function addElement(element) {
       this.elements.push(element);
       element.addEventListener('keydown', this.boundHandleKeyDown);
+      element.addEventListener('focus', this.boundHandleFocus);
 
       if (this.elements.length === 1) {
         // if first
@@ -575,6 +577,7 @@ var Keyboard = function () {
       this.elements = (0, _functional.without)([element], this.elements);
 
       element.removeEventListener('keydown', this.boundHandleKeyDown);
+      element.removeEventListener('focus', this.boundHandleFocus);
 
       // if removed element was selected
       if (hasTabIndex(element)) {
@@ -635,14 +638,26 @@ var Keyboard = function () {
       this.elements[this.selectedIndex].focus();
     }
   }, {
-    key: 'forceSelectedIndex',
+    key: 'handleFocus',
 
+
+    /**
+     * Updates the selected index with the focused element
+     *
+     * @param {FocusEvent} event
+     */
+    value: function handleFocus(event) {
+      this.selectedIndex = this.elements.indexOf(event.srcElement);
+    }
 
     /**
      * Sets the selected index, and updates the tab index
      *
      * @param {number} index
      */
+
+  }, {
+    key: 'forceSelectedIndex',
     value: function forceSelectedIndex(index) {
       this.selectedIndex = index;
       updateTabbable(this.elements, this.selectedIndex);
@@ -756,6 +771,218 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /**
  * @constant
  */
+var ATTRIBUTE_SHOW = 'data-show';
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var show = (0, _elements.removeAttribute)('aria-hidden');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var enable = (0, _elements.removeAttribute)('aria-disabled');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var disable = (0, _elements.setAttribute)('aria-disabled', '');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var isDisabled = (0, _elements.hasAttribute)('aria-disabled');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} force
+ */
+var toggleDisabled = function toggleDisabled(element, force) {
+  return (force ? disable : enable)(element);
+};
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} force
+ */
+var toggleHidden = function toggleHidden(element, force) {
+  return (force ? hide : show)(element);
+};
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ * @param {number} imageIndex
+ */
+var showImageLightbox = (0, _functional.curry)(function (element, imageIndex) {
+  return (0, _elements.setAttribute)('data-show', imageIndex, element);
+});
+
+/**
+ * @function
+ * @type {function}
+ * @param {HTMLElement} element
+ */
+var hideLightbox = (0, _elements.removeAttribute)(ATTRIBUTE_SHOW);
+
+/**
+ * Update the view
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {ImageScrollerState} state
+ */
+var updateView = function updateView(element, state) {
+
+  var images = element.querySelectorAll('.imagelightbox-image');
+  var prevButton = element.querySelector('.previous');
+  var nextButton = element.querySelector('.next');
+
+  // Hide all images
+  images.forEach(function (image) {
+    return hide(image);
+  });
+  if (state.currentImage !== null) {
+    // Show selected image
+    var image = element.querySelector('.imagelightbox-image:nth-child(' + (state.currentImage + 1) + ')');
+    show(image);
+  }
+
+  // Determine if lightbox should be shown or hidden
+  toggleHidden(element, state.currentImage === null);
+
+  // Determine if buttons should be shown or hidden
+  toggleHidden(prevButton, !images.length);
+  toggleHidden(nextButton, !images.length);
+
+  // Determine if buttons should be enabled or disabled
+  toggleDisabled(prevButton, state.currentImage === 0);
+  toggleDisabled(nextButton, state.currentImage === images.length - 1);
+};
+
+/**
+ * Handles button clicked
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {HTMLElement} button
+ * @param {number} imageIndex
+ */
+var onNavigationButtonClick = function onNavigationButtonClick(element, button, imageIndex) {
+  if (!isDisabled(button)) {
+    showImageLightbox(element, imageIndex);
+  }
+};
+
+/**
+ * Callback for when the dom is updated
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {ImageLightboxState} state
+ * @param {Keyboard} keyboard
+ * @param {MutationRecord} record
+ */
+var handleDomUpdate = (0, _functional.curry)(function (element, state, keyboard, record) {
+
+  if (record.type === 'attributes' && record.attributeName === ATTRIBUTE_SHOW) {
+
+    var showImage = parseInt(record.target.getAttribute(ATTRIBUTE_SHOW));
+
+    // update the view
+    updateView(element, _extends(state, {
+      currentImage: isNaN(showImage) ? null : showImage
+    }));
+  }
+});
+
+/**
+ * Initializes a panel
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @return {HTMLElement}
+ */
+function init(element) {
+  // get button html elements
+  var nextButton = element.querySelector('.next');
+  var prevButton = element.querySelector('.previous');
+  var closeButton = element.querySelector('.close');
+  var keyboard = new _keyboard2.default();
+
+  /**
+   * @typedef {object} ImageLightboxState
+   * @property {number} currentImage Index of image to display
+   */
+  var state = {
+    currentImage: false
+  };
+
+  // initialize buttons
+  prevButton.addEventListener('click', function () {
+    return onNavigationButtonClick(element, prevButton, state.currentImage - 1);
+  });
+  nextButton.addEventListener('click', function () {
+    return onNavigationButtonClick(element, nextButton, state.currentImage + 1);
+  });
+  closeButton.addEventListener('click', function () {
+    return hideLightbox(element);
+  });
+
+  // listen for updates to data-size
+  var observer = new MutationObserver((0, _functional.forEach)(handleDomUpdate(element, state, keyboard)));
+
+  observer.observe(element, {
+    subtree: false,
+    childList: false,
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: [ATTRIBUTE_SHOW]
+  });
+
+  return element;
+}
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+exports.default = init;
+
+var _elements = __webpack_require__(0);
+
+var _functional = __webpack_require__(1);
+
+var _keyboard = __webpack_require__(2);
+
+var _keyboard2 = _interopRequireDefault(_keyboard);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/**
+ * @constant
+ */
 var ATTRIBUTE_SIZE = 'data-size';
 
 /**
@@ -788,6 +1015,13 @@ var toggleVisibility = (0, _functional.curry)(function (hidden, element) {
  * @type {function}
  */
 var isDisabled = (0, _elements.hasAttribute)('disabled');
+
+/**
+ * @type {function}
+ */
+var showImageLightbox = (0, _functional.curry)(function (lightbox, imageIndex) {
+  return (0, _elements.setAttribute)('data-show', imageIndex, lightbox);
+});
 
 /**
  * Update the view
@@ -844,15 +1078,12 @@ var onNavigationButtonClick = function onNavigationButtonClick(element, state, b
  * @function
  * @return {HTMLElement}
  */
-var initImage = (0, _functional.curry)(function (element, keyboard, image) {
+var initImage = (0, _functional.curry)(function (element, keyboard, image, imageIndex) {
   var targetId = image.getAttribute('aria-controls');
-  var lightBox = element.querySelector('#' + targetId);
+  var lightBox = document.querySelector('#' + targetId);
 
-  lightBox.addEventListener('click', function (event) {
-    return lightBox.setAttribute('aria-hidden', 'true');
-  });
   image.addEventListener('click', function (event) {
-    return lightBox.setAttribute('aria-hidden', 'false');
+    return showImageLightbox(lightBox, imageIndex);
   });
 
   keyboard.addElement(image);
@@ -871,7 +1102,9 @@ var initImage = (0, _functional.curry)(function (element, keyboard, image) {
 var handleDomUpdate = (0, _functional.curry)(function (element, state, keyboard, record) {
   // on add image run initialization
   if (record.type === 'childList') {
-    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).forEach(initImage(element, keyboard));
+    (0, _elements.nodeListToArray)(record.addedNodes).filter((0, _elements.classListContains)('slide')).map((0, _elements.querySelector)('img')).filter(function (image) {
+      return image !== null;
+    }).forEach(initImage(element, keyboard));
   }
 
   // update the view
@@ -936,7 +1169,7 @@ function init(element) {
 }
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1025,7 +1258,7 @@ function init(element) {
 }
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1071,7 +1304,7 @@ function init(element) {
 }
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1178,7 +1411,7 @@ function init(element) {
 }
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -1211,28 +1444,29 @@ function init(element) {
 }
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(9);
+__webpack_require__(10);
 
 // Load library
 H5P = H5P || {};
 H5P.sdk = H5P.sdk || {};
-H5P.sdk.initPanel = __webpack_require__(6).default;
-H5P.sdk.initTabPanel = __webpack_require__(7).default;
-H5P.sdk.initNavbar = __webpack_require__(5).default;
-H5P.sdk.initImageScroller = __webpack_require__(4).default;
-H5P.sdk.initUploadForm = __webpack_require__(8).default;
+H5P.sdk.initPanel = __webpack_require__(7).default;
+H5P.sdk.initTabPanel = __webpack_require__(8).default;
+H5P.sdk.initNavbar = __webpack_require__(6).default;
+H5P.sdk.initImageScroller = __webpack_require__(5).default;
+H5P.sdk.initImageLightbox = __webpack_require__(4).default;
+H5P.sdk.initUploadForm = __webpack_require__(9).default;
 
 /***/ })
 /******/ ]);

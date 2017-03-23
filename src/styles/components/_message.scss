@@ -36,11 +36,11 @@
   }
 
   .message.info {
-    @include message-level($ac-success, $ac-success);
-    box-shadow: inset 0.167em 0 $ac-success;
+    @include message-level($ac-info, $ac-info);
+    box-shadow: inset 0.167em 0 $ac-info;
   }
 
-  .message.success {
+  .message.warning {
     @include message-level($ac-warning, $text-dark);
     box-shadow: inset 0.167em 0 $ac-warning;
   }

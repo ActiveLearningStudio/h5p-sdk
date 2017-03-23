@@ -35,6 +35,11 @@ const toggleVisibility = curry((hidden, element) => setAttribute('aria-hidden', 
 const isDisabled = hasAttribute('disabled');
 
 /**
+ * @type {function}
+ */
+const showImageLightbox = curry((lightbox, imageIndex) => setAttribute('data-show', imageIndex, lightbox));
+
+/**
  * Update the view
  *
  * @param {HTMLElement} element
@@ -89,12 +94,11 @@ const onNavigationButtonClick = (element, state, button, updateState) => {
  * @function
  * @return {HTMLElement}
  */
-const initImage = curry((element, keyboard, image) => {
+const initImage = curry((element, keyboard, image, imageIndex) => {
   let targetId = image.getAttribute('aria-controls');
-  let lightBox = element.querySelector(`#${targetId}`);
+  let lightBox = document.querySelector(`#${targetId}`);
 
-  lightBox.addEventListener('click', event => lightBox.setAttribute('aria-hidden', 'true'));
-  image.addEventListener('click', event => lightBox.setAttribute('aria-hidden', 'false'));
+  image.addEventListener('click', event => showImageLightbox(lightBox, imageIndex));
 
   keyboard.addElement(image);
 
@@ -115,6 +119,7 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
     nodeListToArray(record.addedNodes)
       .filter(classListContains('slide'))
       .map(querySelector('img'))
+      .filter(image => image !== null)
       .forEach(initImage(element, keyboard));
   }
 
