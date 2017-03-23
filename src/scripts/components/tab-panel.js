@@ -1,20 +1,64 @@
-import {setAttribute} from '../utils/elements';
-import {forEach} from '../utils/functional';
+import {setAttribute, removeAttribute, attributeEquals, querySelectorAll } from '../utils/elements';
+import {curry, forEach} from '../utils/functional';
+import Keyboard from '../utils/keyboard';
 
 /**
- * @type {function}
+ * @function
  */
 const hideAll = forEach(setAttribute('aria-hidden', 'true'));
 
 /**
- * @type {function}
+ * @function
  */
 const show = setAttribute('aria-hidden', 'false');
 
 /**
- * @type {function}
+ * @function
  */
-const unSelectAll = forEach(setAttribute('aria-selected', 'false'));
+const isSelected = attributeEquals('aria-selected', 'true');
+
+/**
+ * @function
+ */
+const unSelectAll = forEach(removeAttribute('aria-selected'));
+
+/**
+ * Change tab panel when tab's aria-selected is changed
+ *
+ * @param {HTMLElement} element
+ * @param {HTMLElement} tab
+ */
+const addAriaSelectedObserver = (element, tab) => {
+  // set observer on title for aria-expanded
+  let observer = new MutationObserver(() => {
+    let panelId = tab.getAttribute('aria-controls');
+    let panel = element.querySelector(`#${panelId}`);
+    let allPanels = querySelectorAll('[role="tabpanel"]', element);
+
+    if(isSelected(tab)) {
+      hideAll(allPanels);
+      show(panel);
+    }
+  });
+
+  observer.observe(tab, {
+    attributes: true,
+    attributeOldValue: true,
+    attributeFilter: ["aria-selected"]
+  });
+};
+
+/**
+ * Selects an element, and unselects all other tabs
+ *
+ * @param {HTMLElement[]} allTabs
+ * @param {HTMLElement} element
+ * @function
+ */
+const selectTab = curry((allTabs, element) => {
+  unSelectAll(allTabs);
+  element.setAttribute('aria-selected', 'true');
+});
 
 /**
  * Initiates a tab panel
@@ -22,19 +66,23 @@ const unSelectAll = forEach(setAttribute('aria-selected', 'false'));
  * @param {HTMLElement} element
  */
 export default function init(element) {
-  const tabs = element.querySelectorAll('[role="tab"]');
-  const tabPanels = element.querySelectorAll('[role="tabpanel"]');
+  const tabs = querySelectorAll('[role="tab"]', element);
+  const keyboard = new Keyboard();
 
+  // handle enter + space click
+  keyboard.onSelect = selectTab(tabs);
+
+  // init tabs
   tabs.forEach(tab => {
-    tab.addEventListener('click', function (event) {
+    addAriaSelectedObserver(element, tab);
 
-      unSelectAll(tabs);
-      event.target.setAttribute('aria-selected', 'true');
-
-      hideAll(tabPanels);
-
-      let tabPanelId = event.target.getAttribute('aria-controls');
-      show(element.querySelector(`#${tabPanelId}`));
+    tab.addEventListener('click', event => {
+      let element = event.target;
+      let elementIndex = tabs.indexOf(element);
+      selectTab(tabs, element);
+      keyboard.forceSelectedIndex(elementIndex);
     });
+
+    keyboard.addElement(tab);
   })
 }

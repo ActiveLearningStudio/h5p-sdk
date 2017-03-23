@@ -1,0 +1,30 @@
+@import "../base/colors";
+
+.upload-form {
+  .upload input[type="file"] {
+    display: none; // Hide the default file input as it can't be styled
+  }
+
+  .upload-path {
+    display: inline-block;
+    border-radius: 1.375em;
+    min-width: 14em;
+    padding: 10px;
+    border: 0.125em solid $c2;
+    background-color: #eef1f6;
+    color: $c6;
+    cursor: pointer;
+  }
+
+  .button.upload-button{
+    background: transparent;
+    color: $c1;
+    border: 0.125em solid $c1;
+  }
+
+  .button.use-button {
+    display: none;
+    background: $c1;
+    color: white;
+  }
+}

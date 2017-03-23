@@ -1,5 +1,6 @@
-import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray } from '../utils/elements';
+import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray, querySelectorAll } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
+import Keyboard from '../utils/keyboard';
 
 /**
  * @constant
@@ -50,7 +51,7 @@ const updateView = (element, state) => {
   list.style.marginLeft = `${state.position * (100 / state.displayCount)}%`;
 
   // update image sizes
-  element.querySelectorAll('li')
+  querySelectorAll('li', element)
     .forEach(element => element.style.width = `${100 / totalCount}%`);
 
   // toggle button visibility
@@ -69,29 +70,35 @@ const updateView = (element, state) => {
  * @param {ImageScrollerState} state
  * @param {HTMLElement} button
  * @param {function} updateState
- * @param {Event}
+ *
  * @function
  */
-const onNavigationButtonClick = curry((element, state, button, updateState, event) => {
+const onNavigationButtonClick = (element, state, button, updateState) => {
   if(!isDisabled(button)){
     updateState(state);
     updateView(element, state);
   }
-});
+};
 
 /**
  * Initializes an image
  *
  * @param {HTMLElement} element
  * @param {HTMLElement} image
+ *
  * @function
+ * @return {HTMLElement}
  */
-const initImage = curry((element, image) => {
+const initImage = curry((element, keyboard, image) => {
   let targetId = image.getAttribute('aria-controls');
-  let target = element.querySelector(`#${targetId}`);
+  let lightBox = element.querySelector(`#${targetId}`);
 
-  target.addEventListener('click', event => target.setAttribute('aria-hidden', 'true'));
-  image.addEventListener('click', event => target.setAttribute('aria-hidden', 'false'))
+  lightBox.addEventListener('click', event => lightBox.setAttribute('aria-hidden', 'true'));
+  image.addEventListener('click', event => lightBox.setAttribute('aria-hidden', 'false'));
+
+  keyboard.addElement(image);
+
+  return image;
 });
 
 /**
@@ -102,13 +109,14 @@ const initImage = curry((element, image) => {
  * @param {MutationRecord} record
  * @function
  */
-const handleDomUpdate = curry((element, state, record) => {
+const handleDomUpdate = curry((element, state, keyboard, record) => {
   // on add image run initialization
   if(record.type === 'childList') {
     nodeListToArray(record.addedNodes)
       .filter(classListContains('slide'))
       .map(querySelector('img'))
-      .forEach(initImage(element));
+      .filter(image => image !== null)
+      .forEach(initImage(element, keyboard));
   }
 
   // update the view
@@ -128,6 +136,7 @@ export default function init(element) {
   // get button html elements
   const nextButton = element.querySelector('.next');
   const prevButton = element.querySelector('.previous');
+  const keyboard = new Keyboard();
 
   /**
    * @typedef {object} ImageScrollerState
@@ -140,14 +149,15 @@ export default function init(element) {
   };
 
   // initialize buttons
-  nextButton.addEventListener('click', onNavigationButtonClick(element, state, nextButton, state => state.position--));
-  prevButton.addEventListener('click', onNavigationButtonClick(element, state, prevButton, state => state.position++));
+  nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, state => state.position--));
+  prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
 
   // initialize images
-  element.querySelectorAll('[aria-controls]').forEach(initImage(element));
+  querySelectorAll('[aria-controls]', element)
+    .forEach(initImage(element, keyboard));
 
   // listen for updates to data-size
-  let observer = new MutationObserver(forEach(handleDomUpdate(element, state)));
+  let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));
 
   observer.observe(element, {
     subtree: true,

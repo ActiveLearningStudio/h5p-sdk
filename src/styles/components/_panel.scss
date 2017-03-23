@@ -1,37 +1,37 @@
 @import "../base/colors";
 @import "../base/variables";
 
+$border-panel: 0.042em solid $c2;
+
 .h5p-sdk {
   .panel {
-    border: 0.042em solid $c2;
+    border: $border-panel;
+    border-bottom: 0;
 
-    .panel-header {
+    &> [role="heading"] {
+      border-bottom: $border-panel;
       background-color: $c3;
-      color: $text-dark;
-      padding: $gutter;
 
-      &[aria-expanded] {
-        cursor: pointer;
+      [role="button"] {
+        display: block;
+        box-sizing: border-box;
+        text-decoration: none;
+        width: 100%;
+        padding: $gutter;
+        color: $text-dark;
       }
     }
 
-    .panel-body {
+    &> [role="region"] {
+      border-bottom: $border-panel;
+
       &[aria-hidden="true"] {
         display: none;
       }
 
-      overflow: hidden;
-
-      .panel-body-inner {
-        border-top: 0.042em solid $c2;
+      .panel-body {
         padding: $gutter;
       }
-    }
-  }
-
-  .panel-group {
-    .panel:not(:first-child) {
-      margin-top: -1px;
     }
   }
 }

@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="dist/h5p-sdk.css">
   <style>
-    .h5p {
+    .h5p-sdk {
       max-width: 1000px;
       margin-bottom: 100px;
       display: block;
@@ -23,7 +23,7 @@
 <body>
 <div class="h5p-sdk">
   <!-- Image carousel -->
-  <h5>Image carousel</h5>
+  <h2>Image carousel</h2>
 
   <div class="carousel" role="region" data-size="5">
     <span class="carousel-button previous" aria-hidden="true"><span>&larr;</span></span>
@@ -51,24 +51,103 @@
       </ul>
     </nav>
 
-    <div id="c1" aria-hidden="true" class="carousel-lightbox">
+    <div id="c1" role="dialog" aria-hidden="true" class="carousel-lightbox">
       <img class="img-responsive" src="https://h5p.org/sites/default/files/styles/h5p-content-type-hub-screenshot/public/course-presentation-01_0.jpg?itok=W7Dtkxgj" alt="Alternative text 3">
     </div>
-    <div id="c2" aria-hidden="true" class="carousel-lightbox">
+    <div id="c2" role="dialog" aria-hidden="true" class="carousel-lightbox">
       <img class="img-responsive" src="https://h5p.org/sites/default/files/styles/h5p-content-type-hub-screenshot/public/course-presentation-02_0.jpg?itok=W7Dtkxgj" alt="Alternative text 3">
     </div>
-    <div id="c3" aria-hidden="true" class="carousel-lightbox">
+    <div id="c3" role="dialog" aria-hidden="true" class="carousel-lightbox">
       <img class="img-responsive" src="https://h5p.org/sites/default/files/styles/h5p-content-type-hub-screenshot/public/course-presentation-03_0.jpg?itok=W7Dtkxgj" alt="Alternative text 3">
     </div>
-    <div id="c4" aria-hidden="true" class="carousel-lightbox">
+    <div id="c4" role="dialog" aria-hidden="true" class="carousel-lightbox">
       <img class="img-responsive" src="https://h5p.org/sites/default/files/styles/h5p-content-type-hub-screenshot/public/course-presentation-04_0.jpg?itok=W7Dtkxgj" alt="Alternative text 3">
     </div>
-    <div id="c5" aria-hidden="true" class="carousel-lightbox">
+    <div id="c5" role="dialog" aria-hidden="true" class="carousel-lightbox">
       <img class="img-responsive" src="https://h5p.org/sites/default/files/styles/h5p-content-type-hub-screenshot/public/course-presentation-05_0.jpg?itok=W7Dtkxgj" alt="Alternative text 3">
     </div>
-    <div id="c6" aria-hidden="true" class="carousel-lightbox">
+    <div id="c6" role="dialog" aria-hidden="true" class="carousel-lightbox">
       <img class="img-responsive" src="https://h5p.org/sites/default/files/styles/h5p-content-type-hub-screenshot/public/course-presentation-06_0.jpg?itok=W7Dtkxgj" alt="Alternative text 3">
     </div>
+  </div>
+
+
+  <!-- PANEL -->
+  <h2>Panels</h2>
+
+  <dl class="panel">
+    <dt aria-level="1" role="heading">
+      <a href="#" role="button" aria-expanded="true" aria-controls="panel-body-1">Title</a>
+    </dt>
+    <dd id="panel-body-1" role="region" aria-hidden="false">
+      <div class="panel-body">
+        <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+      </div>
+    </dd>
+    <dt aria-level="1" role="heading">
+      <a href="#" role="button" aria-expanded="false" aria-controls="panel-body-2">Title 2</a>
+    </dt>
+    <dd id="panel-body-2" role="region" aria-hidden="true">
+      <div class="panel-body">
+        Hello
+      </div>
+    </dd>
+  </dl>
+
+  <!-- Menu -->
+  <h2>Menu</h2>
+  <nav class="navbar">
+    <div class="navbar-header">
+      <button class="navbar-toggler navbar-toggler-right" tabindex="0" aria-haspopup="true" aria-controls="menu-1" aria-expanded="false">
+        <span>&#9776;</span>
+      </button>
+
+      <span class="navbar-brand">Browse content types</span>
+    </div>
+
+    <ul role="menubar" id="menu-1" class="navbar-nav collapsed">
+      <li role="menuitem" aria-selected="true">All</li>
+      <li role="menuitem">My Content Types</li>
+      <li role="menuitem">Most Popular</li>
+      <span class="menuitem-underline"></span>
+    </ul>
+  </nav>
+
+  <!-- TAB PANEL -->
+  <h2>Tab Panel</h2>
+  <div class="tab-panel">
+    <nav>
+      <ul role="tablist">
+        <li id="tab1" role="tab" aria-controls="panel1" aria-selected="true">Create Content</li>
+        <li id="tab2" role="tab" aria-controls="panel2" aria-selected="false">Upload</li>
+        <span></span>
+      </ul>
+    </nav>
+
+    <div id="panel1" aria-labelledby="tab1" role="tabpanel">
+      <div class="tab-panel-inner">
+        <h1>Create Content</h1>
+        <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
+      </div>
+    </div>
+
+    <div id="panel2" aria-labelledby="tab2" role="tabpanel" aria-hidden="true">
+      <div class="tab-panel-inner">
+        <h1>Upload</h1>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>File Upload</h2>
+
+  <div class="upload-form">
+    <input class="upload-path" disabled />
+    <span class="button use-button">Use</span>
+    <label class="upload">
+      <input type="file" />
+      <span class="button button-inverse-primary">Upload a file</span>
+    </label>
   </div>
 
 
@@ -109,138 +188,83 @@
 
   <h5>Link</h5>
 
-  <a href="#">I am a link</a>
+  <p>
+    <a href="#">I am a link</a>
+  </p>
+
+  <p>
+    <button class="link">I am a button</button>
+  </p>
 
   <!-- INPUT -->
   <h2>Input fields</h2>
 
   <p>
-    <input class="form-control" placeholder="Arne Banan" tabindex="0" />
+    <input class="form-control" aria-label="Name" placeholder="Arne Banan" tabindex="0" />
   </p>
   <p>
-    <input type="email" class="form-control form-control-rounded" placeholder="arne@example.com" tabindex="0" />
+    <input type="email" aria-label="Email" class="form-control form-control-rounded" placeholder="arne@example.com" tabindex="0" />
   </p>
 
   <h5>Input field group</h5>
   <div class="input-group">
-    <input type="text" class="form-control form-control-rounded" placeholder="Search for Content Types">
+    <input type="text" aria-label="Search for Content Types" class="form-control form-control-rounded" placeholder="Search for Content Types">
     <div class="input-group-addon">&#x2753;</div>
   </div>
 
-  <!-- PANEL -->
-  <h2>Panels</h2>
-
-  <div class="panel-group">
-    <div class="panel">
-      <div class="panel-header" aria-expanded="true" aria-controls="panel-body-1">Title</div>
-      <div id="panel-body-1" class="panel-body" aria-hidden="false">
-        <div class="panel-body-inner">
-          <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
-        </div>
-      </div>
-    </div>
-    <div class="panel">
-      <div class="panel-header" aria-expanded="false" aria-controls="panel-body-2">Title 2</div>
-      <div id="panel-body-2" class="panel-body" aria-hidden="true">
-        <div class="panel-body-inner">
-          Hello
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Menu -->
-  <h2>Menu</h2>
-  <nav class="navbar">
-    <span class="navbar-toggler navbar-toggler-right" aria-controls="menu-1" aria-expanded="false">
-      <span>&#9776;</span>
-    </span>
-
-    <span class="navbar-brand">Browse content types</span>
-
-    <ul id="menu-1" class="navbar-nav" aria-hidden="true">
-      <li role="menuitem" aria-selected="true">All</li>
-      <li role="menuitem">My Content Types</li>
-      <li role="menuitem">Most Popular</li>
-      <span class="menuitem-underline"></span>
-    </ul>
-  </nav>
-
-  <!-- TAB PANEL -->
-  <h2>Tab Panel</h2>
-  <div class="tab-panel">
-    <nav>
-      <ul role="tablist">
-        <li id="tab1" role="tab" aria-controls="panel1" aria-selected="true">Create Content</li>
-        <li id="tab2" role="tab" aria-controls="panel2" aria-selected="false">Upload</li>
-        <span></span>
-      </ul>
-    </nav>
-
-    <div id="panel1" aria-labelledby="tab1" role="tabpanel">
-      <div class="tab-panel-inner">
-        <h1>Create Content</h1>
-        <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
-      </div>
-    </div>
-
-    <div id="panel2" aria-labelledby="tab2" role="tabpanel" aria-hidden="true">
-      <div class="tab-panel-inner">
-        <h1>Upload</h1>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
-      </div>
-    </div>
-  </div>
-
   <h3>Messages</h3>
-  <div class="message info simple">
-    <h3>This content type requires a newer core version.</h3>
-    <p>Contact your system administrator to provide you with the necessary updates.</p>
+  <!-- Green message simple -->
+  <div role="alert" class="message info simple">
+    <h3 class="title">This content type requires a newer core version.</h3>
+    <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
   </div>
-  <div class="message info dismissable">
-    <div class="message-close">
-      &#x2715
-    </div>
+
+  <!-- Green message dismissible -->
+  <div role="alert" class="message info dismissible">
+    <button aria-label="Close" class="message-close">&#x2715</button>
+
     <div class="message-content">
-      <h3>This content type requires a newer core version.</h3>
-      <p>Contact your system administrator to provide you with the necessary updates.</p>
+      <h3 class="title">This content type requires a newer core version.</h3>
+      <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
       <button class="button">Contact administrator</button>
     </div>
   </div>
 
-  <div class="message success simple">
-    <div class="message-close">
-      &#x2715
-    </div>
-    <h3>This content type requires a newer core version.</h3>
-    <p>Contact your system administrator to provide you with the necessary updates.</p>
+  <!-- Yellow message simple -->
+  <div role="alert" class="message success simple">
+    <button aria-label="Close" class="message-close">&#x2715</button>
+
+    <h3 class="title">This content type requires a newer core version.</h3>
+    <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
   </div>
-  <div class="message success dismissable">
-    <div class="message-close">
-      &#x2715
-    </div>
+
+  <!-- Yellow message dismissible -->
+  <div role="alert" class="message success dismissible">
+    <button aria-label="Close" class="message-close">&#x2715</button>
+
     <div class="message-content">
-      <h3>This content type requires a newer core version.</h3>
-      <p>Contact your system administrator to provide you with the necessary updates.</p>
+      <h3 class="title">This content type requires a newer core version.</h3>
+      <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
       <button class="button">Contact administrator</button>
     </div>
   </div>
 
-  <div class="message error simple">
-    <h3>This content type requires a newer core version.</h3>
-    <p>Contact your system administrator to provide you with the necessary updates.</p>
+  <!-- Red message simple -->
+  <div role="alert" class="message error simple">
+    <h3 class="title">This content type requires a newer core version.</h3>
+    <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
   </div>
-  <div class="message error dismissible">
-    <div class="message-close">
-      &#x2715
-    </div>
+
+  <!-- Red message dismissible -->
+  <div role="alert" class="message error dismissible">
+    <button aria-label="Close" class="message-close">&#x2715</button>
+
     <div class="message-content">
-      <h3>This content type requires a newer core version.</h3>
-      <p>Contact your system administrator to provide you with the necessary updates.</p>
+      <h3 class="title">This content type requires a newer core version.</h3>
+      <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
       <button class="button">Contact administrator</button>
     </div>
   </div>
-
 </div>
 <script type="text/javascript">H5P = {};</script>
 <script type="text/javascript" src="dist/h5p-sdk.js"></script>
@@ -252,10 +276,13 @@
   tabPanels.forEach(H5P.sdk.initTabPanel);
 
   const menus = document.querySelectorAll('.navbar');
-  menus.forEach(H5P.sdk.initMenu);
+  menus.forEach(H5P.sdk.initNavbar);
 
   const imageScrollers = document.querySelectorAll('.carousel');
   imageScrollers.forEach(H5P.sdk.initImageScroller);
+
+  const uploadForm = document.querySelector('.upload-form');
+  H5P.sdk.initUploadForm(uploadForm);
 </script>
 </body>
 </html>
