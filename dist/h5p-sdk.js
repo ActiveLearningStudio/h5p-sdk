@@ -805,6 +805,13 @@ var toggleVisibility = (0, _functional.curry)(function (hidden, element) {
 var isDisabled = (0, _elements.hasAttribute)('disabled');
 
 /**
+ * @type {function}
+ */
+var showImageLightbox = (0, _functional.curry)(function (lightbox, imageIndex) {
+  return (0, _elements.setAttribute)('data-show', imageIndex, lightbox);
+});
+
+/**
  * Update the view
  *
  * @param {HTMLElement} element
@@ -859,15 +866,12 @@ var onNavigationButtonClick = function onNavigationButtonClick(element, state, b
  * @function
  * @return {HTMLElement}
  */
-var initImage = (0, _functional.curry)(function (element, keyboard, image) {
+var initImage = (0, _functional.curry)(function (element, keyboard, image, imageIndex) {
   var targetId = image.getAttribute('aria-controls');
-  var lightBox = element.querySelector('#' + targetId);
+  var lightBox = document.querySelector('#' + targetId);
 
-  lightBox.addEventListener('click', function (event) {
-    return lightBox.setAttribute('aria-hidden', 'true');
-  });
   image.addEventListener('click', function (event) {
-    return lightBox.setAttribute('aria-hidden', 'false');
+    return showImageLightbox(lightBox, imageIndex);
   });
 
   keyboard.addElement(image);
@@ -1231,7 +1235,7 @@ function init(element) {
 /* 9 */
 /***/ (function(module, exports) {
 
-// removed by extract-text-webpack-plugin
+throw new Error("Module build failed: ModuleBuildError: Module build failed: \n@import \"components/image-lightbox\";\n^\n      File to import not found or unreadable: components/image-lightbox.\nParent style sheet: stdin\n      in /home/paal/Dropbox/projects/hub/h5p-sdk/src/styles/main.scss (line 7, column 1)\n    at /home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/webpack/lib/NormalModule.js:141:35\n    at /home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/loader-runner/lib/LoaderRunner.js:230:18\n    at context.callback (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/sass-loader/lib/loader.js:51:13)\n    at Object.<anonymous> (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/async/dist/async.js:2237:31)\n    at apply (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/async/dist/async.js:20:25)\n    at Object.<anonymous> (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/async/dist/async.js:56:12)\n    at Object.callback (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/async/dist/async.js:843:16)\n    at options.error (/home/paal/Dropbox/projects/hub/h5p-sdk/node_modules/node-sass/lib/index.js:294:32)");
 
 /***/ }),
 /* 10 */
@@ -1249,6 +1253,7 @@ H5P.sdk.initPanel = __webpack_require__(6).default;
 H5P.sdk.initTabPanel = __webpack_require__(7).default;
 H5P.sdk.initNavbar = __webpack_require__(5).default;
 H5P.sdk.initImageScroller = __webpack_require__(4).default;
+H5P.sdk.initImageLightbox = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../scripts/components/image-lightbox\""); e.code = 'MODULE_NOT_FOUND';; throw e; }())).default;
 H5P.sdk.initUploadForm = __webpack_require__(8).default;
 
 /***/ })
