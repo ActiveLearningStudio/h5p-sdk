@@ -41,9 +41,18 @@ time, mark, audio, video {
   border-spacing: 0;
 }
 
+.h5p-sdk dl {
+  margin-top: 0;
+  margin-bottom: 0.833em;
+}
+
 .h5p-sdk dd, .h5p-sdk dt {
   padding: 0;
   margin: 0;
+}
+
+.h5p-sdk dt {
+  font-weight: 700;
 }
 
 .h5p-sdk {
@@ -123,6 +132,20 @@ time, mark, audio, video {
   background-color: transparent;
   border: 0;
   padding: 0;
+}
+
+.h5p-sdk .dl-horizontal dt {
+  float: left;
+  width: 5em;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.h5p-sdk .dl-horizontal dd {
+  margin-left: 5.833em;
 }
 
 .h5p-sdk .additional-information {
