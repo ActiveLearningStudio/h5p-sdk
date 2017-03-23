@@ -114,15 +114,24 @@ time, mark, audio, video {
 
 .h5p-sdk .link,
 .h5p-sdk a {
+  font-family: 'Open Sans', sans-serif;
   color: #1f2227;
+  font-size: 1em;
   font-weight: 400;
   cursor: pointer;
   text-decoration: underline;
+  background-color: transparent;
+  border: 0;
+  padding: 0;
 }
 
 .h5p-sdk .additional-information {
   font-style: italic;
   color: #71757e;
+}
+
+.h5p-sdk .hidden {
+  display: none;
 }
 
 .h5p-sdk .button {
@@ -139,6 +148,10 @@ time, mark, audio, video {
   cursor: pointer;
   border: transparent;
   transition: background-color .35s ease;
+}
+
+.h5p-sdk .button[disabled] {
+  pointer-events: none;
 }
 
 .h5p-sdk .button:focus {
