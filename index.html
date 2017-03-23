@@ -152,10 +152,10 @@
   <div class="upload-form">
     <input class="upload-path" disabled />
     <span class="button use-button">Use</span>
-    <label class="upload">
+    <div class="input-wrapper">
       <input type="file" />
       <span class="button button-inverse-primary">Upload a file</span>
-    </label>
+    </div>
   </div>
 
 
@@ -177,6 +177,30 @@
 
   <h5>Small text</h5>
   <p><small>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus.</small></p>
+
+  <h3>Lists</h3>
+
+  <h5>Definition list</h5>
+
+  <dl>
+    <dt>Title</dt>
+    <dd>Body 1</dd>
+    <dd>Body 1.1</dd>
+    <dt>Title 2</dt>
+    <dd>Body 2</dd>
+    <dd>Body 2.1</dd>
+  </dl>
+
+  <h5>Definition list - horizontal</h5>
+
+  <dl class="dl-horizontal">
+    <dt>Title</dt>
+    <dd>Body 1</dd>
+    <dd>Body 1.1</dd>
+    <dt>Title 2</dt>
+    <dd>Body 2</dd>
+    <dd>Body 2.1</dd>
+  </dl>
 
   <!-- BUTTONS -->
   <h2>Buttons</h2>
@@ -239,7 +263,7 @@
   </div>
 
   <!-- Yellow message simple -->
-  <div role="alert" class="message success simple">
+  <div role="alert" class="message warning simple">
     <button aria-label="Close" class="message-close">&#x2715</button>
 
     <h3 class="title">This content type requires a newer core version.</h3>
@@ -247,7 +271,7 @@
   </div>
 
   <!-- Yellow message dismissible -->
-  <div role="alert" class="message success dismissible">
+  <div role="alert" class="message warning dismissible">
     <button aria-label="Close" class="message-close">&#x2715</button>
 
     <div class="message-content">

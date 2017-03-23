@@ -42,8 +42,17 @@ time, mark, audio, video {
     border-spacing: 0;
   }
 
+  dl {
+    margin-top: 0;
+    margin-bottom: $gutter;
+  }
+
   dd, dt {
     padding: 0;
     margin: 0;
+  }
+
+  dt {
+    font-weight: 700;
   }
 }
