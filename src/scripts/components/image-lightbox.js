@@ -106,12 +106,43 @@ const hideLightbox = removeAttribute(ATTRIBUTE_SHOW);
  * @param {...HTMLElement} elements
  */
 const focus = (...elements) => {
-  for (var i = 0; i < elements.length; i++) {
+  for (let i = 0; i < elements.length; i++) {
     if (elements[i].tabIndex !== -1) {
       return elements[i].focus();
     }
   }
 }
+
+/**
+ * Will toggle the siblings of the element visible or not.
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} show
+ */
+const toggleSiblings = (element, show) => {
+  const siblings = element.parentNode.children;
+
+  for (let i = 0; i < siblings.length; i++) {
+    let sibling = siblings[i];
+
+    if (sibling === element) {
+      continue; // Not this element
+    }
+
+    if (show) {
+      sibling.removeAttribute('aria-hidden');
+    }
+    else {
+      sibling.setAttribute('aria-hidden', true);
+    }
+  }
+}
+
+/**
+ * @type string
+ */
+let progressTemplateText;
 
 /**
  * Update the view
@@ -123,6 +154,7 @@ const focus = (...elements) => {
 const updateView = (element, state) => {
 
   const images = element.querySelectorAll('.imagelightbox-image');
+  const progress = element.querySelector('.imagelightbox-progress');
   const prevButton = element.querySelector('.previous');
   const nextButton = element.querySelector('.next');
 
@@ -136,8 +168,12 @@ const updateView = (element, state) => {
     live(image);
   }
 
-  // Determine if lightbox should be shown or hidden
-  toggleHidden(element, state.currentImage === null);
+  // Update progress text
+  if (!progressTemplateText) {
+    // Keep template for future updates
+    progressTemplateText = progress.innerText;
+  }
+  progress.innerText = progressTemplateText.replace(':num', state.currentImage + 1).replace(':total', images.length);
 
   // Determine if buttons should be shown or hidden
   toggleHidden(prevButton, !images.length);
@@ -146,6 +182,10 @@ const updateView = (element, state) => {
   // Determine if buttons should be enabled or disabled
   toggleDisabled(prevButton, state.currentImage === 0);
   toggleDisabled(nextButton, state.currentImage === images.length - 1);
+
+  // Determine if lightbox should be shown or hidden
+  toggleHidden(element, state.currentImage === null);
+  toggleSiblings(element, state.currentImage === null);
 
 };
 
@@ -197,15 +237,19 @@ const onButtonTab = (button, direction, handler) => {
     if (event.which === KEY.TAB) {
       // Tab key press
 
-      if (keysDown[KEY.SHIFT] && direction === TAB_DIRECTION.BACKWARD) {
-        // Shift is down, tab backward
-        handler();
-        event.preventDefault();
+      if (keysDown[KEY.SHIFT]) {
+        if (direction === TAB_DIRECTION.BACKWARD) {
+          // Shift is down, tab backward
+          handler();
+          event.preventDefault();
+        }
       }
-      else if (direction === TAB_DIRECTION.FORWARD) {
-        // Tab forward
-        handler();
-        event.preventDefault();
+      else {
+        if (direction === TAB_DIRECTION.FORWARD) {
+          // Tab forward
+          handler();
+          event.preventDefault();
+        }
       }
     }
   });

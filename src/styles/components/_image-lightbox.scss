@@ -45,6 +45,14 @@ $color-button: rgba($c1, .8);
     }
   }
 
+  .imagelightbox-progress {
+    color: #fff;
+    position: absolute;
+    bottom: 0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .imagelightbox-button {
     position: absolute;
     width: 1em;

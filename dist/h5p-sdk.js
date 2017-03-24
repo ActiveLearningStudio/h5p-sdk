@@ -892,6 +892,36 @@ var focus = function focus() {
 };
 
 /**
+ * Will toggle the siblings of the element visible or not.
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} show
+ */
+var toggleSiblings = function toggleSiblings(element, show) {
+  var siblings = element.parentNode.children;
+
+  for (var i = 0; i < siblings.length; i++) {
+    var sibling = siblings[i];
+
+    if (sibling === element) {
+      continue; // Not this element
+    }
+
+    if (show) {
+      sibling.removeAttribute('aria-hidden');
+    } else {
+      sibling.setAttribute('aria-hidden', true);
+    }
+  }
+};
+
+/**
+ * @type string
+ */
+var progressTemplateText = void 0;
+
+/**
  * Update the view
  *
  * @function
@@ -901,6 +931,7 @@ var focus = function focus() {
 var updateView = function updateView(element, state) {
 
   var images = element.querySelectorAll('.imagelightbox-image');
+  var progress = element.querySelector('.imagelightbox-progress');
   var prevButton = element.querySelector('.previous');
   var nextButton = element.querySelector('.next');
 
@@ -916,8 +947,12 @@ var updateView = function updateView(element, state) {
     live(image);
   }
 
-  // Determine if lightbox should be shown or hidden
-  toggleHidden(element, state.currentImage === null);
+  // Update progress text
+  if (!progressTemplateText) {
+    // Keep template for future updates
+    progressTemplateText = progress.innerText;
+  }
+  progress.innerText = progressTemplateText.replace(':num', state.currentImage + 1).replace(':total', images.length);
 
   // Determine if buttons should be shown or hidden
   toggleHidden(prevButton, !images.length);
@@ -926,6 +961,10 @@ var updateView = function updateView(element, state) {
   // Determine if buttons should be enabled or disabled
   toggleDisabled(prevButton, state.currentImage === 0);
   toggleDisabled(nextButton, state.currentImage === images.length - 1);
+
+  // Determine if lightbox should be shown or hidden
+  toggleHidden(element, state.currentImage === null);
+  toggleSiblings(element, state.currentImage === null);
 };
 
 /**
@@ -976,14 +1015,18 @@ var onButtonTab = function onButtonTab(button, direction, handler) {
     if (event.which === KEY.TAB) {
       // Tab key press
 
-      if (keysDown[KEY.SHIFT] && direction === TAB_DIRECTION.BACKWARD) {
-        // Shift is down, tab backward
-        handler();
-        event.preventDefault();
-      } else if (direction === TAB_DIRECTION.FORWARD) {
-        // Tab forward
-        handler();
-        event.preventDefault();
+      if (keysDown[KEY.SHIFT]) {
+        if (direction === TAB_DIRECTION.BACKWARD) {
+          // Shift is down, tab backward
+          handler();
+          event.preventDefault();
+        }
+      } else {
+        if (direction === TAB_DIRECTION.FORWARD) {
+          // Tab forward
+          handler();
+          event.preventDefault();
+        }
       }
     }
   });
