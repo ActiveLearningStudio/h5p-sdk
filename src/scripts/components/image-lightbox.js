@@ -8,28 +8,63 @@ import Keyboard from '../utils/keyboard';
 const ATTRIBUTE_SHOW = 'data-show';
 
 /**
- * @function
- * @param {HTMLElement} element
+ * @constant
+ * @type Object.<string, number>
  */
-const show = removeAttribute('aria-hidden');
+const KEY = {
+  TAB:    9,
+  ENTER: 13,
+  SHIFT: 16,
+  SPACE: 32
+};
+
+/**
+ * @constant
+ * @type Object.<string, number>
+ */
+const TAB_DIRECTION = {
+  FORWARD: 0,
+  BACKWARD: 1
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-const hide = setAttribute('aria-hidden', 'true');
+const show = (element) => element.classList.add('active');
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-const enable = removeAttribute('aria-disabled');
+const hide = (element) => {
+  element.classList.remove('active');
+  element.removeAttribute('aria-live');
+}
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-const disable = setAttribute('aria-disabled', '');
+const live = setAttribute('aria-live', 'polite');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+const enable = (element) => {
+  element.tabIndex = 0;
+  element.removeAttribute('aria-disabled');
+};
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+const disable = (element) => {
+  element.tabIndex = -1;
+  element.setAttribute('aria-disabled', 'true');
+};
 
 /**
  * @function
@@ -60,10 +95,54 @@ const showImageLightbox = curry((element, imageIndex) => setAttribute('data-show
 
 /**
  * @function
- * @type {function}
  * @param {HTMLElement} element
  */
 const hideLightbox = removeAttribute(ATTRIBUTE_SHOW);
+
+/**
+ * Focus first element with tabindex from arguments
+ *
+ * @function
+ * @param {...HTMLElement} elements
+ */
+const focus = (...elements) => {
+  for (let i = 0; i < elements.length; i++) {
+    if (elements[i].tabIndex !== -1) {
+      return elements[i].focus();
+    }
+  }
+}
+
+/**
+ * Will toggle the siblings of the element visible or not.
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} show
+ */
+const toggleSiblings = (element, show) => {
+  const siblings = element.parentNode.children;
+
+  for (let i = 0; i < siblings.length; i++) {
+    let sibling = siblings[i];
+
+    if (sibling === element) {
+      continue; // Not this element
+    }
+
+    if (show) {
+      sibling.removeAttribute('aria-hidden');
+    }
+    else {
+      sibling.setAttribute('aria-hidden', true);
+    }
+  }
+}
+
+/**
+ * @type string
+ */
+let progressTemplateText;
 
 /**
  * Update the view
@@ -71,10 +150,12 @@ const hideLightbox = removeAttribute(ATTRIBUTE_SHOW);
  * @function
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {boolean} setDialogFocus
  */
 const updateView = (element, state) => {
 
   const images = element.querySelectorAll('.imagelightbox-image');
+  const progress = element.querySelector('.imagelightbox-progress');
   const prevButton = element.querySelector('.previous');
   const nextButton = element.querySelector('.next');
 
@@ -83,11 +164,17 @@ const updateView = (element, state) => {
   if (state.currentImage !== null) {
     // Show selected image
     const image = element.querySelector('.imagelightbox-image:nth-child(' + (state.currentImage + 1) + ')');
+
     show(image);
+    live(image);
   }
 
-  // Determine if lightbox should be shown or hidden
-  toggleHidden(element, state.currentImage === null);
+  // Update progress text
+  if (!progressTemplateText) {
+    // Keep template for future updates
+    progressTemplateText = progress.innerText;
+  }
+  progress.innerText = progressTemplateText.replace(':num', state.currentImage + 1).replace(':total', images.length);
 
   // Determine if buttons should be shown or hidden
   toggleHidden(prevButton, !images.length);
@@ -96,6 +183,10 @@ const updateView = (element, state) => {
   // Determine if buttons should be enabled or disabled
   toggleDisabled(prevButton, state.currentImage === 0);
   toggleDisabled(nextButton, state.currentImage === images.length - 1);
+
+  // Determine if lightbox should be shown or hidden
+  toggleHidden(element, state.currentImage === null);
+  toggleSiblings(element, state.currentImage === null);
 
 };
 
@@ -112,6 +203,61 @@ const onNavigationButtonClick = (element, button, imageIndex) => {
     showImageLightbox(element, imageIndex);
   }
 };
+
+/**
+ * @function
+ */
+const onButtonPress = (button, handler) => {
+  button.addEventListener('click', handler);
+  button.addEventListener('keypress', (event) => {
+    if (event.which === KEY.ENTER || event.which === KEY.SPACE) {
+      // Enter or space key pressed
+      handler();
+      event.preventDefault();
+    }
+  });
+}
+
+/**
+ * Keep track of which keys are currently pressed.
+ *
+ * @type Object.<number, boolean>
+ */
+const keysDown = {};
+
+/**
+ * Binds key listeners that traps focus when the lightbox is open.
+ *
+ * @function
+ */
+const onButtonTab = (button, direction, handler) => {
+  button.addEventListener('keydown', (event) => {
+    // Keep track of which keys are currently pressed
+    keysDown[event.which] = true;
+
+    if (event.which === KEY.TAB) {
+      // Tab key press
+
+      if (keysDown[KEY.SHIFT]) {
+        if (direction === TAB_DIRECTION.BACKWARD) {
+          // Shift is down, tab backward
+          handler();
+          event.preventDefault();
+        }
+      }
+      else {
+        if (direction === TAB_DIRECTION.FORWARD) {
+          // Tab forward
+          handler();
+          event.preventDefault();
+        }
+      }
+    }
+  });
+  button.addEventListener('keyup', (event) => {
+    delete keysDown[event.which];
+  });
+}
 
 /**
  * Callback for when the dom is updated
@@ -160,9 +306,14 @@ export default function init(element) {
   };
 
   // initialize buttons
-  prevButton.addEventListener('click', () => onNavigationButtonClick(element, prevButton, state.currentImage - 1));
-  nextButton.addEventListener('click', () => onNavigationButtonClick(element, nextButton, state.currentImage + 1));
-  closeButton.addEventListener('click', () => hideLightbox(element));
+  onButtonPress(nextButton, () => onNavigationButtonClick(element, nextButton, state.currentImage + 1));
+  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, () => focus(closeButton));
+
+  onButtonPress(prevButton, () => onNavigationButtonClick(element, prevButton, state.currentImage - 1));
+  onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, () => focus(nextButton, closeButton));
+
+  onButtonPress(closeButton, () => hideLightbox(element));
+  onButtonTab(closeButton, TAB_DIRECTION.FORWARD, () => focus(nextButton, prevButton));
 
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));

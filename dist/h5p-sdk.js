@@ -774,28 +774,65 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var ATTRIBUTE_SHOW = 'data-show';
 
 /**
- * @function
- * @param {HTMLElement} element
+ * @constant
+ * @type Object.<string, number>
  */
-var show = (0, _elements.removeAttribute)('aria-hidden');
+var KEY = {
+  TAB: 9,
+  ENTER: 13,
+  SHIFT: 16,
+  SPACE: 32
+};
+
+/**
+ * @constant
+ * @type Object.<string, number>
+ */
+var TAB_DIRECTION = {
+  FORWARD: 0,
+  BACKWARD: 1
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
+var show = function show(element) {
+  return element.classList.add('active');
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-var enable = (0, _elements.removeAttribute)('aria-disabled');
+var hide = function hide(element) {
+  element.classList.remove('active');
+  element.removeAttribute('aria-live');
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-var disable = (0, _elements.setAttribute)('aria-disabled', '');
+var live = (0, _elements.setAttribute)('aria-live', 'polite');
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var enable = function enable(element) {
+  element.tabIndex = 0;
+  element.removeAttribute('aria-disabled');
+};
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var disable = function disable(element) {
+  element.tabIndex = -1;
+  element.setAttribute('aria-disabled', 'true');
+};
 
 /**
  * @function
@@ -832,10 +869,57 @@ var showImageLightbox = (0, _functional.curry)(function (element, imageIndex) {
 
 /**
  * @function
- * @type {function}
  * @param {HTMLElement} element
  */
 var hideLightbox = (0, _elements.removeAttribute)(ATTRIBUTE_SHOW);
+
+/**
+ * Focus first element with tabindex from arguments
+ *
+ * @function
+ * @param {...HTMLElement} elements
+ */
+var focus = function focus() {
+  for (var _len = arguments.length, elements = Array(_len), _key = 0; _key < _len; _key++) {
+    elements[_key] = arguments[_key];
+  }
+
+  for (var i = 0; i < elements.length; i++) {
+    if (elements[i].tabIndex !== -1) {
+      return elements[i].focus();
+    }
+  }
+};
+
+/**
+ * Will toggle the siblings of the element visible or not.
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} show
+ */
+var toggleSiblings = function toggleSiblings(element, show) {
+  var siblings = element.parentNode.children;
+
+  for (var i = 0; i < siblings.length; i++) {
+    var sibling = siblings[i];
+
+    if (sibling === element) {
+      continue; // Not this element
+    }
+
+    if (show) {
+      sibling.removeAttribute('aria-hidden');
+    } else {
+      sibling.setAttribute('aria-hidden', true);
+    }
+  }
+};
+
+/**
+ * @type string
+ */
+var progressTemplateText = void 0;
 
 /**
  * Update the view
@@ -843,10 +927,12 @@ var hideLightbox = (0, _elements.removeAttribute)(ATTRIBUTE_SHOW);
  * @function
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {boolean} setDialogFocus
  */
 var updateView = function updateView(element, state) {
 
   var images = element.querySelectorAll('.imagelightbox-image');
+  var progress = element.querySelector('.imagelightbox-progress');
   var prevButton = element.querySelector('.previous');
   var nextButton = element.querySelector('.next');
 
@@ -857,11 +943,17 @@ var updateView = function updateView(element, state) {
   if (state.currentImage !== null) {
     // Show selected image
     var image = element.querySelector('.imagelightbox-image:nth-child(' + (state.currentImage + 1) + ')');
+
     show(image);
+    live(image);
   }
 
-  // Determine if lightbox should be shown or hidden
-  toggleHidden(element, state.currentImage === null);
+  // Update progress text
+  if (!progressTemplateText) {
+    // Keep template for future updates
+    progressTemplateText = progress.innerText;
+  }
+  progress.innerText = progressTemplateText.replace(':num', state.currentImage + 1).replace(':total', images.length);
 
   // Determine if buttons should be shown or hidden
   toggleHidden(prevButton, !images.length);
@@ -870,6 +962,10 @@ var updateView = function updateView(element, state) {
   // Determine if buttons should be enabled or disabled
   toggleDisabled(prevButton, state.currentImage === 0);
   toggleDisabled(nextButton, state.currentImage === images.length - 1);
+
+  // Determine if lightbox should be shown or hidden
+  toggleHidden(element, state.currentImage === null);
+  toggleSiblings(element, state.currentImage === null);
 };
 
 /**
@@ -884,6 +980,60 @@ var onNavigationButtonClick = function onNavigationButtonClick(element, button, 
   if (!isDisabled(button)) {
     showImageLightbox(element, imageIndex);
   }
+};
+
+/**
+ * @function
+ */
+var onButtonPress = function onButtonPress(button, handler) {
+  button.addEventListener('click', handler);
+  button.addEventListener('keypress', function (event) {
+    if (event.which === KEY.ENTER || event.which === KEY.SPACE) {
+      // Enter or space key pressed
+      handler();
+      event.preventDefault();
+    }
+  });
+};
+
+/**
+ * Keep track of which keys are currently pressed.
+ *
+ * @type Object.<number, boolean>
+ */
+var keysDown = {};
+
+/**
+ * Binds key listeners that traps focus when the lightbox is open.
+ *
+ * @function
+ */
+var onButtonTab = function onButtonTab(button, direction, handler) {
+  button.addEventListener('keydown', function (event) {
+    // Keep track of which keys are currently pressed
+    keysDown[event.which] = true;
+
+    if (event.which === KEY.TAB) {
+      // Tab key press
+
+      if (keysDown[KEY.SHIFT]) {
+        if (direction === TAB_DIRECTION.BACKWARD) {
+          // Shift is down, tab backward
+          handler();
+          event.preventDefault();
+        }
+      } else {
+        if (direction === TAB_DIRECTION.FORWARD) {
+          // Tab forward
+          handler();
+          event.preventDefault();
+        }
+      }
+    }
+  });
+  button.addEventListener('keyup', function (event) {
+    delete keysDown[event.which];
+  });
 };
 
 /**
@@ -931,14 +1081,25 @@ function init(element) {
   };
 
   // initialize buttons
-  prevButton.addEventListener('click', function () {
-    return onNavigationButtonClick(element, prevButton, state.currentImage - 1);
-  });
-  nextButton.addEventListener('click', function () {
+  onButtonPress(nextButton, function () {
     return onNavigationButtonClick(element, nextButton, state.currentImage + 1);
   });
-  closeButton.addEventListener('click', function () {
+  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, function () {
+    return focus(closeButton);
+  });
+
+  onButtonPress(prevButton, function () {
+    return onNavigationButtonClick(element, prevButton, state.currentImage - 1);
+  });
+  onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, function () {
+    return focus(nextButton, closeButton);
+  });
+
+  onButtonPress(closeButton, function () {
     return hideLightbox(element);
+  });
+  onButtonTab(closeButton, TAB_DIRECTION.FORWARD, function () {
+    return focus(nextButton, prevButton);
   });
 
   // listen for updates to data-size

@@ -41,9 +41,18 @@ time, mark, audio, video {
   border-spacing: 0;
 }
 
+.h5p-sdk dl {
+  margin-top: 0;
+  margin-bottom: 0.833em;
+}
+
 .h5p-sdk dd, .h5p-sdk dt {
   padding: 0;
   margin: 0;
+}
+
+.h5p-sdk dt {
+  font-weight: 700;
 }
 
 .h5p-sdk {
@@ -125,6 +134,20 @@ time, mark, audio, video {
   padding: 0;
 }
 
+.h5p-sdk .dl-horizontal dt {
+  float: left;
+  width: 5em;
+  overflow: hidden;
+  clear: left;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.h5p-sdk .dl-horizontal dd {
+  margin-left: 5.833em;
+}
+
 .h5p-sdk .additional-information {
   font-style: italic;
   color: #71757e;
@@ -202,6 +225,7 @@ time, mark, audio, video {
 }
 
 .h5p-sdk .imagelightbox {
+  display: none;
   background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   left: 0;
@@ -209,6 +233,10 @@ time, mark, audio, video {
   width: 100%;
   height: 100%;
   z-index: 1;
+}
+
+.h5p-sdk .imagelightbox.active {
+  display: block;
 }
 
 .h5p-sdk .imagelightbox ol, .h5p-sdk .imagelightbox ul {
@@ -223,10 +251,16 @@ time, mark, audio, video {
   list-style: none;
   margin: 0;
   padding: 0;
+  display: none;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+.h5p-sdk .imagelightbox-image.active {
+  display: block;
 }
 
 .h5p-sdk .imagelightbox-image img {
@@ -234,36 +268,70 @@ time, mark, audio, video {
   margin: 0 auto;
 }
 
+.h5p-sdk .imagelightbox-progress {
+  color: #fff;
+  position: absolute;
+  bottom: 0.5em;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .h5p-sdk .imagelightbox-button {
   position: absolute;
-  background: pink;
+  width: 1em;
+  height: 1em;
+  padding: 0.25em;
+  border: 2px dashed transparent;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 2em;
+  line-height: 1;
+  text-align: center;
   cursor: pointer;
   user-select: none;
 }
 
 .h5p-sdk .imagelightbox-button.previous, .h5p-sdk .imagelightbox-button.next {
-  left: 0;
+  display: none;
+  left: 0.25em;
   top: 50%;
   transform: translateY(-50%);
+  background: rgba(105, 117, 133, 0.8);
+}
+
+.h5p-sdk .imagelightbox-button.previous:before, .h5p-sdk .imagelightbox-button.next:before {
+  content: "\2B9C";
 }
 
 .h5p-sdk .imagelightbox-button.next {
   left: auto;
-  right: 0;
+  right: 0.25em;
+}
+
+.h5p-sdk .imagelightbox-button.next:before {
+  content: "\2B9E";
 }
 
 .h5p-sdk .imagelightbox-button.close {
-  top: 0;
-  right: 0;
+  top: 0.25em;
+  right: 0.25em;
+}
+
+.h5p-sdk .imagelightbox-button.close:before {
+  content: "\D7";
+}
+
+.h5p-sdk .imagelightbox-button:focus {
+  border-color: white;
 }
 
 .h5p-sdk .imagelightbox-button[aria-disabled] {
-  background: blue;
+  opacity: .5;
   cursor: default;
 }
 
-.h5p-sdk [aria-hidden="true"] {
-  display: none;
+.h5p-sdk .imagelightbox-button.active {
+  display: block;
 }
 
 .h5p-sdk .carousel-lightbox {
@@ -496,16 +564,11 @@ time, mark, audio, video {
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="true"] {
-  display: block;
-  overflow: hidden;
-  opacity: 0.5;
-  height: 0;
-  transition: opacity 0.3s;
+  display: none;
 }
 
 .h5p-sdk .tab-panel [role="tabpanel"][aria-hidden="false"] {
-  opacity: 1;
-  transition: opacity 0.3s;
+  display: block;
 }
 
 .h5p-sdk .navbar {
@@ -566,24 +629,8 @@ time, mark, audio, video {
 }
 
 @media (min-width: 576px) {
-  .h5p-sdk .navbar {
-    padding: 0 0.833em;
-  }
-  .h5p-sdk .navbar .navbar-header {
-    display: inline-block;
-  }
   .h5p-sdk .navbar .navbar-brand {
     padding: 0.833em;
-  }
-  .h5p-sdk .navbar .navbar-toggler {
-    display: none;
-  }
-  .h5p-sdk .navbar .navbar-nav {
-    display: inline-block;
-    float: right;
-  }
-  .h5p-sdk .navbar .navbar-nav.collapsed {
-    display: block !important;
   }
   .h5p-sdk .navbar [role="menuitem"] {
     display: inline-block;
@@ -705,7 +752,11 @@ time, mark, audio, video {
   padding-left: 1.250em;
 }
 
-.upload-form .upload input[type="file"] {
+.upload-form .input-wrapper {
+  display: inline-block;
+}
+
+.upload-form .input-wrapper input[type="file"] {
   display: none;
 }
 

@@ -7,6 +7,7 @@ $color-button: rgba($c1, .8);
 
 .h5p-sdk {
   .imagelightbox {
+    display: none;
     background-color: rgba(0, 0, 0, .8);
     position: fixed;
     left: 0;
@@ -15,6 +16,10 @@ $color-button: rgba($c1, .8);
     height: 100%;
     z-index: 1;
 
+    &.active {
+      display: block;
+    }
+
     ol, ul {
       @include reset-list;
     }
@@ -22,10 +27,17 @@ $color-button: rgba($c1, .8);
 
   .imagelightbox-image {
     @include reset-list;
+
+    display: none;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+
+    &.active {
+      display: block;
+    }
 
     img {
       display: block;
@@ -33,33 +45,66 @@ $color-button: rgba($c1, .8);
     }
   }
 
+  .imagelightbox-progress {
+    color: #fff;
+    position: absolute;
+    bottom: 0.5em;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
   .imagelightbox-button {
     position: absolute;
-    background: pink;
+    width: 1em;
+    height: 1em;
+    padding: 0.25em;
+    border: 2px dashed transparent;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 2em;
+    line-height: 1;
+    text-align: center;
     cursor: pointer;
     user-select: none;
 
     &.previous, &.next {
-      left: 0;
+
+      display: none;
+      left: 0.25em;
       top: 50%;
       transform: translateY(-50%);
+      background: $color-button;
+
+      &:before {
+        content: "\2B9C";
+      }
     }
     &.next {
       left: auto;
-      right: 0;
+      right: 0.25em;
+
+      &:before {
+        content: "\2B9E";
+      }
     }
     &.close {
-      top: 0;
-      right: 0;
+      top: 0.25em;
+      right: 0.25em;
+
+      &:before {
+        content: "\d7";
+      }
     }
 
+    &:focus {
+      border-color: white;
+    }
     &[aria-disabled] {
-      background: blue;
+      opacity: .5;
       cursor: default;
     }
-  }
-
-  [aria-hidden="true"] {
-    display: none;
+    &.active {
+      display: block;
+    }
   }
 }
