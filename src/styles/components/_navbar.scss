@@ -66,27 +66,9 @@ $height-menuitem-underline: 0.250em;
     }
 
     @media (min-width: $screen-small) {
-      padding: 0 $gutter;
-
-      .navbar-header {
-        display: inline-block;
-      }
 
       .navbar-brand {
         padding: $gutter;
-      }
-
-      .navbar-toggler {
-        display: none;
-      }
-
-      .navbar-nav {
-        display: inline-block;
-        float: right;
-
-        &.collapsed {
-          display: block ! important;
-        }
       }
 
       [role="menuitem"] {

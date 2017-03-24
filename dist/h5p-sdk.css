@@ -610,24 +610,8 @@ time, mark, audio, video {
 }
 
 @media (min-width: 576px) {
-  .h5p-sdk .navbar {
-    padding: 0 0.833em;
-  }
-  .h5p-sdk .navbar .navbar-header {
-    display: inline-block;
-  }
   .h5p-sdk .navbar .navbar-brand {
     padding: 0.833em;
-  }
-  .h5p-sdk .navbar .navbar-toggler {
-    display: none;
-  }
-  .h5p-sdk .navbar .navbar-nav {
-    display: inline-block;
-    float: right;
-  }
-  .h5p-sdk .navbar .navbar-nav.collapsed {
-    display: block !important;
   }
   .h5p-sdk .navbar [role="menuitem"] {
     display: inline-block;
