@@ -797,13 +797,24 @@ var TAB_DIRECTION = {
  * @function
  * @param {HTMLElement} element
  */
-var show = (0, _elements.removeAttribute)('aria-hidden');
+var show = function show(element) {
+  return element.classList.add('active');
+};
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-var hide = (0, _elements.setAttribute)('aria-hidden', 'true');
+var hide = function hide(element) {
+  element.classList.remove('active');
+  element.removeAttribute('aria-live');
+};
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+var live = (0, _elements.setAttribute)('aria-live', 'polite');
 
 /**
  * @function
@@ -900,7 +911,9 @@ var updateView = function updateView(element, state) {
   if (state.currentImage !== null) {
     // Show selected image
     var image = element.querySelector('.imagelightbox-image:nth-child(' + (state.currentImage + 1) + ')');
+
     show(image);
+    live(image);
   }
 
   // Determine if lightbox should be shown or hidden

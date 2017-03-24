@@ -31,13 +31,22 @@ const TAB_DIRECTION = {
  * @function
  * @param {HTMLElement} element
  */
-const show = removeAttribute('aria-hidden');
+const show = (element) => element.classList.add('active');
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-const hide = setAttribute('aria-hidden', 'true');
+const hide = (element) => {
+  element.classList.remove('active');
+  element.removeAttribute('aria-live');
+}
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+const live = setAttribute('aria-live', 'polite');
 
 /**
  * @function
@@ -122,7 +131,9 @@ const updateView = (element, state) => {
   if (state.currentImage !== null) {
     // Show selected image
     const image = element.querySelector('.imagelightbox-image:nth-child(' + (state.currentImage + 1) + ')');
+
     show(image);
+    live(image);
   }
 
   // Determine if lightbox should be shown or hidden
