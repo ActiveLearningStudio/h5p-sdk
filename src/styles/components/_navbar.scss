@@ -55,6 +55,7 @@ $height-menuitem-underline: 0.250em;
       padding: $gutter;
       text-align: right;
       outline-color: $ac1;
+      cursor: pointer;
 
       &:not(:last-of-type) {
         border-bottom: 1px solid $c2;
@@ -94,7 +95,6 @@ $height-menuitem-underline: 0.250em;
         width: $width-menu-item;
         text-align: center;
         text-decoration: none;
-        cursor: pointer;
 
         &:not(:last-of-type) {
           border-bottom: 0;
