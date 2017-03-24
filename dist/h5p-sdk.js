@@ -927,6 +927,7 @@ var progressTemplateText = void 0;
  * @function
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {boolean} setDialogFocus
  */
 var updateView = function updateView(element, state) {
 

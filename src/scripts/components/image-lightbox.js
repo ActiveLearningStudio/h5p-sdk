@@ -150,6 +150,7 @@ let progressTemplateText;
  * @function
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {boolean} setDialogFocus
  */
 const updateView = (element, state) => {
 
