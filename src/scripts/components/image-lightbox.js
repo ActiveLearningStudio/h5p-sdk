@@ -31,13 +31,22 @@ const TAB_DIRECTION = {
  * @function
  * @param {HTMLElement} element
  */
-const show = removeAttribute('aria-hidden');
+const show = (element) => element.classList.add('active');
 
 /**
  * @function
  * @param {HTMLElement} element
  */
-const hide = setAttribute('aria-hidden', 'true');
+const hide = (element) => {
+  element.classList.remove('active');
+  element.removeAttribute('aria-live');
+}
+
+/**
+ * @function
+ * @param {HTMLElement} element
+ */
+const live = setAttribute('aria-live', 'polite');
 
 /**
  * @function
@@ -97,7 +106,7 @@ const hideLightbox = removeAttribute(ATTRIBUTE_SHOW);
  * @param {...HTMLElement} elements
  */
 const focus = (...elements) => {
-  for (var i = 0; i < elements.length; i++) {
+  for (let i = 0; i < elements.length; i++) {
     if (elements[i].tabIndex !== -1) {
       return elements[i].focus();
     }
@@ -105,15 +114,48 @@ const focus = (...elements) => {
 }
 
 /**
+ * Will toggle the siblings of the element visible or not.
+ *
+ * @function
+ * @param {HTMLElement} element
+ * @param {boolean} show
+ */
+const toggleSiblings = (element, show) => {
+  const siblings = element.parentNode.children;
+
+  for (let i = 0; i < siblings.length; i++) {
+    let sibling = siblings[i];
+
+    if (sibling === element) {
+      continue; // Not this element
+    }
+
+    if (show) {
+      sibling.removeAttribute('aria-hidden');
+    }
+    else {
+      sibling.setAttribute('aria-hidden', true);
+    }
+  }
+}
+
+/**
+ * @type string
+ */
+let progressTemplateText;
+
+/**
  * Update the view
  *
  * @function
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
+ * @param {boolean} setDialogFocus
  */
 const updateView = (element, state) => {
 
   const images = element.querySelectorAll('.imagelightbox-image');
+  const progress = element.querySelector('.imagelightbox-progress');
   const prevButton = element.querySelector('.previous');
   const nextButton = element.querySelector('.next');
 
@@ -122,11 +164,17 @@ const updateView = (element, state) => {
   if (state.currentImage !== null) {
     // Show selected image
     const image = element.querySelector('.imagelightbox-image:nth-child(' + (state.currentImage + 1) + ')');
+
     show(image);
+    live(image);
   }
 
-  // Determine if lightbox should be shown or hidden
-  toggleHidden(element, state.currentImage === null);
+  // Update progress text
+  if (!progressTemplateText) {
+    // Keep template for future updates
+    progressTemplateText = progress.innerText;
+  }
+  progress.innerText = progressTemplateText.replace(':num', state.currentImage + 1).replace(':total', images.length);
 
   // Determine if buttons should be shown or hidden
   toggleHidden(prevButton, !images.length);
@@ -135,6 +183,10 @@ const updateView = (element, state) => {
   // Determine if buttons should be enabled or disabled
   toggleDisabled(prevButton, state.currentImage === 0);
   toggleDisabled(nextButton, state.currentImage === images.length - 1);
+
+  // Determine if lightbox should be shown or hidden
+  toggleHidden(element, state.currentImage === null);
+  toggleSiblings(element, state.currentImage === null);
 
 };
 
@@ -186,15 +238,19 @@ const onButtonTab = (button, direction, handler) => {
     if (event.which === KEY.TAB) {
       // Tab key press
 
-      if (keysDown[KEY.SHIFT] && direction === TAB_DIRECTION.BACKWARD) {
-        // Shift is down, tab backward
-        handler();
-        event.preventDefault();
+      if (keysDown[KEY.SHIFT]) {
+        if (direction === TAB_DIRECTION.BACKWARD) {
+          // Shift is down, tab backward
+          handler();
+          event.preventDefault();
+        }
       }
-      else if (direction === TAB_DIRECTION.FORWARD) {
-        // Tab forward
-        handler();
-        event.preventDefault();
+      else {
+        if (direction === TAB_DIRECTION.FORWARD) {
+          // Tab forward
+          handler();
+          event.preventDefault();
+        }
       }
     }
   });
