@@ -66,7 +66,7 @@ $height-menuitem-underline: 0.250em;
       }
     }
 
-    @media (min-width: $screen-small) {
+    @media (min-width: 652px) {
 
       .navbar-brand {
         padding: $gutter;
