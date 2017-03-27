@@ -26,6 +26,15 @@ time, mark, audio, video {
   list-style: none;
 }
 
+.h5p-sdk ul.ul {
+  list-style: disc;
+  margin: 0.833em 0;
+}
+
+.h5p-sdk ul.ul li {
+  margin-left: 1.666em;
+}
+
 .h5p-sdk blockquote, .h5p-sdk q {
   quotes: none;
 }
@@ -430,6 +439,61 @@ time, mark, audio, video {
   position: absolute;
   top: 0.5em;
   right: 1em;
+}
+
+.h5p-sdk .modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  overflow: hidden;
+  outline: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.h5p-sdk .modal-dialog {
+  position: relative;
+  width: auto;
+  background-color: white;
+}
+
+.h5p-sdk .modal-header {
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0.833em;
+}
+
+.h5p-sdk .modal-title {
+  font-weight: 400;
+  font-size: 1.6em;
+}
+
+.h5p-sdk .modal-subtitle {
+  font-weight: 400;
+}
+
+.h5p-sdk .modal-footer {
+  padding: 0.833em;
+  text-align: right;
+  border-top: 1px solid #e0e0e0;
+}
+
+.h5p-sdk .close {
+  background-color: transparent;
+  border: 0;
+  float: right;
+}
+
+.h5p-sdk .modal-body {
+  padding: 0.833em;
+}
+
+@media (min-width: 576px) {
+  .h5p-sdk .modal-dialog {
+    max-width: 800px;
+    margin: 30px auto;
+  }
 }
 
 .h5p-sdk .panel {

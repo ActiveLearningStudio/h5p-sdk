@@ -1,3 +1,5 @@
+@import '../base/variables';
+
 /*html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -26,6 +28,15 @@ time, mark, audio, video {
 
   ol, ul {
     list-style: none;
+  }
+
+  ul.ul {
+    list-style: disc;
+    margin: $gutter 0;
+
+    li {
+      margin-left: 2*$gutter;
+    }
   }
 
   blockquote, q {

@@ -22,6 +22,30 @@
 </head>
 <body>
 <div class="h5p-sdk">
+
+  <!-- Modal window -->
+  <div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="dialog-title">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span>&#10006;</span>
+          </button>
+          <h5 class="modal-title" id="dialog-title">Content License info</h5>
+          <h5 class="modal-subtitle">Click on a specific license to get info about proper usage</h5>
+        </div>
+
+        <div class="modal-body">
+          <p>Woohoo, you're reading this text in a modal!</p>
+        </div>
+
+        <div class="modal-footer">
+          <button class="button" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Image carousel -->
   <h2>Image carousel</h2>
 
@@ -316,8 +340,13 @@
   const imageLightbox = document.querySelectorAll('.imagelightbox');
   imageLightbox.forEach(H5P.sdk.initImageLightbox);
 
+  const modals = document.querySelectorAll('.modal');
+  modals.forEach(H5P.sdk.initModal);
+
+  /*
   const uploadForm = document.querySelector('.upload-form');
   H5P.sdk.initUploadForm(uploadForm);
+  */
 </script>
 </body>
 </html>

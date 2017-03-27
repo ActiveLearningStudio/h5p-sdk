@@ -1,0 +1,61 @@
+@import '../base/variables';
+
+$border-modal: 1px solid  #e0e0e0;
+
+.h5p-sdk {
+  .modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1050;
+    //display: none;
+    overflow: hidden;
+    outline: 0;
+    background-color: rgba(0, 0, 0, .5)
+  }
+
+  .modal-dialog {
+    position: relative;
+    width: auto;
+    background-color: white;
+  }
+
+  .modal-header {
+    border-bottom: $border-modal;
+    padding: $gutter;
+  }
+
+  .modal-title {
+    font-weight: 400;
+    font-size: 1.6em;
+  }
+
+  .modal-subtitle {
+    font-weight: 400;
+  }
+
+  .modal-footer {
+    padding: $gutter;
+    text-align: right;
+    border-top: $border-modal
+  }
+
+  .close {
+    background-color: transparent;
+    border: 0;
+    float: right;
+  }
+
+  .modal-body {
+    padding: $gutter;
+  }
+
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 800px;
+      margin: 30px auto;
+    }
+  }
+}

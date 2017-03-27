@@ -9,3 +9,4 @@ H5P.sdk.initNavbar = require('../scripts/components/navbar').default;
 H5P.sdk.initImageScroller = require('../scripts/components/image-scroller').default;
 H5P.sdk.initImageLightbox = require('../scripts/components/image-lightbox').default;
 H5P.sdk.initUploadForm = require('../scripts/components/upload-form').default;
+H5P.sdk.initModal = require('../scripts/components/modal').default;
