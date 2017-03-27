@@ -137,35 +137,49 @@ export default class Keyboard {
   handleKeyDown(event) {
     const lastIndex = this.elements.length - 1;
 
-    switch (event.which) {
-      case 13: // Enter
-      case 32: // Space
-        this.select();
-        event.preventDefault();
-        break;
-      case 35: // End
-        this.selectedIndex = lastIndex;
-        event.preventDefault();
-        break;
-      case 36: // Home
-        this.selectedIndex = 0;
-        event.preventDefault();
-        break;
-      case 37: // Left Arrow
-      case 38: // Up Arrow
-        this.selectedIndex = previousIndex(this.selectedIndex, lastIndex);
-        event.preventDefault();
-        break;
-      case 39: // Right Arrow
-      case 40: // Down Arrow
-        this.selectedIndex = nextIndex(this.selectedIndex, lastIndex);
-        event.preventDefault();
-        break;
-    }
+    if(this.hasElement(event.target)) {
+      switch (event.which) {
+        case 13: // Enter
+        case 32: // Space
+          this.select();
+          event.preventDefault();
+          break;
+        case 35: // End
+          this.selectedIndex = lastIndex;
+          event.preventDefault();
+          break;
+        case 36: // Home
+          this.selectedIndex = 0;
+          event.preventDefault();
+          break;
+        case 37: // Left Arrow
+        case 38: // Up Arrow
+          this.selectedIndex = previousIndex(this.selectedIndex, lastIndex);
+          event.preventDefault();
+          break;
+        case 39: // Right Arrow
+        case 40: // Down Arrow
+          this.selectedIndex = nextIndex(this.selectedIndex, lastIndex);
+          event.preventDefault();
+          break;
+      }
 
-    updateTabbable(this.elements, this.selectedIndex);
-    this.elements[this.selectedIndex].focus();
+
+      updateTabbable(this.elements, this.selectedIndex);
+      this.elements[this.selectedIndex].focus();
+    }
   };
+
+  /**
+   * Returns true if element is in list ov navigatable elements
+   *
+   * @param {Element|EventTarget} element
+   *
+   * @return {boolean}
+   */
+  hasElement(element) {
+    return this.elements.indexOf(element) !== -1;
+  }
 
   /**
    * Updates the selected index with the focused element
