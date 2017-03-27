@@ -31,14 +31,6 @@
       transition: all .5s ease;
       outline-color: $ac1;
 
-      > &:nth-child(1) {
-        width: 8em;
-      }
-
-      > &:nth-child(2) {
-        width: 3em;
-      }
-
       &:nth-child(1) ~ span,
       &:nth-child(1)[aria-selected="true"] ~ span {
         width: 200px;
