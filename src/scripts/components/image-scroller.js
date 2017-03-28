@@ -27,7 +27,7 @@ const toggleEnabled = (element, enabled) => (enabled ? enable : disable)(element
  * @param {HTMLElement} element
  * @param {boolean} hidden
  */
-const toggleVisibility = curry((hidden, element) => setAttribute('aria-hidden', hidden.toString(), element));
+const toggleVisibility = curry((hidden, element) => element.classList.toggle('hidden', hidden));
 
 /**
  * @type {function}

@@ -22,7 +22,7 @@ $color-button: rgba($c1, .8);
     box-sizing: border-box;
     position: relative;
 
-    [aria-hidden="true"] {
+    .hidden {
       display: none;
     }
 
