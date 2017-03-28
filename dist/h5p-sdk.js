@@ -603,49 +603,65 @@ var Keyboard = function () {
     value: function handleKeyDown(event) {
       var lastIndex = this.elements.length - 1;
 
-      switch (event.which) {
-        case 13: // Enter
-        case 32:
-          // Space
-          this.select();
-          event.preventDefault();
-          break;
-        case 35:
-          // End
-          this.selectedIndex = lastIndex;
-          event.preventDefault();
-          break;
-        case 36:
-          // Home
-          this.selectedIndex = 0;
-          event.preventDefault();
-          break;
-        case 37: // Left Arrow
-        case 38:
-          // Up Arrow
-          this.selectedIndex = previousIndex(this.selectedIndex, lastIndex);
-          event.preventDefault();
-          break;
-        case 39: // Right Arrow
-        case 40:
-          // Down Arrow
-          this.selectedIndex = nextIndex(this.selectedIndex, lastIndex);
-          event.preventDefault();
-          break;
-      }
+      if (this.hasElement(event.target)) {
+        switch (event.which) {
+          case 13: // Enter
+          case 32:
+            // Space
+            this.select();
+            event.preventDefault();
+            break;
+          case 35:
+            // End
+            this.selectedIndex = lastIndex;
+            event.preventDefault();
+            break;
+          case 36:
+            // Home
+            this.selectedIndex = 0;
+            event.preventDefault();
+            break;
+          case 37: // Left Arrow
+          case 38:
+            // Up Arrow
+            this.selectedIndex = previousIndex(this.selectedIndex, lastIndex);
+            event.preventDefault();
+            break;
+          case 39: // Right Arrow
+          case 40:
+            // Down Arrow
+            this.selectedIndex = nextIndex(this.selectedIndex, lastIndex);
+            event.preventDefault();
+            break;
+        }
 
-      updateTabbable(this.elements, this.selectedIndex);
-      this.elements[this.selectedIndex].focus();
+        updateTabbable(this.elements, this.selectedIndex);
+        this.elements[this.selectedIndex].focus();
+      }
     }
   }, {
-    key: 'handleFocus',
+    key: 'hasElement',
 
+
+    /**
+     * Returns true if element is in list ov navigatable elements
+     *
+     * @param {Element|EventTarget} element
+     *
+     * @return {boolean}
+     */
+    value: function hasElement(element) {
+      return this.elements.indexOf(element) !== -1;
+    }
 
     /**
      * Updates the selected index with the focused element
      *
      * @param {FocusEvent} event
      */
+
+  }, {
+    key: 'handleFocus',
     value: function handleFocus(event) {
       this.selectedIndex = this.elements.indexOf(event.srcElement);
     }

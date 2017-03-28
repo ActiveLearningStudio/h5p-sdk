@@ -64,6 +64,12 @@ time, mark, audio, video {
   font-weight: 700;
 }
 
+.h5p-sdk button {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+
 .h5p-sdk {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.917em;
@@ -170,6 +176,7 @@ time, mark, audio, video {
   font-family: 'Open Sans', sans-serif;
   font-size: 0.93em;
   font-weight: 600;
+  text-align: center;
   text-decoration: none;
   line-height: 1em;
   padding: 0.708em 1.375em;
@@ -731,6 +738,7 @@ time, mark, audio, video {
 }
 
 .h5p-sdk .message {
+  position: relative;
   margin: 0.833em 0;
   padding: 1.250em;
   text-align: right;
@@ -803,11 +811,16 @@ time, mark, audio, video {
 .h5p-sdk .message.dismissible .message-close {
   cursor: pointer;
   display: block;
-  float: right;
-  border: 0;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  line-height: 1;
   background-color: transparent;
-  padding-top: 1.250em;
-  padding-left: 1.250em;
+  color: #555;
+}
+
+.h5p-sdk .message.dismissible .message-close:hover {
+  color: #333;
 }
 
 .upload-form .input-wrapper {
