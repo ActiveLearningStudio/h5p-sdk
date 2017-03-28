@@ -24,9 +24,10 @@ $border-panel: 0.042em solid $c2;
 
     &> [role="region"] {
       border-bottom: $border-panel;
+      display: none;
 
-      &[aria-hidden="true"] {
-        display: none;
+      &.active {
+        display: block;
       }
 
       .panel-body {
