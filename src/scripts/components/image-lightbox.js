@@ -131,13 +131,13 @@ const toggleSiblings = (element, show) => {
     }
 
     if (show) {
-      sibling.removeAttribute('aria-hidden');
+      sibling.classList.remove('hidden');
     }
     else {
-      sibling.setAttribute('aria-hidden', true);
+      sibling.classList.add('hidden');
     }
   }
-}
+};
 
 /**
  * @type string

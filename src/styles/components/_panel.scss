@@ -25,10 +25,6 @@ $border-panel: 0.042em solid $c2;
     &> [role="region"] {
       border-bottom: $border-panel;
 
-      &[aria-hidden="true"] {
-        display: none;
-      }
-
       .panel-body {
         padding: $gutter;
       }

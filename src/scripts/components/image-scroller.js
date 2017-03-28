@@ -1,4 +1,4 @@
-import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray, querySelectorAll } from '../utils/elements';
+import { setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray, querySelectorAll, toggleVisibility } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
@@ -22,12 +22,6 @@ const enable = removeAttribute('disabled');
  * @param {boolean} enabled
  */
 const toggleEnabled = (element, enabled) => (enabled ? enable : disable)(element);
-
-/**
- * @param {HTMLElement} element
- * @param {boolean} hidden
- */
-const toggleVisibility = curry((hidden, element) => setAttribute('aria-hidden', hidden.toString(), element));
 
 /**
  * @type {function}
@@ -61,7 +55,7 @@ const updateView = (element, state) => {
 
   // toggle button visibility
   [prevButton, nextButton]
-    .forEach(toggleVisibility(state.displayCount >= totalCount));
+    .forEach(toggleVisibility(state.displayCount < totalCount));
 
   // toggle button enable, disabled
   toggleEnabled(nextButton, state.position > (state.displayCount - totalCount));

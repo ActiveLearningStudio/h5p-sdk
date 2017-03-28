@@ -48,14 +48,6 @@
       .tab-panel-inner {
         padding: $gutter;
       }
-
-      &[aria-hidden="true"] {
-        display: none;
-      }
-
-      &[aria-hidden="false"] {
-        display: block;
-      }
     }
   }
 }

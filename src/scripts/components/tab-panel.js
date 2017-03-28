@@ -1,16 +1,11 @@
-import {setAttribute, removeAttribute, attributeEquals, querySelectorAll } from '../utils/elements';
+import {removeAttribute, attributeEquals, querySelectorAll, hide, show } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
 /**
  * @function
  */
-const hideAll = forEach(setAttribute('aria-hidden', 'true'));
-
-/**
- * @function
- */
-const show = setAttribute('aria-hidden', 'false');
+const hideAll = forEach(hide);
 
 /**
  * @function
