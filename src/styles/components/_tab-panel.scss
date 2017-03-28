@@ -45,14 +45,16 @@
     }
 
     [role="tabpanel"] {
-      display: none;
-
-      &.active {
-        display: block;
-      }
-
       .tab-panel-inner {
         padding: $gutter;
+      }
+
+      &[aria-hidden="true"] {
+        display: none;
+      }
+
+      &[aria-hidden="false"] {
+        display: block;
       }
     }
   }

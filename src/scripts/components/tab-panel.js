@@ -5,12 +5,12 @@ import Keyboard from '../utils/keyboard';
 /**
  * @function
  */
-const hideAll = forEach((element) => element.classList.remove('active'));
+const hideAll = forEach(setAttribute('aria-hidden', 'true'));
 
 /**
  * @function
  */
-const show = (element) => element.classList.add('active');
+const show = setAttribute('aria-hidden', 'false');
 
 /**
  * @function
