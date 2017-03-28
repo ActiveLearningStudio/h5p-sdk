@@ -16,6 +16,7 @@
 
 .h5p-sdk {
   .message {
+    position: relative;
     margin: $gutter 0;
     padding: 1.250em;
     text-align: right;
@@ -60,11 +61,16 @@
     .message-close {
       cursor: pointer;
       display: block;
-      float: right;
-      border: 0;
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      line-height: 1;
       background-color: transparent;
-      padding-top: 1.250em;
-      padding-left: 1.250em;
+      color: #555;
+    }
+
+    .message-close:hover {
+      color: #333;
     }
   }
 }
