@@ -111,7 +111,7 @@ const focus = (...elements) => {
       return elements[i].focus();
     }
   }
-}
+};
 
 /**
  * Will toggle the siblings of the element visible or not.
@@ -126,15 +126,15 @@ const toggleSiblings = (element, show) => {
   for (let i = 0; i < siblings.length; i++) {
     let sibling = siblings[i];
 
-    if (sibling === element) {
-      continue; // Not this element
-    }
-
-    if (show) {
-      sibling.classList.remove('hidden');
-    }
-    else {
-      sibling.classList.add('hidden');
+    if (sibling !== element) {
+      if (show) {
+        // TODO This is dangerous, and will interfere with
+        // the aria-hidden state set by other compoents
+        sibling.removeAttribute('aria-hidden')
+      }
+      else {
+        sibling.setAttribute('aria-hidden', 'true');
+      }
     }
   }
 };
