@@ -9,7 +9,8 @@ $text-list-title: 1.042em !default;
 
 // layout
 $gutter: 0.833em !default;
-$border-width: 0.125em !default;
+$border-width: 1px !default;
+$border-panel: 1px solid $c2;
 
 // breakpoints
 $screen-small: 576px;

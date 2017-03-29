@@ -1,8 +1,6 @@
 @import "../base/colors";
 @import "../base/variables";
 
-$border-panel: 0.042em solid $c2;
-
 .h5p-sdk {
   .panel {
     border: $border-panel;

@@ -61,6 +61,7 @@ $color-button: rgba($c1, .8);
     img {
       max-width: 100%;
       cursor: pointer;
+      border: $border-panel;
     }
 
     .carousel-button {
