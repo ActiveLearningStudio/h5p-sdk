@@ -74,5 +74,9 @@
     &.button-inverse-primary {
       @include button-inverse(white, $ac1);
     }
+
+    &:before {
+      font-weight: normal;
+    }
   }
 }
