@@ -34,7 +34,15 @@ export const initCollapsible = (element, targetHandler = toggleVisibility, toggl
     });
 
     // Set click listener that toggles aria-expanded
-    toggler.addEventListener('click', () => toggleAttribute("aria-expanded", toggler));
+    toggler.addEventListener('click', () => toggleAttribute('aria-expanded', toggler));
+
+    // Handling keydown, space & enter)
+    toggler.addEventListener('keydown', event => {
+      if (event.which === 13 || event.which === 32) {
+        toggleAttribute('aria-expanded', toggler);
+        event.preventDefault();
+      }
+    });
 
     // initialize
     targetHandler(isExpanded(toggler), collapsible);
