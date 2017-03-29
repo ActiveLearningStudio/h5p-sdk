@@ -9,11 +9,11 @@ import {attributeEquals, toggleAttribute, toggleVisibility, querySelectorAll } f
 const isExpanded = attributeEquals("aria-expanded", 'true');
 
 /**
- * Toggles aria-hidden on 'collapsible' when aria-expanded changes on 'toggler',
+ * Toggles hidden class on 'collapsible' when aria-expanded changes on 'toggler',
  * and toggles aria-expanded on 'toggler' on click
  *
  * @param {HTMLElement} element
- * @param {function} [targetHandler] falls back to toggleVisibility with aria-hidden
+ * @param {function} [targetHandler] falls back to toggleVisibility with hidden class
  * @param {string} [togglerSelector]
  */
 export const initCollapsible = (element, targetHandler = toggleVisibility, togglerSelector = '[aria-controls][aria-expanded]') => {

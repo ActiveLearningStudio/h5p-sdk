@@ -47,12 +47,6 @@
     }
 
     [role="tabpanel"] {
-      display: none;
-
-      &.active {
-        display: block;
-      }
-
       .tab-panel-inner {
         padding: $gutter;
       }

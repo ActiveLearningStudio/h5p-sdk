@@ -1,16 +1,11 @@
-import {setAttribute, removeAttribute, attributeEquals, querySelectorAll } from '../utils/elements';
+import {removeAttribute, attributeEquals, querySelectorAll, hide, show } from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
 /**
  * @function
  */
-const hideAll = forEach((element) => element.classList.remove('active'));
-
-/**
- * @function
- */
-const show = (element) => element.classList.add('active');
+const hideAll = forEach(hide);
 
 /**
  * @function

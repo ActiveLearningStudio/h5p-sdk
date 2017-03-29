@@ -10,14 +10,10 @@ $border-modal: 1px solid  #e0e0e0;
     bottom: 0;
     left: 0;
     z-index: 1050;
-    display: none;
+    //display: none;
     overflow: hidden;
     outline: 0;
     background-color: rgba(0, 0, 0, .5)
-  }
-
-  &.active {
-    display: block;
   }
 
   .modal-dialog {

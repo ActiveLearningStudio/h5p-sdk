@@ -133,23 +133,41 @@ export const removeChild = curry((parent, oldChild) => parent.removeChild(oldChi
 export const classListContains = curry((cls, el) => el.classList.contains(cls));
 
 /**
- * Adds classname 'hidden' to an element.
+ * Adds a css class to an element
+ *
+ * @param {string} cls
+ * @param {Element} element
  *
  * @function
- * @param {HTMLElement} element
  */
-export const hide = (element) => element.classList.remove('active');
+export const addClass = curry((cls, element) => element.classList.add(cls));
 
 /**
- * Removes classname 'hidden' from an element.
+ * Removes a css class from an element
+ *
+ * @param {string} cls
+ * @param {Element} element
  *
  * @function
- * @param {HTMLElement} element
  */
-export const show = (element) => element.classList.add('active');
+export const removeClass = curry((cls, element) => element.classList.remove(cls));
 
 /**
- * Toggles aria-hidden on an element
+ * Adds hidden class on an element
+ *
+ * @param {HTMLElement} element
+ * @function
+ */
+export const hide = addClass('hidden');
+
+/**
+ * Removes hidden class from an element
+ * @function
+ */
+export const show = removeClass('hidden');
+
+/**
+ * Toggles hidden class on an element
  *
  * @param {boolean} visible
  * @param {HTMLElement} element

@@ -18,6 +18,9 @@
 </head>
 <body>
 <div class="h5p-sdk">
+  <h2>Modal</h2>
+
+  <button onclick="document.querySelector('.modal').classList.remove('hidden');" class="button button-primary">Show modal</button>
 
   <!-- Modal window -->
   <div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="dialog-title">
@@ -46,8 +49,8 @@
   <h2>Image carousel</h2>
 
   <div class="carousel" role="region" data-size="5">
-    <span class="carousel-button previous hidden"><span>&larr;</span></span>
-    <span class="carousel-button next hidden"><span>&rarr;</span></span>
+    <span class="carousel-button previous"><span>&larr;</span></span>
+    <span class="carousel-button next"><span>&rarr;</span></span>
     <nav class="scroller">
       <ul>
         <li class="slide">
@@ -108,7 +111,7 @@
     <dt aria-level="1" role="heading">
       <a href="#" role="button" aria-expanded="true" aria-controls="panel-body-1">Title</a>
     </dt>
-    <dd id="panel-body-1" role="region" class="active">
+    <dd id="panel-body-1" role="region">
       <div class="panel-body">
         <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
       </div>
@@ -116,7 +119,7 @@
     <dt aria-level="1" role="heading">
       <a href="#" role="button" aria-expanded="false" aria-controls="panel-body-2">Title 2</a>
     </dt>
-    <dd id="panel-body-2" role="region">
+    <dd id="panel-body-2" role="region" class="hidden">
       <div class="panel-body">
         Hello
       </div>
@@ -153,14 +156,14 @@
       </ul>
     </nav>
 
-    <div id="panel1" aria-labelledby="tab1" role="tabpanel" class="active">
+    <div id="panel1" aria-labelledby="tab1" role="tabpanel">
       <div class="tab-panel-inner">
         <h1>Create Content</h1>
         <p>Lorem ipsum dolor sit amet, case solum pri ex, sed te feugiat legimus. Sea doming alterum necessitatibus id, ipsum putent disputando ei pri. Docendi electram ei cum, usu ea meis tractatos dignissim. An eos putent tamquam postulant, falli periculis nam et. Ne mel hinc scaevola probatus.</p>
       </div>
     </div>
 
-    <div id="panel2" aria-labelledby="tab2" role="tabpanel">
+    <div id="panel2" aria-labelledby="tab2" role="tabpanel" class="hidden">
       <div class="tab-panel-inner">
         <h1>Upload</h1>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
