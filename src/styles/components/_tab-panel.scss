@@ -33,12 +33,14 @@
 
       &:nth-child(1) ~ span,
       &:nth-child(1)[aria-selected="true"] ~ span {
+        height: 0.27em;
         width: 200px;
         right: 0;
       }
 
       &:nth-child(2) ~ span,
       &:nth-child(2)[aria-selected="true"] ~ span {
+        height: 0.27em;
         width: 4em;
         right: -230px;
       }
