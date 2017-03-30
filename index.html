@@ -277,7 +277,7 @@
 
   <!-- Green message dismissible -->
   <div role="alert" class="message info dismissible">
-    <button aria-label="Close" class="message-close">&#x2715</button>
+    <button aria-label="Close" class="message-close">&#x2715;</button>
 
     <div class="message-content">
       <h3 class="title">This content type requires a newer core version.</h3>
@@ -288,7 +288,7 @@
 
   <!-- Yellow message simple -->
   <div role="alert" class="message warning simple">
-    <button aria-label="Close" class="message-close">&#x2715</button>
+    <button aria-label="Close" class="message-close">&#x2715;</button>
 
     <h3 class="title">This content type requires a newer core version.</h3>
     <p class="description">Contact your system administrator to provide you with the necessary updates.</p>
@@ -296,7 +296,7 @@
 
   <!-- Yellow message dismissible -->
   <div role="alert" class="message warning dismissible">
-    <button aria-label="Close" class="message-close">&#x2715</button>
+    <button aria-label="Close" class="message-close">&#x2715;</button>
 
     <div class="message-content">
       <h3 class="title">This content type requires a newer core version.</h3>
@@ -313,7 +313,7 @@
 
   <!-- Red message dismissible -->
   <div role="alert" class="message error dismissible">
-    <button aria-label="Close" class="message-close">&#x2715</button>
+    <button aria-label="Close" class="message-close">&#x2715;</button>
 
     <div class="message-content">
       <h3 class="title">This content type requires a newer core version.</h3>
@@ -325,28 +325,38 @@
 <script type="text/javascript">H5P = {};</script>
 <script type="text/javascript" src="dist/h5p-sdk.js"></script>
 <script type="text/javascript">
-  const panels = document.querySelectorAll('.panel');
-  panels.forEach(H5P.sdk.initPanel);
+  const components = [{
+      selector: '.panel',
+      init: H5P.sdk.initPanel
+    },
+    {
+      selector: '.panel',
+      init: H5P.sdk.initPanel
+    },
+    {
+      selector: '.tab-panel',
+      init: H5P.sdk.initTabPanel
+    },
+    {
+      selector: '.navbar',
+      init: H5P.sdk.initNavbar
+    },
+    {
+      selector: '.carousel',
+      init: H5P.sdk.initImageScroller
+    },
+    {
+      selector: '.imagelightbox',
+      init: H5P.sdk.initImageLightbox
+    },
+    {
+      selector: '.modal',
+      init: H5P.sdk.initModal
+    }];
 
-  const tabPanels = document.querySelectorAll('.tab-panel');
-  tabPanels.forEach(H5P.sdk.initTabPanel);
-
-  const menus = document.querySelectorAll('.navbar');
-  menus.forEach(H5P.sdk.initNavbar);
-
-  const imageScrollers = document.querySelectorAll('.carousel');
-  imageScrollers.forEach(H5P.sdk.initImageScroller);
-
-  const imageLightbox = document.querySelectorAll('.imagelightbox');
-  imageLightbox.forEach(H5P.sdk.initImageLightbox);
-
-  const modals = document.querySelectorAll('.modal');
-  modals.forEach(H5P.sdk.initModal);
-
-  /*
-  const uploadForm = document.querySelector('.upload-form');
-  H5P.sdk.initUploadForm(uploadForm);
-  */
+  components.forEach(function(component) {
+    H5P.sdk.querySelectorAll(component.selector, document).forEach(component.init);
+  });
 </script>
 </body>
 </html>

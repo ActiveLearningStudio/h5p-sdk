@@ -10,3 +10,5 @@ H5P.sdk.initImageScroller = require('../scripts/components/image-scroller').defa
 H5P.sdk.initImageLightbox = require('../scripts/components/image-lightbox').default;
 H5P.sdk.initUploadForm = require('../scripts/components/upload-form').default;
 H5P.sdk.initModal = require('../scripts/components/modal').default;
+H5P.sdk.nodeListToArray = require('../scripts/utils/elements').nodeListToArray;
+H5P.sdk.querySelectorAll = require('../scripts/utils/elements').querySelectorAll;

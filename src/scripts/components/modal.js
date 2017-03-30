@@ -1,8 +1,8 @@
 import { curry } from '../utils/functional';
-import { hide, show } from '../utils/elements';
+import { hide, querySelectorAll } from '../utils/elements';
 
 const getAllTabbableChildren = element => {
-  return element.querySelectorAll('a[href],link[href],button,input,select,textarea,[tabindex="0"]');
+  return querySelectorAll('a[href],link[href],button,input,select,textarea,[tabindex="0"]', element);
 };
 
 /**
@@ -47,7 +47,7 @@ const handleKeyPress = curry((element, event) => {
  * @param {HTMLElement} element
  */
 export default function init(element) {
-  const dismissButtons = element.querySelectorAll('[data-dismiss="modal"]');
+  const dismissButtons = querySelectorAll('[data-dismiss="modal"]', element);
   hide(element);
 
   dismissButtons.forEach(button => button.addEventListener('click', () => hide(element)));

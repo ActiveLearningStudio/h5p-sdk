@@ -50,6 +50,7 @@ $max-width-modal: $screen-large;
     }
 
     .close {
+      cursor: pointer;
       background-color: transparent;
       border: 0;
       right: ($gutter * 3);
