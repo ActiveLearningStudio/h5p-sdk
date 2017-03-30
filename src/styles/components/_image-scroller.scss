@@ -1,6 +1,7 @@
 @import "../base/colors";
 @import "../base/variables";
 
+$gutter-image: 0.625em;
 $size-button: 2.1em;
 $color-button: rgba($c1, .8);
 
@@ -24,7 +25,7 @@ $color-button: rgba($c1, .8);
 
     .scroller {
       overflow: hidden;
-      width: 90%;
+      width: 93%;
       margin-left: auto;
       margin-right: auto;
     }
@@ -38,23 +39,17 @@ $color-button: rgba($c1, .8);
     }
 
     li {
+      padding: 0 ($gutter-image / 2);
       width: 20%;
-      padding: 0;
       margin: 0;
       list-style-type: none;
       float: left;
       box-sizing: border-box;
-
-      &:not(:first-child) {
-        img {
-          margin-left: ($gutter / 4);
-        }
-      }
-
-      &:not(:last-child) {
-        img {
-          margin-right: ($gutter / 4);
-        }
+      overflow: auto;
+      
+      img {
+        max-width: 100%;
+        box-sizing: border-box;
       }
     }
 
