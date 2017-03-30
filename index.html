@@ -23,7 +23,7 @@
   <button onclick="document.querySelector('.modal').classList.remove('hidden');" class="button button-primary">Show modal</button>
 
   <!-- Modal window -->
-  <div class="modal fade show" tabindex="-1" role="dialog" aria-labelledby="dialog-title">
+  <div class="modal fade hidden" tabindex="-1" role="dialog" aria-labelledby="dialog-title">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -125,6 +125,37 @@
       </div>
     </dd>
   </dl>
+
+  <!-- Media -->
+  <h2>Media</h2>
+
+  <div class="media-list">
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object image-responsive" src="https://h5p.org/sites/default/files/course%20presentation.svg" alt="Course Presentation" width="100px">
+        </a>
+      </div>
+      <div class="media-body">
+        <button class="button button-primary" style="float: right;">Use</button>
+        <h4 class="media-heading">Course Presentation</h4>
+        Create a presentation with interactive slides
+      </div>
+    </div>
+
+    <div class="media">
+      <div class="media-left">
+        <a href="#">
+          <img class="media-object image-responsive" src="https://h5p.org/sites/default/files/mark%20the%20words.svg" alt="Mark the words" width="100px">
+        </a>
+      </div>
+      <div class="media-body">
+        <button class="button button-primary" style="float: right;">Use</button>
+        <h4 class="media-heading">Mark the Words</h4>
+        Create a task where the users highlights the words
+      </div>
+    </div>
+  </div>
 
   <!-- Menu -->
   <h2>Menu</h2>
