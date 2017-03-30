@@ -3,28 +3,34 @@
 
 .h5p-sdk {
   .panel {
-    border: $border-panel;
-    border-bottom: 0;
-
-    &> [role="heading"] {
-      border-bottom: $border-panel;
-      background-color: $c3;
-
-      [role="button"] {
-        display: block;
-        box-sizing: border-box;
-        text-decoration: none;
-        width: 100%;
-        padding: $gutter;
-        color: $text-dark;
-      }
+    &> [role="heading"] > [role="button"] {
+      display: block;
+      box-sizing: border-box;
+      text-decoration: none;
+      width: 100%;
+      padding: $gutter;
+      color: $text-dark;
     }
 
-    &> [role="region"] {
-      border-bottom: $border-panel;
+    &> [role="region"] .panel-body {
+      padding-left: 3 * $gutter;
+    }
 
-      .panel-body {
-        padding: $gutter;
+    &.panel-default {
+      border: $border-panel;
+      border-bottom: 0;
+
+      &> [role="heading"] {
+        border-bottom: $border-panel;
+        background-color: $c3;
+      }
+
+      &> [role="region"] {
+        border-bottom: $border-panel;
+
+        .panel-body {
+          padding: $gutter;
+        }
       }
     }
   }
