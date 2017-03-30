@@ -16,7 +16,7 @@
     .media-right,
     .media-body {
       display: table-cell;
-      vertical-align: middle;
+      vertical-align: top;
     }
 
     .media-right  {
@@ -25,6 +25,11 @@
 
     .media-left {
       padding-right: $gutter;
+    }
+
+    .media-body {
+      display: table-cell;
+      vertical-align: middle;
     }
 
     .media-heading {
