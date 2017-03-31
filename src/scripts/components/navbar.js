@@ -30,8 +30,8 @@ const unExpand = setAttribute('aria-expanded', 'false');
  */
 const onSelectMenuItem = (menuItems, element) => {
   unselectAll(menuItems);
-  selectedMenuItem.classList.add('selected');
-  selectedMenuItem.setAttribute('aria-describedby', 'a11y-desc-current');
+  element.classList.add('selected');
+  element.setAttribute('aria-describedby', 'a11y-desc-current');
 };
 
 /**
