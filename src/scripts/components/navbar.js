@@ -9,7 +9,10 @@ import Keyboard from '../utils/keyboard';
  * @param {HTMLElement[]} elements
  * @function
  */
-const unSelectAll = forEach(removeAttribute('aria-selected'));
+ const unselectAll = forEach(item => {
+   item.classList.remove('selected');
+   item.removeAttribute('aria-describedby');
+ });
 
 /**
  * Sets the aria-expanded attribute on an element to false
@@ -26,8 +29,9 @@ const unExpand = setAttribute('aria-expanded', 'false');
  * @function
  */
 const onSelectMenuItem = (menuItems, element) => {
-  unSelectAll(menuItems);
-  element.setAttribute('aria-selected', 'true');
+  unselectAll(menuItems);
+  selectedMenuItem.classList.add('selected');
+  selectedMenuItem.setAttribute('aria-describedby', 'a11y-desc-current');
 };
 
 /**
