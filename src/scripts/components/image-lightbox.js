@@ -15,7 +15,10 @@ const KEY = {
   TAB:    9,
   ENTER: 13,
   SHIFT: 16,
-  SPACE: 32
+  SPACE: 32,
+  ESC: 27,
+  LEFT_ARROW: 37,
+  RIGHT_ARROW: 39
 };
 
 /**
@@ -204,17 +207,28 @@ const onNavigationButtonClick = (element, button, imageIndex) => {
 };
 
 /**
+ * Generic function for handling keydowns
+ *
  * @function
+ * @param {HTMLElement} element
+ * @param {number[]}  keycodes
+ * @param {function} handler
  */
-const onButtonPress = (button, handler) => {
-  button.addEventListener('click', handler);
-  button.addEventListener('keypress', (event) => {
-    if (event.which === KEY.ENTER || event.which === KEY.SPACE) {
-      // Enter or space key pressed
+const onKeyDown = (element, keycodes, handler) => {
+  element.addEventListener('keydown', event => {
+    if (keycodes.indexOf(event.which) !== -1) {
       handler();
       event.preventDefault();
     }
   });
+}
+
+/**
+ * @function
+ */
+const onButtonPress = (button, handler) => {
+  button.addEventListener('click', handler);
+  onKeyDown(button, [KEY.ENTER, KEY.SPACE], handler);
 }
 
 /**
@@ -311,6 +325,13 @@ export default function init(element) {
 
   onButtonPress(closeButton, () => hideLightbox(element));
   onButtonTab(closeButton, TAB_DIRECTION.FORWARD, () => focus(nextButton, prevButton));
+
+  // When clicking on the background, let's close it
+  element.addEventListener('click', (event) => {
+    if (event.target === element) {
+      hideLightbox(element);
+    }
+  });
 
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));
