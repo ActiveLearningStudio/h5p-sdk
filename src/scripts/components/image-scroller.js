@@ -29,11 +29,6 @@ const toggleEnabled = (element, enabled) => (enabled ? enable : disable)(element
 const isDisabled = hasAttribute('disabled');
 
 /**
- * @type {function}
- */
-const showImageLightbox = curry((lightbox, imageIndex) => setAttribute('data-show', imageIndex, lightbox));
-
-/**
  * Update the view
  *
  * @param {HTMLElement} element
@@ -80,26 +75,6 @@ const onNavigationButtonClick = (element, state, button, updateState) => {
 };
 
 /**
- * Initializes an image
- *
- * @param {HTMLElement} element
- * @param {HTMLElement} image
- *
- * @function
- * @return {HTMLElement}
- */
-const initImage = curry((element, keyboard, image, imageIndex) => {
-  let targetId = image.getAttribute('aria-controls');
-  let lightBox = document.querySelector(`#${targetId}`);
-
-  image.addEventListener('click', event => showImageLightbox(lightBox, imageIndex));
-
-  keyboard.addElement(image);
-
-  return image;
-});
-
-/**
  * Callback for when the dom is updated
  *
  * @param {HTMLElement} element
@@ -114,7 +89,7 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
       .filter(classListContains('slide'))
       .map(querySelector('img'))
       .filter(image => image !== null)
-      .forEach(initImage(element, keyboard));
+      .forEach(image => {keyboard.addElement(image)});
   }
 
   // update the view
@@ -149,10 +124,6 @@ export default function init(element) {
   // initialize buttons
   nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, state => state.position--));
   prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
-
-  // initialize images
-  querySelectorAll('[aria-controls]', element)
-    .forEach(initImage(element, keyboard));
 
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));

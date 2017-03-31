@@ -187,7 +187,6 @@ const updateView = (element, state) => {
   // Determine if lightbox should be shown or hidden
   toggleHidden(element, state.currentImage === null);
   toggleSiblings(element, state.currentImage === null);
-
 };
 
 /**
@@ -269,7 +268,6 @@ const onButtonTab = (button, direction, handler) => {
  * @param {MutationRecord} record
  */
 const handleDomUpdate = curry((element, state, keyboard, record) => {
-
   if (record.type === 'attributes' &&
       record.attributeName === ATTRIBUTE_SHOW) {
 
@@ -280,7 +278,6 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
       currentImage: isNaN(showImage) ? null : showImage
     }));
   }
-
 });
 
 /**

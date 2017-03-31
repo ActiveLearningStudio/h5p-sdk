@@ -9,7 +9,7 @@ $color-button: rgba($c1, .8);
   .imagelightbox {
     display: none;
     background-color: rgba(0, 0, 0, .8);
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     width: 100%;
@@ -25,14 +25,18 @@ $color-button: rgba($c1, .8);
     }
   }
 
-  .imagelightbox-image {
-    @include reset-list;
-
-    display: none;
+  .imagelightbox-inner {
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+  }
+
+  .imagelightbox-image {
+    @include reset-list;
+
+    display: none;
     width: 100%;
 
     &.active {
@@ -49,10 +53,9 @@ $color-button: rgba($c1, .8);
 
   .imagelightbox-progress {
     color: #fff;
-    position: absolute;
-    bottom: 0.5em;
-    left: 50%;
-    transform: translateX(-50%);
+    position: relative;
+    bottom: -2em;
+    text-align: center;
   }
 
   .imagelightbox-button {
@@ -60,7 +63,6 @@ $color-button: rgba($c1, .8);
     width: 1em;
     height: 1em;
     padding: 0.25em;
-    border: 2px dashed transparent;
     border-radius: 50%;
     color: #fff;
     font-size: 2em;
@@ -68,45 +70,28 @@ $color-button: rgba($c1, .8);
     text-align: center;
     cursor: pointer;
     user-select: none;
-
+    &:before {
+      font-size: 0.8em;
+    }
     &.previous, &.next {
-
-      display: none;
       left: 0.25em;
       top: 50%;
       transform: translateY(-50%);
       background: $color-button;
-
-      &:before {
-        content: "\2B9C";
-      }
     }
     &.next {
       left: auto;
       right: 0.25em;
-
-      &:before {
-        content: "\2B9E";
-      }
     }
     &.close {
-      top: 0.25em;
-      right: 0.25em;
-
-      &:before {
-        content: "\d7";
-      }
-    }
-
-    &:focus {
-      border-color: white;
+      position: relative;
+      top: -0.5em;
+      right: 0.4em;
+      float: right;
     }
     &[aria-disabled] {
       opacity: .5;
       cursor: default;
-    }
-    &.active {
-      display: block;
     }
   }
 }

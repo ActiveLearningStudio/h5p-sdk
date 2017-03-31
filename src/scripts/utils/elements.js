@@ -184,3 +184,31 @@ export const toggleVisibility = curry((visible, element) => (visible ? show : hi
 export const toggleClass = curry((cls, add, element) => {
   element.classList[add ? 'add' : 'remove'](cls)
 });
+
+/**
+ * Helper for creating a DOM element
+ *
+ * @function
+ *
+ * @param {string} tag
+ * @param {string} [id]
+ * @param {string[]} [classes] - array of strings
+ * @param {Object} [attributes]
+ *
+ * @return {HTMLElement}
+ */
+export const createElement = ({tag, id, classes, attributes}) => {
+  let element = document.createElement(tag);
+
+  if (id) {
+    element.id = id;
+  }
+  if (classes) {
+    classes.forEach(clazz => {element.classList.add(clazz)});
+  }
+  if (attributes) {
+    Object.keys(attributes).forEach(key => {element.setAttribute(key, attributes[key])})
+  }
+
+  return element;
+};
