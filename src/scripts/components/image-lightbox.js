@@ -333,6 +333,9 @@ export default function init(element) {
     }
   });
 
+  // When escape is clicked, close me:
+  onKeyDown(document, [KEY.ESC], () => hideLightbox(element));
+
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));
 
