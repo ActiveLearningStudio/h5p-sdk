@@ -60,9 +60,8 @@ $color-button: rgba($c1, .8);
 
   .imagelightbox-button {
     position: absolute;
-    width: 1em;
-    height: 1em;
-    padding: 0.25em;
+    width: 1.2em;
+    height: 1.2em;
     border-radius: 50%;
     color: #fff;
     font-size: 2em;
@@ -70,28 +69,35 @@ $color-button: rgba($c1, .8);
     text-align: center;
     cursor: pointer;
     user-select: none;
+    box-sizing: border-box;
+    transition: background 0.2s;
+
     &:before {
-      font-size: 0.8em;
+      font-size: 0.6em;
     }
     &.previous, &.next {
-      left: 0.25em;
+      left: 0.5em;
       top: 50%;
       transform: translateY(-50%);
       background: $color-button;
     }
     &.next {
       left: auto;
-      right: 0.25em;
+      right: 0.5em;
     }
     &.close {
       position: relative;
       top: -0.5em;
-      right: 0.4em;
+      right: 0.5em;
       float: right;
     }
     &[aria-disabled] {
       opacity: .5;
       cursor: default;
     }
+  }
+
+  .imagelightbox-button:not([aria-disabled]):hover {
+    background: lighten($color-button, 10%);
   }
 }
