@@ -87,6 +87,7 @@ $color-button: rgba($c1, .8);
       position: relative;
       top: -0.5em;
       right: 0.4em;
+      float: right;
     }
     &[aria-disabled] {
       opacity: .5;
