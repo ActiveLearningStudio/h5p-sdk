@@ -1,6 +1,9 @@
 @import '../base/variables';
+@import '../base/mixins';
 
 $border-modal: 1px solid  #e0e0e0;
+$padding-modal: $gutter ($gutter * 3);
+$max-width-modal: $screen-large;
 
 .h5p-sdk {
   .modal {
@@ -10,52 +13,55 @@ $border-modal: 1px solid  #e0e0e0;
     bottom: 0;
     left: 0;
     z-index: 1050;
-    //display: none;
     overflow: hidden;
     outline: 0;
-    background-color: rgba(0, 0, 0, .5)
-  }
+    background-color: rgba(0, 0, 0, .8);
 
-  .modal-dialog {
-    position: relative;
-    width: auto;
-    background-color: white;
-  }
-
-  .modal-header {
-    border-bottom: $border-modal;
-    padding: $gutter;
-  }
-
-  .modal-title {
-    font-weight: 400;
-    font-size: 1.6em;
-  }
-
-  .modal-subtitle {
-    font-weight: 400;
-  }
-
-  .modal-footer {
-    padding: $gutter;
-    text-align: right;
-    border-top: $border-modal
-  }
-
-  .close {
-    background-color: transparent;
-    border: 0;
-    float: right;
-  }
-
-  .modal-body {
-    padding: $gutter;
-  }
-
-  @media (min-width: 576px) {
     .modal-dialog {
-      max-width: 800px;
-      margin: 30px auto;
+      position: relative;
+      width: auto;
+      background-color: white;
+    }
+
+    .modal-header {
+      border-bottom: $border-modal;
+      padding: $padding-modal;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+
+    .modal-title {
+      font-weight: 400;
+      font-size: 1.6em;
+    }
+
+    .modal-subtitle {
+      font-weight: 400;
+    }
+
+    .modal-footer {
+      padding: $padding-modal;
+      text-align: right;
+      border-top: $border-modal
+    }
+
+    .modal-body {
+      padding: $padding-modal;
+    }
+
+    .close {
+      cursor: pointer;
+      background-color: transparent;
+      border: 0;
+      right: ($gutter * 3);
+      @include vertical-align(absolute);
+    }
+
+    @media (min-width: 576px) {
+      .modal-dialog {
+        max-width: $max-width-modal;
+        margin: 30px auto;
+      }
     }
   }
 }

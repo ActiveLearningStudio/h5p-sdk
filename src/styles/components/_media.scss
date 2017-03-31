@@ -1,0 +1,39 @@
+.h5p-sdk {
+  .media {
+    margin-top: $gutter;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    .media-body {
+      zoom: 1;
+      overflow: hidden;
+      width: 10000px;
+    }
+
+    .media-left,
+    .media-right,
+    .media-body {
+      display: table-cell;
+      vertical-align: top;
+    }
+
+    .media-right  {
+      padding-left: $gutter;
+    }
+
+    .media-left {
+      padding-right: $gutter;
+    }
+
+    .media-body {
+      display: table-cell;
+      vertical-align: middle;
+    }
+
+    .media-heading {
+      margin-top: 0;
+    }
+  }
+}
