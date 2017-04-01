@@ -11,7 +11,7 @@ import Keyboard from '../utils/keyboard';
  */
  const unselectAll = forEach(item => {
    item.classList.remove('selected');
-   item.removeAttribute('aria-describedby');
+  //  item.removeAttribute('aria-describedby');
  });
 
 /**
@@ -31,7 +31,7 @@ const unExpand = setAttribute('aria-expanded', 'false');
 const onSelectMenuItem = (menuItems, element) => {
   unselectAll(menuItems);
   element.classList.add('selected');
-  element.setAttribute('aria-describedby', 'a11y-desc-current');
+  // element.setAttribute('aria-describedby', 'a11y-desc-current');
 };
 
 /**
