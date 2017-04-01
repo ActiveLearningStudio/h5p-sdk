@@ -1,4 +1,4 @@
-import {setAttribute, removeAttribute, hasAttribute, classListContains, querySelector, nodeListToArray, querySelectorAll} from '../utils/elements';
+import {setAttribute, removeAttribute, hasAttribute, querySelectorAll} from '../utils/elements';
 import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
@@ -157,7 +157,7 @@ let progressTemplateText;
  */
 const updateView = (element, state) => {
 
-  const images = element.querySelectorAll('.imagelightbox-image');
+  const images = querySelectorAll('.imagelightbox-image', element);
   const progress = element.querySelector('.imagelightbox-progress');
   const prevButton = element.querySelector('.previous');
   const nextButton = element.querySelector('.next');
