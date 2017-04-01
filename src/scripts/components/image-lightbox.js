@@ -100,7 +100,10 @@ const showImageLightbox = curry((element, imageIndex) => setAttribute('data-show
  * @function
  * @param {HTMLElement} element
  */
-const hideLightbox = removeAttribute(ATTRIBUTE_SHOW);
+const hideLightbox = (element) => {
+  element.removeAttribute(ATTRIBUTE_SHOW);
+  element.dispatchEvent(new Event('lightbox-hidden'));
+};
 
 /**
  * Focus first element with tabindex from arguments
@@ -161,6 +164,7 @@ const updateView = (element, state) => {
   const progress = element.querySelector('.imagelightbox-progress');
   const prevButton = element.querySelector('.previous');
   const nextButton = element.querySelector('.next');
+  const closeButton = element.querySelector('.close');
 
   // Hide all images
   images.forEach(image => hide(image));
@@ -188,8 +192,16 @@ const updateView = (element, state) => {
   toggleDisabled(nextButton, state.currentImage === images.length - 1);
 
   // Determine if lightbox should be shown or hidden
+  const isAlreadyShowing = element.classList.contains('active');
   toggleHidden(element, state.currentImage === null);
   toggleSiblings(element, state.currentImage === null);
+
+  // Set focus to close button if not already showing
+  if (!isAlreadyShowing) {
+    setTimeout(() => {
+      closeButton.focus();
+    }, 20);
+  }
 };
 
 /**
@@ -221,7 +233,7 @@ const onKeyDown = (element, keycodes, handler) => {
       event.preventDefault();
     }
   });
-}
+};
 
 /**
  * @function
@@ -229,7 +241,7 @@ const onKeyDown = (element, keycodes, handler) => {
 const onButtonPress = (button, handler) => {
   button.addEventListener('click', handler);
   onKeyDown(button, [KEY.ENTER, KEY.SPACE], handler);
-}
+};
 
 /**
  * Keep track of which keys are currently pressed.
@@ -270,7 +282,7 @@ const onButtonTab = (button, direction, handler) => {
   button.addEventListener('keyup', (event) => {
     delete keysDown[event.which];
   });
-}
+};
 
 /**
  * Callback for when the dom is updated
@@ -285,7 +297,7 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
   if (record.type === 'attributes' &&
       record.attributeName === ATTRIBUTE_SHOW) {
 
-    var showImage = parseInt(record.target.getAttribute(ATTRIBUTE_SHOW));
+    const showImage = parseInt(record.target.getAttribute(ATTRIBUTE_SHOW));
 
     // update the view
     updateView(element, Object.assign(state, {
@@ -318,18 +330,40 @@ export default function init(element) {
 
   // initialize buttons
   onButtonPress(nextButton, () => onNavigationButtonClick(element, nextButton, state.currentImage + 1));
-  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, () => focus(closeButton));
+  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, () => focus(closeButton, prevButton));
+  onButtonTab(nextButton, TAB_DIRECTION.FORWARD, () => focus(prevButton, closeButton));
 
   onButtonPress(prevButton, () => onNavigationButtonClick(element, prevButton, state.currentImage - 1));
   onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, () => focus(nextButton, closeButton));
+  onButtonTab(prevButton, TAB_DIRECTION.FORWARD, () => focus(closeButton, nextButton));
 
   onButtonPress(closeButton, () => hideLightbox(element));
+  onButtonTab(closeButton, TAB_DIRECTION.BACKWARD, () => focus(prevButton, nextButton));
   onButtonTab(closeButton, TAB_DIRECTION.FORWARD, () => focus(nextButton, prevButton));
 
   // When clicking on the background, let's close it
   element.addEventListener('click', (event) => {
     if (event.target === element) {
       hideLightbox(element);
+    }
+  });
+
+  // Initialize keyboard navigation
+  element.addEventListener('keyup', event => {
+    if (event.which === KEY.ESC) {
+      event.preventDefault();
+      hideLightbox(element);
+    }
+    else if (event.which === KEY.LEFT_ARROW) {
+      if (state.currentImage !== 0) {
+        showImageLightbox(element, state.currentImage - 1);
+      }
+    }
+    else if (event.which === KEY.RIGHT_ARROW) {
+      const images = querySelectorAll('.imagelightbox-image', element);
+      if (state.currentImage !== images.length - 1) {
+        showImageLightbox(element, state.currentImage + 1);
+      }
     }
   });
 

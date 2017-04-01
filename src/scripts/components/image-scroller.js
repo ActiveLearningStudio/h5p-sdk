@@ -85,6 +85,14 @@ const onNavigationButtonClick = (element, state, button, updateState) => {
 const handleDomUpdate = curry((element, state, keyboard, record) => {
   // on add image run initialization
   if(record.type === 'childList') {
+    // Remove keyboard events for removed nodes
+    nodeListToArray(record.removedNodes)
+      .filter(classListContains('slide'))
+      .map(querySelector('img'))
+      .filter(image => image !== null)
+      .forEach(image => {keyboard.removeElement(image)});
+
+    // Add keyboard events for new nodes
     nodeListToArray(record.addedNodes)
       .filter(classListContains('slide'))
       .map(querySelector('img'))
