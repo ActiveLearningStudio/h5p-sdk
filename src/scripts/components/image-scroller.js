@@ -70,9 +70,6 @@ const updateView = (element, state) => {
 const onNavigationButtonClick = (element, state, button, updateState) => {
   if(!isDisabled(button)){
     updateState(state);
-
-    console.log('updatestate', state);
-
     updateView(element, state);
   }
 };
@@ -110,29 +107,42 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
   }));
 });
 
-const showFocusedElement = curry((element, state, event) => {
+/**
+ * Handles focus when using keyboard navigation
+ *
+ * @param {Element} element
+ * @param {ImageScrollerState} state
+ * @param {CustomEvent} event
+ * @function
+ */
+const handleFocus = curry((element, state, event) => {
   const focusedIndex = event.detail.index;
   const firstVisibleElementIndex = (state.position * -1);
   const lastVisibleElementIndex = (firstVisibleElementIndex + state.displayCount -1);
 
-  if(focusedIndex < firstVisibleElementIndex) {
-    console.log('move left');
+  const moveLeft = focusedIndex < firstVisibleElementIndex;
+  const moveRight = focusedIndex > lastVisibleElementIndex;
+  const doAnimation = moveLeft || moveRight;
+
+  const focusOnTabbableElement = () => element.querySelector('img[tabindex="0"]').focus();
+
+  // animation stuff
+  if(doAnimation) {
+    element.addEventListener("transitionend", focusOnTabbableElement, { once: true, bubbles: true });
+  }
+
+  if(moveLeft) {
     state.position = (focusedIndex * -1);
     updateView(element, state);
   }
-  else if (focusedIndex > lastVisibleElementIndex) {
-    console.log('move right');
+  else if (moveRight) {
     state.position = state.position - 1;
     updateView(element, state);
   }
 
-  console.group();
-  console.log('firstVisibleElementIndex', firstVisibleElementIndex);
-  console.log('index', focusedIndex);
-  console.log('lastVisibleElementIndex', lastVisibleElementIndex);
-  console.log('offset', state.position);
-
-  console.groupEnd();
+  if(!doAnimation) {
+    focusOnTabbableElement();
+  }
 });
 
 /**
@@ -166,8 +176,11 @@ export default function init(element) {
   nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, state => state.position--));
   prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
 
+  // stop keyboard from setting focus
+  element.addEventListener('sdk.keyboard.focus', event => event.preventDefault());
+
   // react to keyboard input
-  element.addEventListener('sdk.keyboardUpdate', showFocusedElement(element, state));
+  element.addEventListener('sdk.keyboard.update', handleFocus(element, state));
 
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));
