@@ -68,9 +68,8 @@ const updateTabbable = (elements, index) => {
   if(selectedElement) {
     removeTabIndexForAll(elements);
     addTabIndex(selectedElement);
+    triggerEvent('sdk.keyboard.update', selectedElement, index);
   }
-
-  triggerEvent('sdk.keyboard.update', selectedElement, index);
 };
 
 /**
