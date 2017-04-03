@@ -3,6 +3,29 @@ import {curry, forEach} from '../utils/functional';
 import Keyboard from '../utils/keyboard';
 
 /**
+ * @typedef {object} ScreenMapping
+ * @param {number} width
+ * @param {number} size
+ */
+
+/**
+ * Mapping for number of images to show per screen size
+ * @type {ScreenMapping[]}
+ */
+const NUM_IMAGES_TO_SHOW_FOR_WIDTH = [{
+    width: 576,
+    size: 2
+  },
+  {
+    width: 768,
+    size: 3
+  },
+  {
+    width: 992,
+    size: 4
+  }];
+
+/**
  * @constant
  */
 const ATTRIBUTE_SIZE = 'data-size';
@@ -83,6 +106,9 @@ const onNavigationButtonClick = (element, state, button, updateState) => {
  * @function
  */
 const handleDomUpdate = curry((element, state, keyboard, record) => {
+  const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
+  const displayCount = calculateDisplayCount(screen.width, defaultSize);
+
   // on add image run initialization
   if(record.type === 'childList') {
     // Remove keyboard events for removed nodes
@@ -102,7 +128,7 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
 
   // update the view
   updateView(element, Object.assign(state, {
-    displayCount: element.getAttribute(ATTRIBUTE_SIZE) || 5,
+    displayCount: displayCount,
     position: 0
   }));
 });
@@ -146,6 +172,24 @@ const handleFocus = curry((element, state, event) => {
 });
 
 /**
+ * Returns the number of elements to show for a given width
+ *
+ * @param {number} elementWidth
+ * @param {number} defaultValue
+ *
+ * @return {number}
+ */
+const calculateDisplayCount = (elementWidth, defaultValue) => {
+  return NUM_IMAGES_TO_SHOW_FOR_WIDTH
+    .reduce((res, opt) => Math.min((elementWidth < opt.width) ? opt.size : Infinity, res), defaultValue);
+};
+
+
+const setNumberOfImagesShown = (element, defaultValue) => {
+  element.setAttribute('data-size', calculateDisplayCount(screen.width, defaultValue));
+};
+
+/**
  * Initializes a panel
  *
  * @param {HTMLElement} element
@@ -156,6 +200,8 @@ export default function init(element) {
   const nextButton = element.querySelector('.next');
   const prevButton = element.querySelector('.previous');
   const keyboard = new Keyboard();
+  const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
+  const displayCount = calculateDisplayCount(screen.width, defaultSize);
 
   /**
    * @typedef {object} ImageScrollerState
@@ -163,7 +209,7 @@ export default function init(element) {
    * @property {number} position
    */
   const state = {
-    displayCount: parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5,
+    displayCount: displayCount,
     position: 0
   };
 
@@ -192,6 +238,9 @@ export default function init(element) {
     attributeOldValue: true,
     attributeFilter: [ATTRIBUTE_SIZE]
   });
+
+  // on screen resize calculate number of images to show
+  window.addEventListener('resize', () => setNumberOfImagesShown(element));
 
   // initialize position
   updateView(element, state);
