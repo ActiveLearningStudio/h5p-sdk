@@ -2,6 +2,14 @@ import { setAttribute, removeAttribute, hasAttribute } from './elements';
 import { forEach, without } from './functional';
 
 /**
+ * @event Keyboard#sdk.keyboardUpdate
+ *
+ * @type {object}
+ * @param {Element} element
+ * @param {number} index
+ */
+
+/**
  * @param {HTMLElement} element
  * @function
  */
@@ -27,10 +35,25 @@ const removeTabIndexForAll = forEach(removeTabIndex);
 const hasTabIndex = hasAttribute('tabindex');
 
 /**
+ * Creates a custom event
+ *
+ * @param {string} type
+ * @param {*} detail
+ * @return {Event}
+ */
+const createEvent = (type, detail) => {
+  const event = document.createEvent('CustomEvent');
+  event.initCustomEvent(type, true, true, detail);
+  return event;
+};
+
+/**
  * Sets tabindex and focus on an element, remove it from all others
  *
  * @param {HTMLElement[]} elements
  * @param {number} index
+ *
+ * @fires Keyboard#sdk.keyboardUpdate
  */
 const updateTabbable = (elements, index) => {
   const selectedElement = elements[index];
@@ -39,6 +62,11 @@ const updateTabbable = (elements, index) => {
     removeTabIndexForAll(elements);
     addTabIndex(selectedElement);
   }
+
+  selectedElement.dispatchEvent(createEvent('sdk.keyboardUpdate', {
+    element: selectedElement,
+    index: index
+  }))
 };
 
 /**
@@ -163,7 +191,6 @@ export default class Keyboard {
           event.preventDefault();
           break;
       }
-
 
       updateTabbable(this.elements, this.selectedIndex);
       this.elements[this.selectedIndex].focus();

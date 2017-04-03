@@ -70,6 +70,9 @@ const updateView = (element, state) => {
 const onNavigationButtonClick = (element, state, button, updateState) => {
   if(!isDisabled(button)){
     updateState(state);
+
+    console.log('updatestate', state);
+
     updateView(element, state);
   }
 };
@@ -107,6 +110,31 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
   }));
 });
 
+const showFocusedElement = curry((element, state, event) => {
+  const focusedIndex = event.detail.index;
+  const firstVisibleElementIndex = (state.position * -1);
+  const lastVisibleElementIndex = (firstVisibleElementIndex + state.displayCount -1);
+
+  if(focusedIndex < firstVisibleElementIndex) {
+    console.log('move left');
+    state.position = (focusedIndex * -1);
+    updateView(element, state);
+  }
+  else if (focusedIndex > lastVisibleElementIndex) {
+    console.log('move right');
+    state.position = state.position - 1;
+    updateView(element, state);
+  }
+
+  console.group();
+  console.log('firstVisibleElementIndex', firstVisibleElementIndex);
+  console.log('index', focusedIndex);
+  console.log('lastVisibleElementIndex', lastVisibleElementIndex);
+  console.log('offset', state.position);
+
+  console.groupEnd();
+});
+
 /**
  * Initializes a panel
  *
@@ -125,13 +153,21 @@ export default function init(element) {
    * @property {number} position
    */
   const state = {
-    displayCount: element.getAttribute(ATTRIBUTE_SIZE) || 5,
+    displayCount: parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5,
     position: 0
   };
+
+  // initialize images already existing in the dom
+  querySelectorAll('[aria-controls]', element)
+    .filter(image => image !== null)
+    .forEach(image => keyboard.addElement(image));
 
   // initialize buttons
   nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, state => state.position--));
   prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
+
+  // react to keyboard input
+  element.addEventListener('sdk.keyboardUpdate', showFocusedElement(element, state));
 
   // listen for updates to data-size
   let observer = new MutationObserver(forEach(handleDomUpdate(element, state, keyboard)));

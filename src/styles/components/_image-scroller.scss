@@ -75,7 +75,7 @@ $color-button: rgba($c1, .8);
 
       &[disabled] {
         background-color: lighten($color-button, 30%);
-        color: transparentize(white, 0.8);
+        color: transparentize(white, 0.4);
         cursor: default;
       }
 
