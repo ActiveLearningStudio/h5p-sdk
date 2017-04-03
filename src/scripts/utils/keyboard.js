@@ -2,8 +2,13 @@ import { setAttribute, removeAttribute, hasAttribute } from './elements';
 import { forEach, without } from './functional';
 
 /**
- * @event Keyboard#sdk.keyboardUpdate
- *
+ * @event Keyboard#sdk.keyboard.update
+ * @type {object}
+ * @param {Element} element
+ * @param {number} index
+ */
+/**
+ * @event Keyboard#sdk.keyboard.focus
  * @type {object}
  * @param {Element} element
  * @param {number} index
@@ -38,13 +43,15 @@ const hasTabIndex = hasAttribute('tabindex');
  * Creates a custom event
  *
  * @param {string} type
- * @param {*} detail
- * @return {Event}
+ * @param {Element} element
+ * @param {number} index
+ *
+ * @return {boolean}
  */
-const createEvent = (type, detail) => {
+const triggerEvent = (type, element, index) => {
   const event = document.createEvent('CustomEvent');
-  event.initCustomEvent(type, true, true, detail);
-  return event;
+  event.initCustomEvent(type, true, true, { element, index});
+  return  element.dispatchEvent(event);
 };
 
 /**
@@ -53,7 +60,7 @@ const createEvent = (type, detail) => {
  * @param {HTMLElement[]} elements
  * @param {number} index
  *
- * @fires Keyboard#sdk.keyboardUpdate
+ * @fires Keyboard#sdk.keyboard.update
  */
 const updateTabbable = (elements, index) => {
   const selectedElement = elements[index];
@@ -63,10 +70,7 @@ const updateTabbable = (elements, index) => {
     addTabIndex(selectedElement);
   }
 
-  selectedElement.dispatchEvent(createEvent('sdk.keyboardUpdate', {
-    element: selectedElement,
-    index: index
-  }))
+  triggerEvent('sdk.keyboard.update', selectedElement, index);
 };
 
 /**
@@ -160,6 +164,7 @@ export default class Keyboard {
    *
    * @param {KeyboardEvent} event Keyboard event
    *
+   * @fires Keyboard#sdk.keyboard.focus
    * @private
    */
   handleKeyDown(event) {
@@ -192,8 +197,14 @@ export default class Keyboard {
           break;
       }
 
+      // move tabindex to currently selected
       updateTabbable(this.elements, this.selectedIndex);
-      this.elements[this.selectedIndex].focus();
+
+      // set focus
+      const selectedElement = this.elements[this.selectedIndex];
+      if(triggerEvent('sdk.keyboard.focus', selectedElement, this.selectedIndex) !== false) {
+        selectedElement.focus();
+      }
     }
   };
 
