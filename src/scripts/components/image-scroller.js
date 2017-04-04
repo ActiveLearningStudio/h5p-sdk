@@ -106,31 +106,27 @@ const onNavigationButtonClick = (element, state, button, updateState) => {
  * @function
  */
 const handleDomUpdate = curry((element, state, keyboard, record) => {
-  const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
-  const displayCount = calculateDisplayCount(screen.width, defaultSize);
-
   // on add image run initialization
   if(record.type === 'childList') {
     // Remove keyboard events for removed nodes
-    nodeListToArray(record.removedNodes)
+    let added = nodeListToArray(record.removedNodes)
       .filter(classListContains('slide'))
       .map(querySelector('img'))
       .filter(image => image !== null)
-      .forEach(image => {keyboard.removeElement(image)});
+      .map(image => keyboard.removeElement(image));
 
     // Add keyboard events for new nodes
-    nodeListToArray(record.addedNodes)
+    let removed = nodeListToArray(record.addedNodes)
       .filter(classListContains('slide'))
       .map(querySelector('img'))
       .filter(image => image !== null)
-      .forEach(image => {keyboard.addElement(image)});
-  }
+      .map(image => keyboard.addElement(image));
 
-  // update the view
-  updateView(element, Object.assign(state, {
-    displayCount: displayCount,
-    position: 0
-  }));
+    if(added.length > 0 || removed.length > 0) {
+      // update the view
+      updateView(element, state);
+    }
+  }
 });
 
 /**
@@ -172,6 +168,22 @@ const handleFocus = curry((element, state, event) => {
 });
 
 /**
+ * Handles updating the screen size to make thumbnails responsive
+ *
+ * @param {Element} element
+ * @param {ImageScrollerState} state
+ */
+const onResize = (element, state) => {
+  const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
+  const displayCount = calculateDisplayCount(screen.width, defaultSize);
+
+  updateView(element, Object.assign(state, {
+    displayCount: displayCount,
+    position: 0
+  }));
+};
+
+/**
  * Returns the number of elements to show for a given width
  *
  * @param {number} elementWidth
@@ -182,11 +194,6 @@ const handleFocus = curry((element, state, event) => {
 const calculateDisplayCount = (elementWidth, defaultValue) => {
   return NUM_IMAGES_TO_SHOW_FOR_WIDTH
     .reduce((res, opt) => Math.min((elementWidth < opt.width) ? opt.size : Infinity, res), defaultValue);
-};
-
-
-const setNumberOfImagesShown = (element, defaultValue) => {
-  element.setAttribute('data-size', calculateDisplayCount(screen.width, defaultValue));
 };
 
 /**
@@ -210,7 +217,8 @@ export default function init(element) {
    */
   const state = {
     displayCount: displayCount,
-    position: 0
+    position: 0,
+    count: 0
   };
 
   // initialize images already existing in the dom
@@ -240,7 +248,7 @@ export default function init(element) {
   });
 
   // on screen resize calculate number of images to show
-  window.addEventListener('resize', () => setNumberOfImagesShown(element));
+  window.addEventListener('resize', () => onResize(element, state));
 
   // initialize position
   updateView(element, state);
