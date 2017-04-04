@@ -1,4 +1,4 @@
-import { setAttribute, removeAttribute, querySelectorAll, toggleClass } from '../utils/elements';
+import { setAttribute, toggleAttribute, querySelectorAll, toggleClass } from '../utils/elements';
 import { forEach } from '../utils/functional';
 import { initCollapsible } from '../utils/collapsible';
 import Keyboard from '../utils/keyboard';
@@ -64,6 +64,14 @@ export default function init(element) {
 
     // add keyboard support
     keyboard.addElement(menuItem);
+  });
+
+  // Handling keydown, space & enter)
+  toggler.addEventListener('keydown', event => {
+    if (event.which === 13 || event.which === 32) {
+      toggleAttribute('aria-expanded', toggler);
+      event.preventDefault();
+    }
   });
 
   // init collapse and open

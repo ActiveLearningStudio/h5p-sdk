@@ -33,6 +33,9 @@ export const initCollapsible = (element, targetHandler = toggleVisibility, toggl
       attributeFilter: ["aria-expanded"]
     });
 
+    // Set click listener that toggles aria-expanded
+    toggler.addEventListener('click', () => toggleAttribute("aria-expanded", toggler));
+
     // initialize
     targetHandler(isExpanded(toggler), collapsible);
   });
