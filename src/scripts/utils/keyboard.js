@@ -244,5 +244,7 @@ export default class Keyboard {
     if(this.onSelect != undefined) {
       this.onSelect(this.elements[this.selectedIndex]);
     }
+
+    triggerEvent('sdk.keyboard.select', this.elements[this.selectedIndex], this.selectedIndex)
   }
 }
