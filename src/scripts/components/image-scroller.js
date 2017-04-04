@@ -124,7 +124,9 @@ const handleDomUpdate = curry((element, state, keyboard, record) => {
 
     if(added.length > 0 || removed.length > 0) {
       // update the view
-      updateView(element, state);
+      updateView(element, Object.assign(state, {
+        position: 0
+      }));
     }
   }
 });
@@ -175,7 +177,7 @@ const handleFocus = curry((element, state, event) => {
  */
 const onResize = (element, state) => {
   const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
-  const displayCount = calculateDisplayCount(screen.width, defaultSize);
+  const displayCount = calculateDisplayCount(window.innerWidth, defaultSize);
 
   updateView(element, Object.assign(state, {
     displayCount: displayCount,
@@ -208,7 +210,7 @@ export default function init(element) {
   const prevButton = element.querySelector('.previous');
   const keyboard = new Keyboard();
   const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
-  const displayCount = calculateDisplayCount(screen.width, defaultSize);
+  const displayCount = calculateDisplayCount(window.innerWidth, defaultSize);
 
   /**
    * @typedef {object} ImageScrollerState
@@ -217,8 +219,7 @@ export default function init(element) {
    */
   const state = {
     displayCount: displayCount,
-    position: 0,
-    count: 0
+    position: 0
   };
 
   // initialize images already existing in the dom
