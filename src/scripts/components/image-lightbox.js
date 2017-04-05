@@ -330,16 +330,16 @@ export default function init(element) {
 
   // initialize buttons
   onButtonPress(nextButton, () => onNavigationButtonClick(element, nextButton, state.currentImage + 1));
-  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, () => focus(closeButton, prevButton));
-  onButtonTab(nextButton, TAB_DIRECTION.FORWARD, () => focus(prevButton, closeButton));
+  onButtonTab(nextButton, TAB_DIRECTION.BACKWARD, () => focus(prevButton, closeButton));
+  onButtonTab(nextButton, TAB_DIRECTION.FORWARD, () => focus(closeButton, prevButton));
 
   onButtonPress(prevButton, () => onNavigationButtonClick(element, prevButton, state.currentImage - 1));
-  onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, () => focus(nextButton, closeButton));
-  onButtonTab(prevButton, TAB_DIRECTION.FORWARD, () => focus(closeButton, nextButton));
+  onButtonTab(prevButton, TAB_DIRECTION.BACKWARD, () => focus(closeButton, nextButton));
+  onButtonTab(prevButton, TAB_DIRECTION.FORWARD, () => focus(nextButton, closeButton));
 
   onButtonPress(closeButton, () => hideLightbox(element));
-  onButtonTab(closeButton, TAB_DIRECTION.BACKWARD, () => focus(prevButton, nextButton));
-  onButtonTab(closeButton, TAB_DIRECTION.FORWARD, () => focus(nextButton, prevButton));
+  onButtonTab(closeButton, TAB_DIRECTION.BACKWARD, () => focus(nextButton, prevButton));
+  onButtonTab(closeButton, TAB_DIRECTION.FORWARD, () => focus(prevButton, nextButton));
 
   // When clicking on the background, let's close it
   element.addEventListener('click', (event) => {
