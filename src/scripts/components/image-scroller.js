@@ -78,6 +78,10 @@ const updateView = (element, state) => {
   // toggle button enable, disabled
   toggleEnabled(nextButton, state.position > (state.displayCount - totalCount));
   toggleEnabled(prevButton, state.position < 0);
+
+  if (element.dataset.preventResizeLoop === 'true') {
+    element.ignoreResize = true;
+  }
 };
 
 /**
@@ -249,7 +253,15 @@ export default function init(element) {
   });
 
   // on screen resize calculate number of images to show
-  window.addEventListener('resize', () => onResize(element, state));
+  window.addEventListener('resize', () => {
+    if (element.ignoreResize) {
+      // If resize is triggered by resize we don't want to continue resizing
+      element.ignoreResize = false;
+      return;
+    }
+
+    onResize(element, state);
+  });
 
   // initialize position
   updateView(element, state);
