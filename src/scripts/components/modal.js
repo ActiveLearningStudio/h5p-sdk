@@ -13,12 +13,12 @@ const getAllTabbableChildren = element => {
  *
  * @function
  */
-const handleKeyPress = curry((element, event) => {
+const handleKeyPress = curry((element, closeModal, event) => {
   let target = event.srcElement || event.target;
 
   switch(event.which) {
     case 27: // ESC
-      hide(element);
+      closeModal();
       event.preventDefault();
       break;
     case 9: // TAB
@@ -46,12 +46,16 @@ const handleKeyPress = curry((element, event) => {
  *
  * @param {HTMLElement} element
  */
-export default function init(element) {
+export default function init(element, closeHandler) {
   const dismissButtons = querySelectorAll('[data-dismiss="modal"]', element);
   hide(element);
 
-  dismissButtons.forEach(button => button.addEventListener('click', () => hide(element)));
+  const closeModal = () => {
+    hide(element);
+    closeHandler();
+  };
+  dismissButtons.forEach(button => button.addEventListener('click', closeModal));
 
   // hide modal on escape keypress
-  element.addEventListener('keydown', handleKeyPress(element));
+  element.addEventListener('keydown', handleKeyPress(element, closeModal));
 }
