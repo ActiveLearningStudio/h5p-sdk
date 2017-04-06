@@ -12,6 +12,10 @@
       color: $text-dark;
     }
 
+    &>[role="heading"] {
+      cursor: pointer;
+    }
+
     &> [role="region"] .panel-body {
       padding-left: 3 * $gutter;
     }
