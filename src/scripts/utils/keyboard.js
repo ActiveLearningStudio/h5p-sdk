@@ -194,6 +194,8 @@ export default class Keyboard {
           this.selectedIndex = nextIndex(this.selectedIndex, lastIndex);
           event.preventDefault();
           break;
+        default:
+          return;
       }
 
       // move tabindex to currently selected
