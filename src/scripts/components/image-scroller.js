@@ -44,7 +44,19 @@ const enable = removeAttribute('disabled');
  * @param {HTMLElement} element
  * @param {boolean} enabled
  */
-const toggleEnabled = (element, enabled) => (enabled ? enable : disable)(element);
+const toggleEnabled = (element, force, nextElement) => {
+  if (force) {
+    if (isDisabled(element)) {
+      enable(element);
+    }
+  }
+  else {
+    if (!isDisabled(element))  {
+      disable(element);
+      nextElement.focus();
+    }
+  }
+};
 
 /**
  * @type {function}
@@ -76,8 +88,8 @@ const updateView = (element, state) => {
     .forEach(toggleVisibility(state.displayCount < totalCount));
 
   // toggle button enable, disabled
-  toggleEnabled(nextButton, state.position > (state.displayCount - totalCount));
-  toggleEnabled(prevButton, state.position < 0);
+  toggleEnabled(nextButton, state.position > (state.displayCount - totalCount), prevButton);
+  toggleEnabled(prevButton, state.position < 0, nextButton);
 
   if (element.dataset.preventResizeLoop === 'true') {
     element.ignoreResize = true;
