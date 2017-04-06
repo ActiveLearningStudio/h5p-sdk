@@ -20,6 +20,9 @@ $max-width-modal: $screen-large;
       padding: $gutter * 3;
       top: 50%;
       transform: translateY(-50%);
+      max-height: 100%;
+      box-sizing: border-box;
+      overflow: scroll;
     }
 
     .modal-content {
@@ -58,6 +61,40 @@ $max-width-modal: $screen-large;
       border: 0;
       right: ($gutter * 3);
       @include vertical-align(absolute);
+    }
+
+    @media (max-width: 576px) {
+      .modal-dialog {
+        padding: $gutter;
+      }
+      .modal-header {
+        padding: ($gutter / 2) $gutter;
+      }
+      .modal-body {
+        padding: ($gutter / 2) 0;
+
+        .panel.panel-simple .panel-body {
+          padding: 0 $gutter;
+
+          pre {
+            margin: 0 0 $gutter;
+          }
+          p {
+            margin: $gutter 0;
+
+            &:first-child {
+              margin-top: 0;
+            }
+          }
+        }
+      }
+      .close {
+        right: $gutter * 1.5;
+        top: $gutter * 1.5;
+        -webkit-transform: translateY(0);
+        -ms-transform: translateY(0);
+        transform: translateY(0);
+      }
     }
   }
 }
