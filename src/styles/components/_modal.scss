@@ -22,7 +22,7 @@ $max-width-modal: $screen-large;
       transform: translateY(-50%);
       max-height: 100%;
       box-sizing: border-box;
-      overflow: scroll;
+      overflow: auto;
     }
 
     .modal-content {
