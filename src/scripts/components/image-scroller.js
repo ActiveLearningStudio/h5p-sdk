@@ -164,7 +164,7 @@ const handleFocus = curry((element, state, event) => {
     updateView(element, state);
   }
   else if (moveRight) {
-    state.position = state.position - 1;
+    state.position = state.position - (focusedIndex - lastVisibleElementIndex);
     updateView(element, state);
   }
 
