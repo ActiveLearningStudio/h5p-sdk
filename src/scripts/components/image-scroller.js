@@ -181,6 +181,9 @@ const handleFocus = curry((element, state, event) => {
     state.position = state.position - (focusedIndex - lastVisibleElementIndex);
     updateView(element, state);
   }
+  else if (element.dataset.preventResizeLoop === 'true') {
+    element.ignoreResize = true;
+  }
 
   if(!doAnimation) {
     focusOnTabbableElement();
