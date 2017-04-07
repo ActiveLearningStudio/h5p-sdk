@@ -11,6 +11,7 @@
     color: $color;
     border: solid 1px;
     background-color: transparent;
+    margin-top: 1em;
   }
 }
 
@@ -18,7 +19,8 @@
   .message {
     position: relative;
     margin: $gutter 0;
-    padding: 1.250em;
+    padding: 0.5em 1.250em;
+    padding-right: 2.250em;
     text-align: right;
 
     .title {
@@ -33,6 +35,19 @@
 
     .message-close {
       display: none;
+    }
+
+    .message-header {
+      margin: 0;
+      font-size: 1.19em;
+      line-height: 1.9em;
+    }
+
+    .message-body {
+      font-size: 0.925em;
+      margin: 0;
+      color: $text-light;
+      padding-bottom: 0.5em;
     }
   }
 
@@ -53,6 +68,7 @@
 
   .message.dismissible {
     overflow: auto;
+    padding-right: 3.5em;
 
     .message-content {
       float: right;
@@ -62,11 +78,11 @@
       cursor: pointer;
       display: block;
       position: absolute;
-      top: 1em;
-      right: 1em;
-      line-height: 1;
       background-color: transparent;
       color: #555;
+      right: 2em;
+      line-height: 2.75;
+      font-size: 0.75em;
     }
 
     .message-close:hover {
