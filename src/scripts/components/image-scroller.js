@@ -53,7 +53,9 @@ const toggleEnabled = (element, force, nextElement) => {
   else {
     if (!isDisabled(element))  {
       disable(element);
-      nextElement.focus();
+      if (nextElement) {
+        nextElement.focus();
+      }
     }
   }
 };
@@ -69,7 +71,7 @@ const isDisabled = hasAttribute('disabled');
  * @param {HTMLElement} element
  * @param {ImageScrollerState} state
  */
-const updateView = (element, state) => {
+const updateView = (element, state, clickChange) => {
   const prevButton = element.querySelector('.previous');
   const nextButton = element.querySelector('.next');
   const list = element.querySelector('ul');
@@ -88,8 +90,8 @@ const updateView = (element, state) => {
     .forEach(toggleVisibility(state.displayCount < totalCount));
 
   // toggle button enable, disabled
-  toggleEnabled(nextButton, state.position > (state.displayCount - totalCount), prevButton);
-  toggleEnabled(prevButton, state.position < 0, nextButton);
+  toggleEnabled(nextButton, state.position > (state.displayCount - totalCount), clickChange ? prevButton : null);
+  toggleEnabled(prevButton, state.position < 0, clickChange ? nextButton : null);
 
   if (element.dataset.preventResizeLoop === 'true') {
     element.ignoreResize = true;
@@ -109,7 +111,7 @@ const updateView = (element, state) => {
 const onNavigationButtonClick = (element, state, button, updateState) => {
   if(!isDisabled(button)){
     updateState(state);
-    updateView(element, state);
+    updateView(element, state, true);
   }
 };
 
