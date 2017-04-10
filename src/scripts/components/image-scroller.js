@@ -108,9 +108,17 @@ const updateView = (element, state, clickChange) => {
  *
  * @function
  */
-const onNavigationButtonClick = (element, state, button, updateState) => {
+const onNavigationButtonClick = (element, state, button, direction) => {
   if(!isDisabled(button)){
-    updateState(state);
+    state.position += direction;
+
+    // Move tabindex to our cousin
+    const selectedImage = element.querySelector('[aria-controls][tabindex="0"]');
+    selectedImage.removeAttribute('tabindex');
+
+    const uncle = selectedImage.parentElement[direction < 0 ? 'nextSibling' : 'previousSibling'];
+    uncle.firstChild.setAttribute('tabindex', '0');
+
     updateView(element, state, true);
   }
 };
@@ -249,8 +257,8 @@ export default function init(element) {
     .forEach(image => keyboard.addElement(image));
 
   // initialize buttons
-  nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, state => state.position--));
-  prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, state => state.position++));
+  nextButton.addEventListener('click', () => onNavigationButtonClick(element, state, nextButton, -1));
+  prevButton.addEventListener('click', () => onNavigationButtonClick(element, state, prevButton, 1));
 
   // stop keyboard from setting focus
   element.addEventListener('sdk.keyboard.focus', event => event.preventDefault());
