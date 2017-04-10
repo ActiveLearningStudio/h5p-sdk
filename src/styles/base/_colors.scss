@@ -6,7 +6,7 @@ $c3: #f3f3f3 !default;
 // derived colors
 $c4: darken($c1, 15%); // #4f5762
 $c5: darken($c1, 30%); // #1f2227
-$c6: darken($c3, 50%); // #71757e
+$c6: #697585;
 
 // semantic colors
 $ac1: #0a78d1 !default;
@@ -14,4 +14,4 @@ $ac-info: #00aa54 !default;
 $ac-warning: #ffcc33 !default;
 $ac-error: #c64750 !default;
 $text-dark: #1f2227 !default;
-$text-light: #71757e !default;
+$text-light: #697585 !default;
