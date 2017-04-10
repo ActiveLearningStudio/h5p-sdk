@@ -5,7 +5,7 @@
 @mixin button-filled($background-color, $color) {
   background-color: $background-color;
   color: $color;
-  border: $background-color;
+  border-color: $background-color;
 
   &:hover {
     background-color: darken($background-color, 5%);
@@ -60,7 +60,7 @@
     color: $text-dark;
     display: inline-block;
     cursor: pointer;
-    border: 1px solid transparent;
+    border: 2px solid transparent;
     transition: background-color .35s ease;
 
     // For disabled buttons, don't care about mouse events
