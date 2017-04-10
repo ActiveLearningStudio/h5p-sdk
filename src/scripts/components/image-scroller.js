@@ -94,7 +94,7 @@ const updateView = (element, state, clickChange) => {
   toggleEnabled(prevButton, state.position < 0, clickChange ? nextButton : null);
 
   if (element.dataset.preventResizeLoop === 'true') {
-    element.ignoreResize = true;
+    state.ignoreResize = true;
   }
 };
 
@@ -190,7 +190,7 @@ const handleFocus = curry((element, state, event) => {
     updateView(element, state);
   }
   else if (element.dataset.preventResizeLoop === 'true') {
-    element.ignoreResize = true;
+    state.ignoreResize = true;
   }
 
   if(!doAnimation) {
@@ -207,6 +207,14 @@ const handleFocus = curry((element, state, event) => {
 const onResize = (element, state) => {
   const defaultSize = parseInt(element.getAttribute(ATTRIBUTE_SIZE)) || 5;
   const displayCount = calculateDisplayCount(window.innerWidth, defaultSize);
+
+  // Move tabindex to our cousin
+  const selectedImage = element.querySelector('[aria-controls][tabindex="0"]');
+  if (selectedImage) {
+    selectedImage.removeAttribute('tabindex');
+    const topUncle = selectedImage.parentElement.parentElement.firstChild;
+    topUncle.firstChild.setAttribute('tabindex', '0');
+  }
 
   updateView(element, Object.assign(state, {
     displayCount: displayCount,
@@ -278,14 +286,20 @@ export default function init(element) {
   });
 
   // on screen resize calculate number of images to show
-  window.addEventListener('resize', () => {
-    if (element.ignoreResize) {
-      // If resize is triggered by resize we don't want to continue resizing
-      element.ignoreResize = false;
-      return;
+  let resizing;
+  window.addEventListener('resize', (event) => {
+    if (!resizing) {
+      resizing = setTimeout(function () {
+        if (state.ignoreResize) {
+          state.ignoreResize = false;
+        }
+        else {
+          console.log('resizing');
+          onResize(element, state);
+        }
+        resizing = null;
+      }, 40); // 25 fps cap
     }
-
-    onResize(element, state);
   });
 
   // initialize position
