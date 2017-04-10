@@ -5,7 +5,7 @@
 @mixin button-filled($background-color, $color) {
   background-color: $background-color;
   color: $color;
-  border: 1px solid $background-color;
+  border: $background-color;
 
   &:hover {
     background-color: darken($background-color, 5%);
