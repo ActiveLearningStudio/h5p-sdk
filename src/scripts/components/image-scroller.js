@@ -294,7 +294,6 @@ export default function init(element) {
           state.ignoreResize = false;
         }
         else {
-          console.log('resizing');
           onResize(element, state);
         }
         resizing = null;
