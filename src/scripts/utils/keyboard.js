@@ -226,7 +226,7 @@ export default class Keyboard {
    * @param {FocusEvent} event
    */
   handleFocus(event) {
-    this.selectedIndex = this.elements.indexOf(event.srcElement);
+    this.selectedIndex = this.elements.indexOf(event.target);
   }
 
   /**
