@@ -1,4 +1,4 @@
-  import { setAttribute } from '../../src/scripts/utils/elements';
+  import { setAttribute } from '../../../src/scripts/utils/elements';
 
 describe("elements", function () {
   const attributeKey = 'myKey';

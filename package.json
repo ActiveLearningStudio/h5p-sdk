@@ -4,15 +4,17 @@
   "description": "System Development Kit for H5P",
   "main": "index.js",
   "scripts": {
+    "test": "cross-env DEV_ENV=1 karma start",
     "build": "webpack",
-    "watch": "webpack --watch",
+    "watch": "cross-env DEV_ENV=1 webpack --watch",
+    "watch-dist": "cross-env DEV_ENV=1 DIST_ENTRY=1 webpack --watch",
     "dev": "lite-server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/h5p/h5p-sdk.git"
   },
-  "author": "Joubel AS",
+  "author": "Tom Arild Jakobsen <tom.arild.jakobsen@jubel.com> (https://joubel.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/h5p/h5p-sdk/issues"
@@ -25,21 +27,23 @@
     "babel-plugin-transform-object-assign": "^6.22.0",
     "babel-preset-latest": "^6.22.0",
     "browsersync": "0.0.1-security",
-    "css-loader": "^0.26.2",
+    "cross-env": "^3.2.4",
+    "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.0.0",
-    "file-loader": "^0.9.0",
+    "file-loader": "^0.11.1",
     "imports-loader": "^0.7.0",
     "jasmine-core": "^2.4.1",
     "karma": "^1.1.2",
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.0.2",
-    "karma-webpack": "^1.7.0",
+    "karma-mocha-reporter": "^2.2.2",
+    "karma-webpack": "2.0.3",
     "lite-server": "^2.2.2",
     "node-sass": "^4.5.0",
     "nodemon": "^1.11.0",
     "sass-loader": "^6.0.2",
-    "style-loader": "^0.13.2",
+    "style-loader": "^0.16.1",
     "susy": "^2.2.12",
     "webpack": "^2.2.1"
   }
